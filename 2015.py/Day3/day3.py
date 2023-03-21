@@ -1,4 +1,4 @@
-def translate_move(char):
+def translate_move(char: str) -> tuple[int, int]:
     if char == '^':
         return (0, 1)
     elif char == "v":

@@ -1,4 +1,4 @@
-def paper_needed(dim1, dim2, dim3):
+def paper_needed(dim1: int, dim2: int, dim3: int) -> int:
     face1 = dim1 * dim2
     face2 = dim2 * dim3
     face3 = dim1 * dim3
@@ -6,7 +6,7 @@ def paper_needed(dim1, dim2, dim3):
     return 2 * (face1 + face2 + face3) + min(face1, face2, face3)
 
 
-def ribbon_needed(dim1, dim2, dim3):
+def ribbon_needed(dim1: int, dim2: int, dim3: int) -> int:
     per1 = 2 * (dim1 + dim2)
     per2 = 2 * (dim1 + dim3)
     per3 = 2 * (dim2 + dim3)
