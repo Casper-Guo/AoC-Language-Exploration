@@ -35,7 +35,7 @@ def translate(line: str) -> int:
     return (line.count(r'"') - 2) + 4 + line.count("\\")
 
 
-with open("input.txt", 'r') as f:
+with open("input8.txt", 'r') as f:
     # part 1
     input = f.readlines()
     input = [line.strip() for line in input]

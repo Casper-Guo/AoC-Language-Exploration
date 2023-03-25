@@ -48,7 +48,7 @@ def held_karp(relationship: dict) -> int:
     return max(paths)
 
 
-with open("input.txt", "r") as f:
+with open("input13.txt", "r") as f:
     input = f.readlines()
     relationship = {}
 

@@ -19,6 +19,6 @@ def json_sum(object: dict | list | str | int) -> int:
     return 0
 
 
-with open('input.txt', 'r') as f:
+with open('input12.txt', 'r') as f:
     input = json.load(f)
     print(json_sum(input))

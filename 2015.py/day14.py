@@ -31,7 +31,7 @@ def new_score(time: int, reindeers: list[tuple[int, int, int]]) -> list[int]:
     return scores
 
 
-with open("input.txt", "r") as f:
+with open("input14.txt", "r") as f:
     reindeers = f.readlines()
 
 # part 1

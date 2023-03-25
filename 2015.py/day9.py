@@ -2,6 +2,7 @@
 
 from itertools import combinations
 
+
 def parse_line(line: str) -> tuple[str, str, int]:
     words = line.strip().split()
 
@@ -18,7 +19,7 @@ def lookup_dist(start: str, end: str, dist: dict) -> int:
         # return a large dist for unconnected cities
         # so the path is not considered (hopefully)
         return 10000
-    
+
 
 def held_karp(graph: dict) -> int:
     # for part 1, just change the max to min
@@ -58,7 +59,8 @@ def held_karp(graph: dict) -> int:
 
     return max(paths)
 
-with open("input.txt", "r") as f:
+
+with open("input9.txt", "r") as f:
     graph = {}
     input = f.readlines()
 
@@ -74,7 +76,7 @@ with open("input.txt", "r") as f:
             graph[end] = {start: dist}
         else:
             graph[end][start] = dist
-    
+
     # add dummy city for Held-Karp
     graph["dummy"] = {}
     for city in graph:
@@ -82,4 +84,3 @@ with open("input.txt", "r") as f:
         graph[city]["dummy"] = 0
 
     print(held_karp(graph))
-    

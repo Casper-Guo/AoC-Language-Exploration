@@ -46,7 +46,7 @@ def no_forbidden(input: str) -> bool:
     return all([seq not in input for seq in forbidden])
 
 
-with open("input.txt", "r") as f:
+with open("input5.txt", "r") as f:
     # part 1
     input = f.readlines()
     nice_count = 0
