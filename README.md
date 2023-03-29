@@ -1,16 +1,19 @@
 # Advent of Code - Language BFS
+
 Attempting Advent of Code 2015 - 2022 using a different language for each year.
 
-Progress: 38/400 stars (9.5%)
+Progress: 42/400 stars (10.5%)
 
 ## Starting Lineup
 
 ### 2015
+
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
-Progress: 38/50 stars (76%)
+Progress: 42/50 stars (84%)
 
 ## The Benches
+
 ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)
 ![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white)
 ![Haskell](https://img.shields.io/badge/Haskell-5e5086?style=for-the-badge&logo=haskell&logoColor=white)
