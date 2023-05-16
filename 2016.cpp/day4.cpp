@@ -29,6 +29,17 @@ bool sort_freq(std::pair<char, int> a, std::pair<char, int> b) {
   }
 }
 
+char shift_char(char original, int sector_ID) {
+  return char('a' + ((original + sector_ID - 97) % 26));
+}
+
+std::string shift_string(std::string original, int sector_ID) {
+  for (char& i : original) {
+    i = shift_char(i, sector_ID);
+  }
+  return original;
+}
+
 int main() {
   std::ifstream f("input4.txt");
   std::vector<std::vector<std::string> > tokens = process(f);
@@ -40,22 +51,18 @@ int main() {
     std::map<char, int> freq;
 
     for (size_t token = 0; token < line.size() - 2; ++token) {
-      for (char i : line[token]) {
-        if (freq.find(i) != freq.end()) {
-          freq[i] += 1;
-        } else {
-          freq[i] = 1;
-        }
-      }
+      merge_map(freq, char_freq(line[token]));
     }
 
     std::vector<std::pair<char, int> > freq_items = items(freq);
     std::sort(freq_items.begin(), freq_items.end(), sort_freq);
 
     std::string checksum = line[line.size() - 1];
-    bool real_room = false;
+    bool real_room = true;
     for (size_t i = 0; i < checksum.length(); ++i) {
-      real_room = checksum[i] == freq_items[i].first;
+      if (checksum[i] != freq_items[i].first) {
+        real_room = false;
+      }
     }
 
     int id = std::stoi(line[line.size() - 2]);
@@ -65,6 +72,24 @@ int main() {
   }
 
   std::cout << ID_sum << std::endl;
+
+  // part 2
+  std::vector<std::string> target = {"northpole", "object", "storage"};
+  for (auto line : tokens) {
+    int sector_id = std::stoi(line[line.size() - 2]);
+    if (line.size() != 5) {
+      continue;
+    } else {
+      std::vector<std::string> decrypted;
+      for (size_t i = 0; i < 3; i++) {
+        decrypted.push_back(shift_string(line[i], sector_id));
+      }
+      if (decrypted == target) {
+        std::cout << sector_id << std::endl;
+        break;
+      }
+    }
+  }
 
   return 0;
 }

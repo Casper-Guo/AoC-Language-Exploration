@@ -25,3 +25,16 @@ std::vector<std::string> split_csv(std::string s) {
 
   return splits;
 }
+
+std::map<char, int> char_freq(std::string s) {
+  std::map<char, int> freq_count;
+  for (char i : s) {
+    if (freq_count.find(i) != freq_count.end()) {
+      freq_count[i] += 1;
+    } else {
+      freq_count[i] = 1;
+    }
+  }
+
+  return freq_count;
+}

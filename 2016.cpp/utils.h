@@ -18,9 +18,10 @@
 
 std::vector<std::string> split(std::string s, char delimiter);
 std::vector<std::string> split_csv(std::string s);
+std::map<char, int> char_freq(std::string s);
 
 template <typename T>
-void print(const std::vector<T>& vec) {
+void print_vector(const std::vector<T>& vec) {
   for (auto it = vec.begin(); it != vec.end(); ++it) {
     std::cout << *it << " ";
   }
@@ -28,7 +29,7 @@ void print(const std::vector<T>& vec) {
 }
 
 template <typename T>
-void print_2d(const std::vector<std::vector<T> >& vec) {
+void print_matrix(const std::vector<std::vector<T> >& vec) {
   for (auto row : vec) {
     print(row);
   }
@@ -40,6 +41,16 @@ void print_pairs(const std::vector<std::pair<T1, T2> >& vec) {
     std::cout << pair.first << " " << pair.second << " ";
   }
   std::cout << std::endl;
+}
+
+template <typename T>
+std::vector<T> vector_slice(const std::vector<T>& vec, int start, int end) {
+  auto start_iter = vec.begin() + start;
+  auto end_iter = vec.begin() + end - 1;
+  std::vector<T> result;
+  std::copy(start_iter, end_iter, result);
+
+  return result;
 }
 
 template <typename T1, typename T2>
@@ -70,6 +81,20 @@ std::vector<std::pair<T1, T2> > items(const std::map<T1, T2>& map) {
   }
 
   return items;
+}
+
+template <typename T1, typename T2>
+void merge_map(std::map<T1, T2>& map1, const std::map<T1, T2>& map2) {
+  // merge map2 into map1, map1 is modified
+  // if a key in map2 is present in map1, the values are added
+  // else, the key is added to map1
+  for (auto i : map2) {
+    if (map1.find(i.first) != map1.end()) {
+      map1[i.first] += i.second;
+    } else {
+      map1[i.first] = i.second;
+    }
+  }
 }
 
 #endif

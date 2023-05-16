@@ -20,5 +20,3 @@ if [ $? -ne 0 ]; then
   echo "Error: compilation failed"
   exit 1
 fi
-
-./$OUTPUT

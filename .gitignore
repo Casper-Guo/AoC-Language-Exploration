@@ -201,6 +201,9 @@ cython_debug/
 
 
 # C++
+# Python oracles
+2016.cpp/*.py
+
 # vscode settings
 .vscode/
 
