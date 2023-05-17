@@ -18,15 +18,29 @@
 #include <utility>
 #include <vector>
 
-std::vector<std::string> split(const std::string s, const char delimiter);
-std::vector<std::string> split_csv(const std::string s);
-std::map<char, int> char_freq(const std::string s);
+std::vector<std::string> split(std::string s, char delimiter = ' ');
+std::vector<std::string> split_csv(std::string s);
+std::map<char, int> char_freq(std::string s);
 std::vector<std::string> readlines(std::ifstream& f);
 
 template <typename T>
+std::string string_slice(std::string s, T left, T right) {
+  // left is inclusive, right is exclusive
+  return s.substr(left, right - left);
+}
+
+template <typename T>
+void print_set(const std::set<T>& s) {
+  for (auto i : s) {
+    std::cout << i << " ";
+  }
+  std::cout << std::endl;
+}
+
+template <typename T>
 void print_vector(const std::vector<T>& vec) {
-  for (auto it = vec.begin(); it != vec.end(); ++it) {
-    std::cout << *it << " ";
+  for (auto i : vec) {
+    std::cout << i << " ";
   }
   std::cout << std::endl;
 }
@@ -34,7 +48,10 @@ void print_vector(const std::vector<T>& vec) {
 template <typename T>
 void print_matrix(const std::vector<std::vector<T> >& vec) {
   for (auto row : vec) {
-    print(row);
+    for (auto item : row) {
+      std::cout << item << " ";
+    }
+    std::cout << std::endl;
   }
 }
 
@@ -120,20 +137,25 @@ void merge_map(std::map<T1, T2>& map1, const std::map<T1, T2>& map2) {
 
 template <typename T1, typename T2>
 std::vector<std::pair<T1, T2> > sort_items(
-    std::vector<std::pair<T1, T2> >& items) {
-  // sort map items by value
-  // ties broken by key
+    std::vector<std::pair<T1, T2> >& items, bool reverse = false) {
+  // sort map items by value descending
+  // ties broken by key (ascending)
+  // if reverse=true, the values are sorted ascending
 
   std::sort(
       items.begin(), items.end(),
       [](const std::pair<T1, T2>& lhs, const std::pair<T1, T2>& rhs) -> bool {
         return lhs.first < rhs.first;
       });
-  std::sort(
-      items.begin(), items.end(),
-      [](const std::pair<T1, T2>& lhs, const std::pair<T1, T2>& rhs) -> bool {
-        return lhs.second < rhs.second;
-      });
+  std::sort(items.begin(), items.end(),
+            [reverse](const std::pair<T1, T2>& lhs,
+                      const std::pair<T1, T2>& rhs) -> bool {
+              if (reverse) {
+                return lhs.second > rhs.second;
+              } else {
+                return lhs.second < rhs.second;
+              }
+            });
 
   return items;
 }
