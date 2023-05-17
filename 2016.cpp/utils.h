@@ -4,7 +4,9 @@
 #include <algorithm>
 #include <cmath>
 #include <deque>
+#include <exception>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <iterator>
 #include <map>
@@ -16,9 +18,10 @@
 #include <utility>
 #include <vector>
 
-std::vector<std::string> split(std::string s, char delimiter);
-std::vector<std::string> split_csv(std::string s);
-std::map<char, int> char_freq(std::string s);
+std::vector<std::string> split(const std::string s, const char delimiter);
+std::vector<std::string> split_csv(const std::string s);
+std::map<char, int> char_freq(const std::string s);
+std::vector<std::string> readlines(std::ifstream& f);
 
 template <typename T>
 void print_vector(const std::vector<T>& vec) {
@@ -51,6 +54,24 @@ std::vector<T> vector_slice(const std::vector<T>& vec, int start, int end) {
   std::copy(start_iter, end_iter, result);
 
   return result;
+}
+
+template <typename T>
+std::vector<std::vector<T> > matrix_transpose(const std::vector<T>& vec) {
+  int dim1 = vec.size();
+  int dim2 = vec[0].size();
+  std::vector<std::vector<T> > transpose(dim2, std::vector<T>(dim1));
+
+  for (size_t i = 0; i < dim1; i++) {
+    if (vec[i].size() != dim2) {
+      throw std::range_error("Input matrix has inconsistent row lengths.");
+    }
+    for (size_t j = 0; j < dim2; j++) {
+      transpose[j][i] = vec[i][j];
+    }
+  }
+
+  return transpose;
 }
 
 template <typename T1, typename T2>
@@ -95,6 +116,26 @@ void merge_map(std::map<T1, T2>& map1, const std::map<T1, T2>& map2) {
       map1[i.first] = i.second;
     }
   }
+}
+
+template <typename T1, typename T2>
+std::vector<std::pair<T1, T2> > sort_items(
+    std::vector<std::pair<T1, T2> >& items) {
+  // sort map items by value
+  // ties broken by key
+
+  std::sort(
+      items.begin(), items.end(),
+      [](const std::pair<T1, T2>& lhs, const std::pair<T1, T2>& rhs) -> bool {
+        return lhs.first < rhs.first;
+      });
+  std::sort(
+      items.begin(), items.end(),
+      [](const std::pair<T1, T2>& lhs, const std::pair<T1, T2>& rhs) -> bool {
+        return lhs.second < rhs.second;
+      });
+
+  return items;
 }
 
 #endif

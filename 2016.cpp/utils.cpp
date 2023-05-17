@@ -38,3 +38,14 @@ std::map<char, int> char_freq(std::string s) {
 
   return freq_count;
 }
+
+std::vector<std::string> readlines(std::ifstream& f) {
+  std::vector<std::string> lines;
+  std::string line;
+
+  while (std::getline(f, line)) {
+    lines.push_back(line);
+  }
+
+  return lines;
+}
