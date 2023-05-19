@@ -1,7 +1,10 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include <stdint.h>
+
 #include <algorithm>
+#include <cassert>
 #include <cmath>
 #include <deque>
 #include <exception>
@@ -30,37 +33,46 @@ std::string string_slice(std::string s, T left, T right) {
 }
 
 template <typename T>
-void print_set(const std::set<T>& s) {
+std::ostream& operator<<(std::ostream& os, const std::set<T>& s) {
   for (auto i : s) {
-    std::cout << i << " ";
+    os << i << " ";
   }
-  std::cout << std::endl;
+  os << std::endl;
+
+  return os;
 }
 
 template <typename T>
-void print_vector(const std::vector<T>& vec) {
+std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) {
   for (auto i : vec) {
-    std::cout << i << " ";
+    os << i << " ";
   }
-  std::cout << std::endl;
+  os << std::endl;
+
+  return os;
 }
 
 template <typename T>
-void print_matrix(const std::vector<std::vector<T> >& vec) {
+std::ostream& operator<<(std::ostream& os,
+                         const std::vector<std::vector<T> >& vec) {
   for (auto row : vec) {
-    for (auto item : row) {
-      std::cout << item << " ";
-    }
-    std::cout << std::endl;
+    os << row;
   }
+  return os;
 }
 
 template <typename T1, typename T2>
-void print_pairs(const std::vector<std::pair<T1, T2> >& vec) {
-  for (auto pair : vec) {
-    std::cout << pair.first << " " << pair.second << " ";
+std::ostream& operator<<(std::ostream& os, const std::pair<T1, T2>& pair) {
+  os << pair.first << " " << pair.second << " " << std::endl;
+  return os;
+}
+
+template <typename T1, typename T2>
+std::ostream& operator<<(std::ostream& os, const std::map<T1, T2>& m) {
+  for (auto i : m) {
+    os << i.first << ": " << i.second << std::endl;
   }
-  std::cout << std::endl;
+  return os;
 }
 
 template <typename T>
