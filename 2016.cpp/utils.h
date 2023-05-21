@@ -25,6 +25,7 @@ std::vector<std::string> split(std::string s, char delimiter = ' ');
 std::vector<std::string> split_csv(std::string s);
 std::map<char, int> char_freq(std::string s);
 std::vector<std::string> readlines(std::ifstream& f);
+bool is_int(const std::string& s);
 
 template <typename T>
 std::string string_slice(std::string s, T left, T right) {
