@@ -14,7 +14,7 @@ SOURCE=$1
 BASENAME=$(basename $SOURCE .cpp)
 OUTPUT=$2
 
-g++ $SOURCE utils.cpp -o $OUTPUT
+g++ $SOURCE utils.cpp -o $OUTPUT -lcrypto -std=c++2a
 
 if [ $? -ne 0 ]; then
   echo "Error: compilation failed"

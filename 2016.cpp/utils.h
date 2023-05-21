@@ -1,6 +1,8 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include <limits.h>
+#include <openssl/md5.h>
 #include <stdint.h>
 
 #include <algorithm>
@@ -26,6 +28,7 @@ std::vector<std::string> split_csv(std::string s);
 std::map<char, int> char_freq(std::string s);
 std::vector<std::string> readlines(std::ifstream& f);
 bool is_int(const std::string& s);
+std::string md5(const std::string& str);
 
 template <typename T>
 std::string string_slice(std::string s, T left, T right) {
