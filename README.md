@@ -2,7 +2,7 @@
 
 Attempting Advent of Code 2015 - 2022 using a different language for each year.
 
-Progress: 80/400 stars (20%)
+Progress: 84/400 stars (21%)
 
 ## Starting Lineup
 
@@ -16,7 +16,7 @@ Progress: 50/50 stars (100%)
 
 ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)
 
-Progress: 30/50 stars (60%)
+Progress: 34/50 stars (68%)
 
 ## The Benches
 
