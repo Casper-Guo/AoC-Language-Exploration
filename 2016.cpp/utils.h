@@ -80,6 +80,16 @@ std::ostream& operator<<(std::ostream& os, const std::map<T1, T2>& m) {
 }
 
 template <typename T>
+std::ostream& operator<<(std::ostream& os, const std::deque<T>& d) {
+  for (auto i : d) {
+    os << i << " ";
+  }
+  os << std::endl;
+
+  return os;
+}
+
+template <typename T>
 std::vector<T> vector_slice(const std::vector<T>& vec, int start, int end) {
   auto start_iter = vec.begin() + start;
   auto end_iter = vec.begin() + end - 1;
