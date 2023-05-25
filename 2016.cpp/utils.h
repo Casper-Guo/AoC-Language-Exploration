@@ -90,16 +90,6 @@ std::ostream& operator<<(std::ostream& os, const std::deque<T>& d) {
 }
 
 template <typename T>
-std::vector<T> vector_slice(const std::vector<T>& vec, int start, int end) {
-  auto start_iter = vec.begin() + start;
-  auto end_iter = vec.begin() + end - 1;
-  std::vector<T> result;
-  std::copy(start_iter, end_iter, result);
-
-  return result;
-}
-
-template <typename T>
 std::vector<std::vector<T> > matrix_transpose(const std::vector<T>& vec) {
   int dim1 = vec.size();
   int dim2 = vec[0].size();
