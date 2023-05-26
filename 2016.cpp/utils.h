@@ -15,6 +15,7 @@
 #include <iostream>
 #include <iterator>
 #include <map>
+#include <numeric>
 #include <random>
 #include <regex>
 #include <set>
@@ -38,20 +39,22 @@ std::string string_slice(std::string s, T left, T right) {
 
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const std::set<T>& s) {
+  os << "{";
   for (auto i : s) {
-    os << i << " ";
+    os << i << ", ";
   }
-  os << std::endl;
+  os << "}" << std::endl;
 
   return os;
 }
 
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) {
+  os << "<";
   for (auto i : vec) {
-    os << i << " ";
+    os << i << ", ";
   }
-  os << std::endl;
+  os << ">" << std::endl;
 
   return os;
 }
@@ -59,32 +62,37 @@ std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) {
 template <typename T>
 std::ostream& operator<<(std::ostream& os,
                          const std::vector<std::vector<T> >& vec) {
+  os << "[";
   for (auto row : vec) {
     os << row;
   }
+  os << "]" << std::endl;
   return os;
 }
 
 template <typename T1, typename T2>
 std::ostream& operator<<(std::ostream& os, const std::pair<T1, T2>& pair) {
-  os << pair.first << " " << pair.second << " " << std::endl;
+  os << "(" << pair.first << ", " << pair.second << ")" << std::endl;
   return os;
 }
 
 template <typename T1, typename T2>
 std::ostream& operator<<(std::ostream& os, const std::map<T1, T2>& m) {
+  os << "{";
   for (auto i : m) {
-    os << i.first << ": " << i.second << std::endl;
+    os << i.first << ":" << i.second << ", ";
   }
+  os << "}" << std::endl;
   return os;
 }
 
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const std::deque<T>& d) {
+  os << "[";
   for (auto i : d) {
-    os << i << " ";
+    os << i << ", ";
   }
-  os << std::endl;
+  os << "]" << std::endl;
 
   return os;
 }
