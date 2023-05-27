@@ -1,13 +1,19 @@
 #include "utils.h"
 
+int extract_value(std::string x, std::map<char, int>& registers) {
+  // if x is an integer, return x
+  // else, return the value stored in that register
+  if (is_int(x)) {
+    return std::stoi(x);
+  } else {
+    return registers[x[0]];
+  }
+}
+
 void execute(std::string line, int& next, std::map<char, int>& registers) {
   std::vector<std::string> tokens = split(line);
   if (tokens[0] == "cpy") {
-    if (is_int(tokens[1])) {
-      registers[tokens[2][0]] = std::stoi(tokens[1]);
-    } else {
-      registers[tokens[2][0]] = registers[tokens[1][0]];
-    }
+    registers[tokens[2][0]] = extract_value(tokens[1], registers);
     next++;
   } else if (tokens[0] == "inc") {
     registers[tokens[1][0]]++;
@@ -16,12 +22,7 @@ void execute(std::string line, int& next, std::map<char, int>& registers) {
     registers[tokens[1][0]]--;
     next++;
   } else if (tokens[0] == "jnz") {
-    bool test;
-    if (is_int(tokens[1])) {
-      test = std::stoi(tokens[1]) != 0;
-    } else {
-      test = registers[tokens[1][0]] != 0;
-    }
+    bool test = extract_value(tokens[1], registers) != 0;
 
     if (test) {
       next += std::stoi(tokens[2]);

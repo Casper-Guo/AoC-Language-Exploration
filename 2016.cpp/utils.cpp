@@ -13,6 +13,16 @@ std::vector<std::string> split(std::string s, char delimiter) {
   return splits;
 }
 
+std::string join(std::vector<std::string> v, std::string joiner) {
+  std::string s;
+
+  for (size_t i = 0; i < v.size() - 1; i++) {
+    s += (v[i] + joiner);
+  }
+  s += v[v.size() - 1];
+  return s;
+}
+
 std::vector<std::string> split_csv(std::string s) {
   // assuming the following format
   // <item1>, <item2>, <item3>...
@@ -50,8 +60,15 @@ std::vector<std::string> readlines(std::ifstream& f) {
   return lines;
 }
 
+bool is_int(const char& c) { return std::isdigit(c); }
+
 bool is_int(const std::string& s) {
-  std::string::const_iterator it = s.begin();
+  std::string::const_iterator it;
+  if (s[0] == '+' || s[0] == '-') {
+    it = s.begin() + 1;
+  } else {
+    it = s.begin();
+  }
   while (it != s.end() && std::isdigit(*it)) ++it;
   return !s.empty() && it == s.end();
 }

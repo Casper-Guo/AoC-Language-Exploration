@@ -25,9 +25,11 @@
 #include <vector>
 
 std::vector<std::string> split(std::string s, char delimiter = ' ');
+std::string join(std::vector<std::string> v, std::string joiner = " ");
 std::vector<std::string> split_csv(std::string s);
 std::map<char, int> char_freq(std::string s);
 std::vector<std::string> readlines(std::ifstream& f);
+bool is_int(const char& c);
 bool is_int(const std::string& s);
 std::string md5(const std::string& str);
 
