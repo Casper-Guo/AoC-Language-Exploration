@@ -1,12 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"math"
 	"os"
 	"strconv"
 	"strings"
-	"bufio"
-	"math"
 )
 
 func condition(comp_register string, comp string, comp_amt int, registers map[string]int) bool {
@@ -62,7 +62,7 @@ func main() {
 	for scanner.Scan() {
 		line := strings.Fields(scanner.Text())
 		new_value := execute(line, registers)
-		
+
 		if new_value > highest_seen {
 			highest_seen = new_value
 		}
