@@ -32,11 +32,7 @@ func main() {
 	steps := 0
 	current := 0
 
-	for {
-		if current < 0 || current >= len(nums) {
-			break
-		}
-
+	for current >= 0 && current < len(nums) {
 		temp := nums[current]
 
 		if temp >= 3 {

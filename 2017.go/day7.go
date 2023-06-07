@@ -115,7 +115,7 @@ func main() {
 	// part 2
 	// record tree weights to avoid repeated computation
 	tree_weights := map[string]int{}
-	for node, _ := range tree {
+	for node := range tree {
 		if !check_balance(node, tree, weights, tree_weights) {
 			break
 		}

@@ -15,16 +15,14 @@ func grid_get(grid map[int]map[int]int, x int, y int) int {
 	return 0
 }
 
-func grid_set(grid map[int]map[int]int, x int, y int, value int) {
+func grid_set(grid map[int]map[int]int, x int, y int, value int) int {
 	if grid[x] == nil {
 		grid[x] = map[int]int{y: value}
 	} else {
 		grid[x][y] = value
 	}
 
-	if value > 368078 {
-		panic(value)
-	}
+	return value
 }
 
 func sum_neighbor(grid map[int]map[int]int, x int, y int) int {
@@ -91,67 +89,67 @@ func main() {
 	edge_steps := total_steps % edge_size
 	var input_x, input_y int
 
-	if edge == 0 {
+	switch edge {
+	case 0:
 		input_y = start_y + edge_steps
 		input_x = start_x
-	} else if edge == 1 {
+	case 1:
 		input_y = start_y + edge_size - 1
 		input_x = start_x - edge_steps - 1
-	} else if edge == 2 {
+	case 2:
 		input_x = start_x - edge_size
 		input_y = start_y + edge_size - 2 - edge_steps
-	} else if edge == 3 {
+	case 3:
 		input_x = start_x - edge_size + 1 + edge_steps
 		input_y = start_y - 1
-	} else {
+	default:
 		panic("Invalid edge orientation")
 	}
 
-	fmt.Println(ring_start, next_ring_start, start_x, start_y)
-	fmt.Println(edge_size, total_steps, edge, edge_steps)
-	fmt.Println(input_x, input_y)
 	fmt.Println("Steps needed: ", math.Abs(float64(input_x))+math.Abs(float64(input_y)))
 
 	// part 2
 	var current_x, current_y, edge_length int = 1, 0, 1
 	grid := map[int]map[int]int{}
-	grid_set(grid, 0, 0, 1)
+	current_value := grid_set(grid, 0, 0, 1)
 
-	for {
+	for current_value < input {
 		// edge 0
 		for i := 0; i < edge_length; i++ {
-			grid_set(grid, current_x, current_y, sum_neighbor(grid, current_x, current_y))
+			current_value = grid_set(grid, current_x, current_y, sum_neighbor(grid, current_x, current_y))
 			current_y += 1
 		}
-		grid_set(grid, current_x, current_y, sum_neighbor(grid, current_x, current_y))
+		current_value = grid_set(grid, current_x, current_y, sum_neighbor(grid, current_x, current_y))
 		current_x -= 1
 
 		// edge 1
 		for i := 0; i < edge_length; i++ {
-			grid_set(grid, current_x, current_y, sum_neighbor(grid, current_x, current_y))
+			current_value = grid_set(grid, current_x, current_y, sum_neighbor(grid, current_x, current_y))
 			current_x -= 1
 		}
-		grid_set(grid, current_x, current_y, sum_neighbor(grid, current_x, current_y))
+		current_value = grid_set(grid, current_x, current_y, sum_neighbor(grid, current_x, current_y))
 		current_y -= 1
 
 		// edge 2
 		for i := 0; i < edge_length; i++ {
-			grid_set(grid, current_x, current_y, sum_neighbor(grid, current_x, current_y))
+			current_value = grid_set(grid, current_x, current_y, sum_neighbor(grid, current_x, current_y))
 			current_y -= 1
 		}
-		grid_set(grid, current_x, current_y, sum_neighbor(grid, current_x, current_y))
+		current_value = grid_set(grid, current_x, current_y, sum_neighbor(grid, current_x, current_y))
 		current_x += 1
 
 		// edge 3
 		for i := 0; i < edge_length; i++ {
-			grid_set(grid, current_x, current_y, sum_neighbor(grid, current_x, current_y))
+			current_value = grid_set(grid, current_x, current_y, sum_neighbor(grid, current_x, current_y))
 			current_x += 1
 		}
-		grid_set(grid, current_x, current_y, sum_neighbor(grid, current_x, current_y))
+		current_value = grid_set(grid, current_x, current_y, sum_neighbor(grid, current_x, current_y))
 		current_x += 1
 
 		edge_length += 2
 	}
+
+	fmt.Println(current_value)
 
 	return
 }

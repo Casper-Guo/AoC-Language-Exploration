@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"os"
 	"strconv"
 	"strings"
-	"math"
 )
 
-func reallocate(memory_banks [16]int) [16]int{
+func reallocate(memory_banks [16]int) [16]int {
 	max_blocks := math.MinInt
 	max_idx := -1
 
@@ -22,7 +22,7 @@ func reallocate(memory_banks [16]int) [16]int{
 	full_cycles := max_blocks / len(memory_banks)
 	remaining := max_blocks % len(memory_banks)
 
-	for idx, _ := range memory_banks {
+	for idx := range memory_banks {
 		memory_banks[idx] += full_cycles
 	}
 
@@ -33,7 +33,6 @@ func reallocate(memory_banks [16]int) [16]int{
 
 	return memory_banks
 }
-
 
 func main() {
 	f, err := os.ReadFile("input6.txt")
@@ -66,10 +65,7 @@ func main() {
 
 	mu := 0
 	tortoise = memory_banks
-	for {
-		if tortoise == hare {
-			break
-		}
+	for tortoise != hare {
 		tortoise = reallocate(tortoise)
 		hare = reallocate(hare)
 		mu++
@@ -78,10 +74,7 @@ func main() {
 	lambda := 1
 	hare = reallocate(tortoise)
 
-	for {
-		if tortoise == hare {
-			break
-		}
+	for tortoise != hare {
 		hare = reallocate(hare)
 		lambda++
 	}

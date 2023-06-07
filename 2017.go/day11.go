@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func calc_steps(x float64, y float64) float64 {
+func calc_steps(x, y float64) float64 {
 	x = math.Abs(x)
 	y = math.Abs(y)
 	var num_steps float64 = 0
@@ -34,20 +34,21 @@ func main() {
 	var x, y, max_steps float64 = 0, 0, -1
 
 	for _, direction := range directions {
-		if direction == "n" {
+		switch direction {
+		case "n":
 			y++
-		} else if direction == "s" {
+		case "s":
 			y--
-		} else if direction == "nw" {
+		case "nw":
 			y += 0.5
 			x -= 0.5
-		} else if direction == "ne" {
-			y += 0.5
+		case "ne":
 			x += 0.5
-		} else if direction == "sw" {
+			y += 0.5
+		case "sw":
 			y -= 0.5
 			x -= 0.5
-		} else if direction == "se" {
+		case "se":
 			y -= 0.5
 			x += 0.5
 		}

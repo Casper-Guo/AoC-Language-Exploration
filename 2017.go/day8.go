@@ -10,20 +10,22 @@ import (
 )
 
 func condition(comp_register string, comp string, comp_amt int, registers map[string]int) bool {
-	if comp == "<" {
+	switch comp {
+	case "<":
 		return registers[comp_register] < comp_amt
-	} else if comp == ">" {
+	case ">":
 		return registers[comp_register] > comp_amt
-	} else if comp == ">=" {
+	case ">=":
 		return registers[comp_register] >= comp_amt
-	} else if comp == "<=" {
+	case "<=":
 		return registers[comp_register] <= comp_amt
-	} else if comp == "==" {
+	case "==":
 		return registers[comp_register] == comp_amt
-	} else if comp == "!=" {
+	case "!=":
 		return registers[comp_register] != comp_amt
-	} else {
+	default:
 		panic("Invalid comparison operator")
+
 	}
 }
 
