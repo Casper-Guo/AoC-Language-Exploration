@@ -51,16 +51,12 @@ func main() {
 
 	// the naive algorithm requires storing all previous states
 	// Instead, Floyd's cylcle-finding algorithm (tortoise and hare)
-	tortoise := memory_banks
-	hare := memory_banks
+	tortoise := reallocate(memory_banks)
+	hare := reallocate(reallocate(memory_banks))
 
-	for {
+	for tortoise != hare {
 		tortoise = reallocate(tortoise)
 		hare = reallocate(reallocate(hare))
-
-		if tortoise == hare {
-			break
-		}
 	}
 
 	mu := 0
