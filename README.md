@@ -2,7 +2,7 @@
 
 Attempting Advent of Code 2015 - 2022 using a different language for each year.
 
-Progress: 147/400 stars (36.75%)
+Progress: 150/400 stars (36.75%)
 
 ## Starting Lineup
 
@@ -22,7 +22,7 @@ Progress: 50/50 stars (100%)
 
 ![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white)
 
-Progress: 47/50 stars (94%)
+Progress: 50/50 stars (100%)
 
 ### 2018
 

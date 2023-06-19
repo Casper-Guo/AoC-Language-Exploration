@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"math"
 	"os"
 	"strconv"
 	"strings"
@@ -80,4 +81,20 @@ func main() {
 	}
 
 	fmt.Println(num_mul)
+
+	// part 2
+	// initialize b to 107900, c to 124900
+	num_composites := 0
+	b, c := 107900, 124901
+
+	for b < c {
+		for i := 2; i < int(math.Ceil(math.Sqrt(float64(b)))); i++ {
+			if b%i == 0 {
+				num_composites++
+				break
+			}
+		}
+		b += 17
+	}
+	fmt.Println(num_composites)
 }
