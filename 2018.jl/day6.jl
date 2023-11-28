@@ -1,78 +1,143 @@
-using DataStructures
-
-function distance(p1, p2)
-    return abs(p1[1] - p2[1]) + abs(p1[2] - p2[2])
+function process_line(line)
+    m = match(r"(\d+), (\d+)", line)
+    return map(x -> parse(Int64, x), m.captures)
 end
 
-function find_closest(p1, points)
-    distances = [distance(p1, point) for point in points]
-
-    if count(x == minimum(distances) for x in distances) > 1
-        return -1
-    else
-        return findmin(distances)[2]
-    end
+function manhattan_dist(self, other)
+    return abs(self[1] - other[1]) + abs(self[2] - other[2])
 end
 
-function convex_hull(points)
-    # Implements Andrew's monotone chain algorithm
-    # Input: points - vector of tuples (x,y)
-    # Ouput: the subset of points that define the convex hull
+function find_nearest(current, coords)
+    dist = map(coord -> manhattan_dist(current, coord), coords)
 
-    # not enough points
-    if length(points) <= 1
-        return copy(points)
+    if count(i -> i == minimum(dist), dist) > 1
+        return length(coords) + 1
     end
+    return argmin(dist)
+end
 
-    # sort the points by x and then by y
-    points = sort(points)
+function check_inf(idx, coords)
+    self_x, self_y = coords[idx]
 
-    # function for calculating the cross product of vectors OA and OB
-    cross(o, a, b) = (a[1] - o[1]) * (b[2] - o[2]) - (a[2] - o[2]) * (b[1] - o[1])
+    # constraint on the four directions
+    left, right, up, down = false, false, false, false
 
-    # build lower hull
-    lower = eltype(points)[]
-    for p in points
-        while length(lower) >= 2 && cross(lower[end-1], lower[end], p) <= 0
-            pop!(lower)
+    for i in eachindex(coords)
+        if i == idx
+            continue
         end
-        push!(lower, p)
-    end
+        other_x, other_y = coords[i]
+        diff_x, diff_y = abs(other_x - self_x), abs(other_y - self_y)
 
-    # build upper hull
-    upper = eltype(points)[]
-    for i in length(points):-1:1
-        p = points[i]
-        while length(upper) >= 2 && cross(upper[end-1], upper[end], p) <= 0
-            pop!(upper)
+        if other_x == self_x
+            if other_y < self_y
+                up = true
+            elseif other_y > self_y
+                down = true
+            end
+        elseif other_x > self_x
+            if other_y == self_y
+                right = true
+            elseif other_y < self_y
+                if diff_x == diff_y
+                    right = true
+                    up = true
+                elseif diff_x > diff_y
+                    right = true
+                else
+                    # diff_x < diff_y
+                    up = true
+                end
+            else
+                # other_y > self_y
+                if diff_x == diff_y
+                    right = true
+                    down = true
+                elseif diff_x > diff_y
+                    right = true
+                else
+                    # diff_x < diff_y
+                    down = true
+                end
+            end
+        else
+            # other_x < self_x
+            if other_y == self_y
+                left = true
+            elseif other_y < self_y
+                if diff_x == diff_y
+                    left = true
+                    up = true
+                elseif diff_x > diff_y
+                    left = true
+                else
+                    # diff_x < diff_y
+                    up = true
+                end
+            else
+                # other_y > self_y
+                if diff_x == diff_y
+                    left = true
+                    down = true
+                elseif diff_x > diff_y
+                    left = true
+                else
+                    # diff_x < diff_y
+                    down = true
+                end
+            end
         end
-        push!(upper, p)
     end
 
-    # concatenates lower hull to upper hull to obtain the convex hull
-    vcat(lower[1:end-1], upper[1:end-1])
+    return !(left && right && up && down)
 end
 
 function main()
-    points = [parse.(Int, split(line, ", ")) for line in readlines("input6.txt")]
-    # sort by ascending x and then ascending y
-    hull = Dict(findfirst(x -> x == point, points) => true for point in convex_hull(points))
+    lines = readlines("input6.txt")
+    coords = [process_line(line) for line in lines]
 
-    minx, maxx = extrema(point[1] for point in points)
-    miny, maxy = extrema(point[2] for point in points)
-    areas = zeros(Int, maxy - miny + 1, maxx - minx + 1)
+    # Part 1
+    inf_area = [check_inf(i, coords) for i in eachindex(coords)]
 
-    for x in minx:maxx
-        for y in miny:maxy
-            x_idx = x - minx + 1
-            y_idx = y - miny + 1
-            closest = find_closest([x, y], points)
-            closest = haskey(hull, closest) ? -1 : closest
-            areas[y_idx, x_idx] = closest
+    # add a dummy for the tied coordinates
+    push!(inf_area, true)
+
+    min_x, max_x = extrema(map(x -> x[1], coords))
+    min_y, max_y = extrema(map(x -> x[2], coords))
+
+    # add one for the dummy
+    areas = zeros(length(coords) + 1)
+
+    for x in min_x:max_x
+        for y in min_y:max_y
+            nearest_coord = find_nearest([x, y], coords)
+            areas[nearest_coord] += 1
         end
     end
 
-    println(sort(collect(counter(areas)), by=x -> x[2]))
+    max_area = 0
+    for (idx, area) in enumerate(areas)
+        if !inf_area[idx] && area > max_area
+            max_area = area
+        end
+    end
+
+    println(max_area)
+
+    # part 2
+    region_size = 0
+    max_dist = 10000
+    search_range = ceil(max_dist / length(coords))
+
+    for x in (min_x-search_range):(max_x+search_range)
+        for y in (min_y-search_range):(max_y+search_range)
+            if sum(map(coord -> manhattan_dist([x, y], coord), coords)) < max_dist
+                region_size += 1
+            end
+        end
+    end
+
+    println(region_size)
 end
 
 main()

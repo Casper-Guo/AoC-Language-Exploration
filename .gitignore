@@ -4,6 +4,9 @@
 # Ignores tracking sheet
 *.xlsx
 
+# Ignore practice code
+practice/
+
 # VS Code
 .vscode/*
 !.vscode/settings.json
