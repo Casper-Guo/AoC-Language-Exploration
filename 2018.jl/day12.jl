@@ -1,33 +1,60 @@
-function pots_translate(pots)
-    return Tuple(pot == '#' for pot in pots)
-end
-
 function process_rules(rule)
     m = match(r"(.*) => (.*)", rule)
-    return pots_translate(m.captures[1]), m.captures[2] == "#"
+    return m.captures
 end
 
-function print_pots(pots)
-    for (idx, pot) in sort(collect(pots))
-        if pot
-            print("#")
-        else
-            print(".")
-        end
+function get_surrounding(idx, pots)
+    return pots[idx-2:idx+2]
+end
+
+function evolve(pots, rules)
+    new_pot = [".", "."]
+
+    for i in 3:length(pots)-2
+        push!(new_pot, get(rules, get_surrounding(i, pots), "."))
     end
-    println()
+
+    push!(new_pot, "..")
+
+    return join(new_pot)
 end
 
 function main()
     lines = readlines("input12.txt")
-    initial = pots_translate(lines[1][16:end])
+    initial = lines[1]
     rules = Dict()
     for rule in lines[3:end]
         pots, result = process_rules(rule)
         rules[pots] = result
     end
 
-    pots = Dict(idx - 1 => pot for (idx, pot) in enumerate(initial))
+    num_gen = 20
+    evolved = repeat('.', num_gen) * initial * repeat('.', num_gen)
+
+    for i in 1:num_gen
+        evolved = evolve(evolved, rules)
+    end
+
+    # part 1
+    plant_sum = 0
+    indices = []
+
+    for (idx, pot) in enumerate(evolved)
+        if pot == '#'
+            push!(indices, idx - num_gen - 1)
+            plant_sum += (idx - num_gen - 1)
+        end
+    end
+
+    println(plant_sum)
+
+    # part 2
+    # testing shows that the cycle stablizes at generation 120
+    # and then after the pattern shifts right by one per generation
+    # so we simulate to generation 120 and record the indices
+    stable_indices = [49, 65, 91, 96, 101, 109, 117, 122, 128, 133, 141, 149, 157, 163, 168, 173, 181, 186, 194, 202, 210, 216]
+
+    println(sum(stable_indices) + (50000000000 - 120) * length(stable_indices))
 end
 
 main()
