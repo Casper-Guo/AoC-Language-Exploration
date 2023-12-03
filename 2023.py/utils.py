@@ -1,6 +1,9 @@
 '''Source: https://github.com/mcpower/adventofcode/blob/master/utils.py#L12'''
 
 import re
+from typing import Iterable, Generic, TypeVar
+
+T = TypeVar('T')
 
 def lmap(func, *iterables):
     return list(map(func, *iterables))
@@ -31,18 +34,83 @@ def words(s: str) -> list[str]:
     return re.findall(r"[a-zA-Z]+", s)
 
 
+class Grid(Generic[T]):
+    """2D grid."""
+
+    def __init__(self, grid: Iterable[Iterable[T]]) -> None:
+        self.grid = grid
+        self.rows = len(self.grid)
+        self.cols = len(self.grid[0])
+    
+    def coords(self) -> list[tuple[int]]:
+        return [(r, c) for r in range(self.rows) for c in range(self.cols)]
+    
+    def get_row(self, row: int) -> Iterable[T]:
+        return self.grid[row]
+    
+    def get_col(self, col: int) -> list[T]:
+        return [self[i, col] for i in self.rows]
+    
+    def check_inbound(self, coord: Iterable[int]) -> bool:
+        row, col = coord[0], coord[1]
+        return 0 <= row < self.rows and 0 <= col < self.cols
+    
+    def get_dir_neighbors(self, coord: Iterable[int]) -> list[tuple[int, int]]:
+        neighbors = []
+        row, col = coord[0], coord[1]
+        for delta_row, delta_col in GRID_DELTA:
+            neighbor = (row + delta_row, col + delta_col)
+            if self.check_inbound(neighbor):
+                neighbors.append(neighbor)
+        return neighbors
+    
+    def get_adj_neighbors(self, coord: Iterable[int]) -> list[tuple[int, int]]:
+        neighbors = []
+        row, col = coord[0], coord[1]
+        for delta_row, delta_col in OCT_DELTA:
+            neighbor = (row + delta_row, col + delta_col)
+            if self.check_inbound(neighbor):
+                neighbors.append(neighbor)
+        return neighbors
+    
+    def __contains__(self, coord: Iterable[int]) -> bool:
+        return self.check_inbound(*coord)
+    
+    def __eq__(self, other):
+        """Two grids are equal if all elements are equal."""
+        if self.rows != other.rows or self.cols != other.cols:
+            return False
+        else:
+            for coord in self.coords():
+                if self[coord] != other[coord]:
+                    return False
+        return True
+    
+    def __getitem__(self, coord: Iterable[int]) -> T:
+        return self.grid[coord[0]][coord[1]]
+    
+    def __setitem__(self, coord: Iterable[int], value: T):
+        self.grid[coord[0]][coord[1]] = value
+    
+    def __repr__(self):
+        ret = ''
+        for i in range(self.rows):
+            ret += str(self.get_row(i)) + '\n'
+        return ret
+
+
 # Grid movement constants
-GRID_DELTA = [[-1, 0], [1, 0], [0, -1], [0, 1]]
-OCT_DELTA = [[1, 1], [-1, -1], [1, -1], [-1, 1]] + GRID_DELTA
+GRID_DELTA = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+OCT_DELTA = [(1, 1), (-1, -1), (1, -1), (-1, 1)] + GRID_DELTA
 CHAR_TO_DELTA = {
-    "U": [-1, 0],
-    "R": [0, 1],
-    "D": [1, 0],
-    "L": [0, -1],
-    "N": [-1, 0],
-    "E": [0, 1],
-    "S": [1, 0],
-    "W": [0, -1],
+    "U": (-1, 0),
+    "R": (0, 1),
+    "D": (1, 0),
+    "L": (0, -1),
+    "N": (-1, 0),
+    "E": (0, 1),
+    "S": (1, 0),
+    "W": (0, -1),
 }
 DELTA_TO_UDLR = {
     (-1, 0): "U",
