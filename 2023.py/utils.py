@@ -1,7 +1,7 @@
 '''Source: https://github.com/mcpower/adventofcode/blob/master/utils.py#L12'''
 
 import re
-from typing import Iterable, Generic, TypeVar
+from typing import Iterable, Generic, TypeVar, Self
 
 T = TypeVar('T')
 
@@ -41,6 +41,7 @@ class Grid(Generic[T]):
         self.grid = grid
         self.rows = len(self.grid)
         self.cols = len(self.grid[0])
+        self.shape = (self.rows, self.cols)
     
     def coords(self) -> list[tuple[int]]:
         return [(r, c) for r in range(self.rows) for c in range(self.cols)]
@@ -72,6 +73,84 @@ class Grid(Generic[T]):
             if self.check_inbound(neighbor):
                 neighbors.append(neighbor)
         return neighbors
+    
+    def transpose(self):
+        new_grid = [self.get_col(i) for i in range(self.cols)]
+        self.grid = new_grid
+
+    def reflec_y(self):
+        """Vertical reflection.
+        
+        1 2
+        3 4
+
+        becomes
+
+        2 1
+        4 3        
+        """
+        new_grid = [reversed(self.get_row(i)) for i in range(self.rows)]
+        self.grid = new_grid
+
+    def reflect_x(self):
+        """Horizontal reflection.
+        
+        1 2
+        3 4
+
+        becomes
+
+        3 4
+        1 2
+        """
+        new_grid = [self.get_row(i) for i in range(self.rows - 1, -1, -1)]
+        self.grid = new_grid
+
+    def rotate_left_90(self):
+        """
+        1 2
+        3 4
+
+        becomes
+
+        2 4
+        1 3
+        """
+        new_grid = [self.get_col(i) for i in range(self.cols - 1, -1, -1)]
+        self.grid = new_grid
+
+    def rotate_right_90(self):
+        """
+        1 2
+        3 4
+
+        becomes
+        
+        3 1
+        4 2
+        """
+        new_grid = [reversed(self.get_col(i)) for i in range(self.cols)]
+        self.grid = new_grid
+
+    def __add__(self, other: Self) -> Self:
+        assert self.shape == other.shape, f"Shape mismatch: {self.shape}, {other.shape}"
+
+        sum_grid = Grid([[0] * self.cols] * self.rows)
+
+        for coord in self.coords:
+            sum_grid[coord] = self[coord] + other[coord]
+
+        return sum_grid
+    
+    def __sub__(self, other: Self) -> Self:
+        assert self.shape == other.shape, f"Shape mismatch: {self.shape}, {other.shape}"
+
+        diff_grid = Grid([[0] * self.cols] * self.rows)
+
+        for coord in self.coords:
+            diff_grid[coord] = self[coord] - other[coord]
+
+        return diff_grid
     
     def __contains__(self, coord: Iterable[int]) -> bool:
         return self.check_inbound(*coord)
