@@ -30,14 +30,13 @@ def main():
         while not all(i == 0 for i in line):
             line = condense(line)
             condensing.append(line)
-        for condensed, prior in itertools.pairwise(reversed(condensing)):
-            line = extrapolate(prior, condensed)
+        for prior in list(reversed(condensing))[1:]:
+            line = extrapolate(prior, line)
         sum_extrapolated += line[-1]
 
     print(sum_extrapolated)
 
     # part 2
-    lines = [line[:-1] for line in lines]
     sum_extrapolated = 0
 
     for line in lines:
@@ -45,12 +44,9 @@ def main():
         while not all(i == 0 for i in line):
             line = condense(line)
             condensing.append(line)
-
-        new_line = condensing[-1]
-            
-        for _, line in itertools.pairwise(reversed(condensing)):
-            new_line = extrapolate_left(line, new_line)
-        sum_extrapolated += new_line[0]
+        for prior in list(reversed(condensing))[1:]:
+            line = extrapolate_left(prior, line)
+        sum_extrapolated += line[0]
 
     print(sum_extrapolated)
         
