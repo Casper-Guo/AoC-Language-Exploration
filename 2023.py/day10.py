@@ -1,6 +1,7 @@
 from collections import deque
 import utils
-from typing import TypeAlias
+from typing import TypeAlias, Iterable
+from itertools import pairwise
 
 Delta: TypeAlias = tuple[int, int]
 Coord: TypeAlias = tuple[int, int]
@@ -43,6 +44,13 @@ def expand_cycle(grid: utils.Grid, current: Coord) -> list[Coord]:
     return next_coords
 
 
+def shoelace_formula(vertices: Iterable[Coord]) -> float:
+    shoelace = 0
+    for (x1, y1), (x2, y2) in pairwise(vertices + vertices[:1]):
+        shoelace += (x1 * y2) - (y1 * x2)
+    return abs(shoelace) / 2
+
+
 def main():
     with open("input10.txt", "r") as f:
         lines = f.readlines()
@@ -52,22 +60,27 @@ def main():
     start = grid.find('S')[0]
     cycle = {start: 0}
     step = 0
-    current_coords = set([start])
+    current_coords = deque([start])
 
     while current_coords:
         step += 1
-        new_current = set()
-        for current_coord in current_coords:
-            next_coords = list(filter(lambda x: x not in cycle, expand_cycle(grid, current_coord)))
+        current_coord = current_coords.pop()
+        next_coords = list(filter(lambda x: x not in cycle, expand_cycle(grid, current_coord)))[:1]
+        for next_coord in next_coords:
+            cycle[next_coord] = step
+        current_coords.extend(next_coords)
 
-            for next_coord in next_coords:
-                cycle[next_coord] = step
+    print(step / 2)
 
-            new_current.update(next_coords)
-        
-        current_coords = new_current
+    # sort vertices by their order of appearance in the cycle
+    vertices = sorted([(coord, step) for coord, step in cycle.items()], key=lambda x: x[1])
+    vertices = [vertex[0] for vertex in vertices]
 
-    print(step - 1)
+    # Shoelace Formula
+    internal_area = shoelace_formula(vertices)
+
+    # Pick's Theorem
+    print(internal_area + 1 - (len(vertices) / 2))
     return
 
 main()

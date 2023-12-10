@@ -184,7 +184,7 @@ class Grid(Generic[T]):
 
 
 # Grid movement constants
-GRID_DELTA = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+GRID_DELTA = [(1, 0), (-1, 0), (0, 1), (0, -1)]
 OCT_DELTA = [(1, 1), (-1, -1), (1, -1), (-1, 1)] + GRID_DELTA
 CHAR_TO_DELTA = {
     "U": (-1, 0),
