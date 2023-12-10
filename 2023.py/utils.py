@@ -1,7 +1,9 @@
 '''Source: https://github.com/mcpower/adventofcode/blob/master/utils.py#L12'''
 
 import re
-from typing import Iterable, Generic, TypeVar, Self
+from typing import Iterable, Generic, TypeVar, Self, TypeAlias
+
+Coord: TypeAlias = tuple[int, int]
 
 T = TypeVar('T')
 
@@ -56,7 +58,7 @@ class Grid(Generic[T]):
         row, col = coord[0], coord[1]
         return 0 <= row < self.rows and 0 <= col < self.cols
     
-    def get_dir_neighbors(self, coord: Iterable[int]) -> list[tuple[int, int]]:
+    def get_dir_neighbors(self, coord: Iterable[int]) -> list[Coord]:
         neighbors = []
         row, col = coord[0], coord[1]
         for delta_row, delta_col in GRID_DELTA:
@@ -65,7 +67,7 @@ class Grid(Generic[T]):
                 neighbors.append(neighbor)
         return neighbors
     
-    def get_adj_neighbors(self, coord: Iterable[int]) -> list[tuple[int, int]]:
+    def get_adj_neighbors(self, coord: Iterable[int]) -> list[Coord]:
         neighbors = []
         row, col = coord[0], coord[1]
         for delta_row, delta_col in OCT_DELTA:
@@ -73,6 +75,9 @@ class Grid(Generic[T]):
             if self.check_inbound(neighbor):
                 neighbors.append(neighbor)
         return neighbors
+    
+    def find(self, target: T) -> list[Coord]:
+        return [coord for coord in self.coords() if self[coord] == target]
     
     def transpose(self):
         new_grid = [self.get_col(i) for i in range(self.cols)]
@@ -205,19 +210,19 @@ DELTA_TO_NESW = {
 }
 
 # Grid movement functions
-def turn_180(drowcol:tuple[int, int]) -> tuple[int, int]:
+def turn_180(drowcol:Coord) -> Coord:
     drow, dcol = drowcol
     return -drow, -dcol
 
 
-def turn_right(drowcol:tuple[int, int]) -> tuple[int, int]:
+def turn_right(drowcol:Coord) -> Coord:
     # positive dcol -> positive drow
     # positive drow -> negative dcol
     drow, dcol = drowcol
     return dcol, -drow
 
 
-def turn_left(drowcol:tuple[int, int]) -> tuple[int, int]:
+def turn_left(drowcol:Coord) -> Coord:
     drow, dcol = drowcol
     return [-dcol, drow]
 
