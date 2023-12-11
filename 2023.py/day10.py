@@ -55,7 +55,9 @@ def main():
     with open("input10.txt", "r") as f:
         lines = f.readlines()
         lines = [line.strip() for line in lines]
+        lines = [[i for i in line] for line in lines]
     
+    # part 1
     grid = utils.Grid(lines)
     start = grid.find('S')[0]
     cycle = {start: 0}
@@ -72,6 +74,7 @@ def main():
 
     print(step / 2)
 
+    # part 2 geometry solution
     # sort vertices by their order of appearance in the cycle
     vertices = sorted([(coord, step) for coord, step in cycle.items()], key=lambda x: x[1])
     vertices = [vertex[0] for vertex in vertices]
@@ -81,6 +84,23 @@ def main():
 
     # Pick's Theorem
     print(internal_area + 1 - (len(vertices) / 2))
+
+    # part 2 even-odd rule solution
+    # hardcode to replace S with the actual pipe configuration
+    grid[start] = 'J'
+
+    inside = False
+    inside_count = 0
+    
+    for coord in grid.coords():
+        if coord in cycle:
+            if utils.CHAR_TO_DELTA['N'] in PIPE_CONNECTIONS[grid[coord]]:
+                inside = not inside
+        else:
+            if inside:
+                inside_count += 1
+
+    print(inside_count)
     return
 
 main()

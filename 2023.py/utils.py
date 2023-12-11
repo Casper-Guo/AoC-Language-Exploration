@@ -45,7 +45,7 @@ class Grid(Generic[T]):
         self.cols = len(self.grid[0])
         self.shape = (self.rows, self.cols)
     
-    def coords(self) -> list[tuple[int]]:
+    def coords(self) -> list[Coord]:
         return [(r, c) for r in range(self.rows) for c in range(self.cols)]
     
     def get_row(self, row: int) -> Iterable[T]:
