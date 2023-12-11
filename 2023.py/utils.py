@@ -52,7 +52,7 @@ class Grid(Generic[T]):
         return self.grid[row]
     
     def get_col(self, col: int) -> list[T]:
-        return [self[i, col] for i in self.rows]
+        return [self[i, col] for i in range(self.rows)]
     
     def check_inbound(self, coord: Iterable[int]) -> bool:
         row, col = coord[0], coord[1]
