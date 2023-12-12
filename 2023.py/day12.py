@@ -1,46 +1,69 @@
-import itertools
-import more_itertools as more
+import regex as re
+from functools import cache
 import utils
 
 def process_line(line):
     line = line.split()
 
-    return [i for i in line[0]], utils.ints(line[1])
+    # replace consecutive operational springs
+    line[0] = re.sub(r'\.+', '.', line[0])
+
+    return tuple([i for i in line[0]]), tuple(utils.ints(line[1]))
 
 
-def validate_config(condition, counts):
-    groups = []
-    current_group = 0
-
-    for i in condition:
-        if i == '#':
-            current_group += 1
+@cache
+def calc_config(condition, groups, current_group=0):
+    # base cases
+    if not condition:
+        if current_group:
+            return int(len(groups) == 1 and current_group == groups[0])
         else:
-            if current_group:
-                groups.append(current_group)
-                current_group = 0
+            return int(len(groups) == 0)
 
     if current_group:
-        groups.append(current_group)
-
-    return groups == counts
-
-
-def calc_config(condition, counts):
-    unknown_indices = [i for i in range(len(condition)) if condition[i] == '?']
-
-    valid_config = 0
-
-    for i in itertools.combinations_with_replacement([True, False], len(unknown_indices)):
-        for config in more.distinct_permutations(i):
-            new_condition = condition.copy()
-            for is_spring, index in zip(config, unknown_indices):
-                if is_spring:
-                    new_condition[index] = '#'
-            if validate_config(new_condition, counts):
-                valid_config += 1
+        # current group is too long
+        if not groups or current_group > groups[0]:
+            return 0
     
-    return valid_config
+    # recursive cases
+    if condition[0] == '.':
+        # if a group has started
+        # then check whether it is the correct length
+        # if yes, move onto the next group, or else terminates
+        # If a group hasn't started, do nothing
+        if current_group:
+            if current_group != groups[0]:
+                return 0
+            else:
+                groups = groups[1:]
+        return calc_config(condition[1:], groups, 0)
+    if condition[0] == '#':
+        # increment current group length
+        return calc_config(condition[1:], groups, current_group+1)
+    else:
+        # this location can either be operational or broken
+        if not groups or current_group == groups[0]:
+            # if current group length matches the first group in groups
+            # or that there are no remaining groups
+            # then the current location must be operational
+            return calc_config(condition[1:], groups[1:], 0)
+        else:
+            # if current group length doesn't match the first group in groups
+            # and the group has started, then the current location must be broken
+            if current_group:
+                return calc_config(condition[1:], groups, current_group+1)
+            else:
+                # if the group haven't started, then it doesn't have to start now
+                return calc_config(condition[1:], groups, current_group+1) + calc_config(condition[1:], groups, current_group)
+            
+
+def part2_modify(condition):
+    modified_condition = list(condition)
+
+    for i in range(4):
+        modified_condition.extend(['?'] + list(condition))
+    
+    return tuple(modified_condition)
 
 
 def main():
@@ -50,9 +73,16 @@ def main():
     lines = list(map(process_line, lines))
     
     total_config = 0
+    # part 1
+    for condition, groups in lines:
+        total_config += calc_config(condition, groups)
 
-    for condition, counts in lines:
-        total_config += calc_config(condition, counts)
+    print(total_config)
+
+    # part 2
+    total_config = 0
+    for condition, groups in lines:
+        total_config += calc_config(part2_modify(condition), 5*groups)
 
     print(total_config)
 
