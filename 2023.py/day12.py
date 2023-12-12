@@ -24,6 +24,9 @@ def calc_config(condition, groups, current_group=0):
         # current group is too long
         if not groups or current_group > groups[0]:
             return 0
+
+    if not groups:
+        return int('#' not in condition)
     
     # recursive cases
     if condition[0] == '.':
