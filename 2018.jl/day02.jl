@@ -42,7 +42,7 @@ end
 
 
 function main()
-    lines = readlines("input2.txt")
+    lines = readlines("input02.txt")
 
     # part 1
     exactly_two, exactly_three = 0, 0

@@ -48,7 +48,7 @@ function process_line(line)
 end
 
 function main()
-    lines = readlines("input7.txt")
+    lines = readlines("input07.txt")
     dependencies = [process_line(line) for line in lines]
 
     dependency_map = map_dependencies(dependencies)

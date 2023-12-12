@@ -34,7 +34,7 @@ function root_node(tree, num_children, num_metadata)
 end
 
 function main()
-    tree = map(x -> parse(Int, x), split(readline("input8.txt"), " "))
+    tree = map(x -> parse(Int, x), split(readline("input08.txt"), " "))
     println(sum_metadata(tree[3:end], tree[1], tree[2]))
     println(root_node(tree[3:end], tree[1], tree[2]))
 end

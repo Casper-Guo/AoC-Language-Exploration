@@ -1,4 +1,4 @@
-with open('input1.txt', 'r') as f:
+with open('input01.txt', 'r') as f:
     # part 1
     input = f.read()
     print(input.count("(") - input.count(")"))

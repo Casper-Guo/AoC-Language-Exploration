@@ -35,7 +35,7 @@ func reallocate(memory_banks [16]int) [16]int {
 }
 
 func main() {
-	f, err := os.ReadFile("input6.txt")
+	f, err := os.ReadFile("input06.txt")
 
 	if err != nil {
 		panic(err)

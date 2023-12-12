@@ -60,7 +60,7 @@ def held_karp(graph: dict) -> int:
     return max(paths)
 
 
-with open("input9.txt", "r") as f:
+with open("input09.txt", "r") as f:
     graph = {}
     input = f.readlines()
 

@@ -1,7 +1,7 @@
 #include "utils.h"
 
 int main() {
-  std::ifstream f("input6.txt");
+  std::ifstream f("input06.txt");
   std::vector<std::string> lines = readlines(f);
   int num_rows = lines.size();
   int row_length = lines[0].length();

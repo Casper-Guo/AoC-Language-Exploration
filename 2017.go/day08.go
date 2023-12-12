@@ -49,7 +49,7 @@ func execute(line []string, registers map[string]int) int {
 }
 
 func main() {
-	f, err := os.Open("input8.txt")
+	f, err := os.Open("input08.txt")
 
 	if err != nil {
 		panic(err)

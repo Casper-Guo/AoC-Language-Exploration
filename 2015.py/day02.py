@@ -18,7 +18,7 @@ def parse_line(line):
     return (int(i) for i in line.split("x"))
 
 
-with open("input2.txt", "r") as f:
+with open("input02.txt", "r") as f:
     # part 1
     input = f.readlines()
     total_paper = 0

@@ -51,7 +51,7 @@ def min_marble_power(game: list[tuple[int]]) -> int:
 
 
 def main():
-    with open("input2.txt", "r") as f:
+    with open("input02.txt", "r") as f:
         lines = f.readlines()
         lines = [line.strip() for line in lines]
     lines = list(map(process_line, lines))

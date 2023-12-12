@@ -31,7 +31,7 @@ def process_line(line) -> list[re.Match]:
 
 
 def main():
-    with open("input3.txt", "r") as f:
+    with open("input03.txt", "r") as f:
         lines = f.readlines()
         lines = [line.strip() for line in lines]
     

@@ -41,7 +41,7 @@ std::string shift_string(std::string original, int sector_ID) {
 }
 
 int main() {
-  std::ifstream f("input4.txt");
+  std::ifstream f("input04.txt");
   std::vector<std::vector<std::string> > tokens = process(f);
 
   // part 1

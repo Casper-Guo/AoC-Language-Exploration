@@ -64,7 +64,7 @@ func check_balance(root string,
 }
 
 func main() {
-	f, err := os.Open("input7.txt")
+	f, err := os.Open("input07.txt")
 
 	if err != nil {
 		panic(err)

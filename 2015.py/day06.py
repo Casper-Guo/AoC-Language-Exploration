@@ -48,7 +48,7 @@ def change_brightness(instruction: str,
                 brightness[(x, y)] = brightness.get((x, y), 0) + 2
 
 
-with open("input6.txt", 'r') as f:
+with open("input06.txt", 'r') as f:
     # part 1
     status = {}
     instructions = f.readlines()

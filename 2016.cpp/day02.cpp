@@ -1,7 +1,7 @@
 #include "utils.h"
 
 int main() {
-  std::ifstream f("input2.txt");
+  std::ifstream f("input02.txt");
   std::string input_line;
   int button = 5;
 

@@ -97,7 +97,7 @@ bool ssl_support(std::string s) {
 }
 
 int main() {
-  std::ifstream f("input7.txt");
+  std::ifstream f("input07.txt");
   std::vector<std::string> lines = readlines(f);
 
   int support_tls = 0;

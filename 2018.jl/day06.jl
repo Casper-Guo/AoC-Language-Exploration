@@ -93,7 +93,7 @@ function check_inf(idx, coords)
 end
 
 function main()
-    lines = readlines("input6.txt")
+    lines = readlines("input06.txt")
     coords = [process_line(line) for line in lines]
 
     # Part 1

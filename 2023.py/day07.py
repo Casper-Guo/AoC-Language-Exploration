@@ -94,14 +94,14 @@ def process_line(line):
 
 
 def main():
-    with open("input7.txt", "r") as f:
+    with open("input07.txt", "r") as f:
         lines = f.readlines()
         lines = [line.strip() for line in lines]
     lines = list(map(process_line, lines))
 
     # part 1
     winning = 0
-    for idx, (hand, bid) in enumerate(sorted(lines, lambda x: x[0])):
+    for idx, (hand, bid) in enumerate(sorted(lines, key=lambda x: x[0])):
         winning += (idx + 1) * bid
     
     print(winning)
@@ -112,7 +112,7 @@ def main():
         line[0].part2_transform()
     
     winning = 0
-    for idx, (hand, bid) in enumerate(sorted(lines, lambda x: x[0])):
+    for idx, (hand, bid) in enumerate(sorted(lines, key=lambda x: x[0])):
         winning += (idx + 1) * bid
     
     print(winning)

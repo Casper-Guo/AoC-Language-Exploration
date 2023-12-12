@@ -28,7 +28,7 @@ func check_anagram(word1 string, word2 string) bool {
 }
 
 func main() {
-	f, err := os.Open("input4.txt")
+	f, err := os.Open("input04.txt")
 
 	if err != nil {
 		panic(err)

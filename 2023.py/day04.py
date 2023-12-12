@@ -23,7 +23,7 @@ def num_winning(winning_numbers: set[int], actual_numbers: set[int]) -> float:
 
 
 def main():
-    with open("input4.txt", "r") as f:
+    with open("input04.txt", "r") as f:
         lines = f.readlines()
         lines = [line.strip() for line in lines]
     lines = list(map(process_line, lines))

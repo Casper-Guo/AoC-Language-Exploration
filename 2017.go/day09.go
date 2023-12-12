@@ -71,7 +71,7 @@ func count_non_canceled(stream string) int {
 }
 
 func main() {
-	f, err := os.ReadFile("input9.txt")
+	f, err := os.ReadFile("input09.txt")
 
 	if err != nil {
 		panic(err)

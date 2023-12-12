@@ -64,7 +64,7 @@ bool check_visited(const std::set<std::pair<int, int> > &visited, const int x,
 }
 
 int main() {
-  std::ifstream f("input1.txt");
+  std::ifstream f("input01.txt");
   std::string input;
   std::getline(f, input);
   std::vector<std::string> directions = split(input, ' ');

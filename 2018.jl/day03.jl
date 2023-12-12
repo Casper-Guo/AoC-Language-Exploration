@@ -5,7 +5,7 @@ end
 
 function main()
     grid = zeros(Int16, 1000, 1000)
-    lines = readlines("input3.txt")
+    lines = readlines("input03.txt")
 
     for line in lines
         col_start, row_start, col_range, row_range = process_line(line)

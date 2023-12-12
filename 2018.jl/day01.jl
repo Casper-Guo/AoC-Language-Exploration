@@ -1,5 +1,5 @@
 function main()
-    lines = readlines("input1.txt")
+    lines = readlines("input01.txt")
 
     frequency = 0
     reached = Dict(0 => true)

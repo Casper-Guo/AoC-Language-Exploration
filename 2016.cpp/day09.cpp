@@ -26,7 +26,7 @@ int64_t calc_length(std::string s) {
 }
 
 int main() {
-  std::ifstream f("input9.txt");
+  std::ifstream f("input09.txt");
   std::string compressed;
   f >> compressed;
   std::stringstream decompressed;

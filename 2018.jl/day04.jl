@@ -4,7 +4,7 @@ function extract_timestamp(line)
 end
 
 function main()
-    lines = readlines("input4.txt")
+    lines = readlines("input04.txt")
     perm = sortperm(lines, by=extract_timestamp)
     lines = lines[perm]
     sleep_tracker = Dict()

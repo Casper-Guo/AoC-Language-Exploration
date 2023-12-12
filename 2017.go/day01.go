@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	input, _ := os.ReadFile("input1.txt")
+	input, _ := os.ReadFile("input01.txt")
 	solution := 0
 
 	// part 1

@@ -33,7 +33,7 @@ void rotate(bool row, int index, int shift,
 }
 
 int main() {
-  std::ifstream f("input8.txt");
+  std::ifstream f("input08.txt");
   std::vector<std::string> lines = readlines(f);
   std::vector<std::vector<char> > screen(NUM_ROW,
                                          std::vector<char>(NUM_COL, '.'));

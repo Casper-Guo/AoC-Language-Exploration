@@ -65,7 +65,7 @@ def parse_line(line: str) -> Instruction:
         return Instruction([words[0], words[2]], words[1], words[4])
 
 
-with open("input7.txt", "r") as f:
+with open("input07.txt", "r") as f:
     # part 1
     input = f.readlines()
     instructions = deque()

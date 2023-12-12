@@ -18,7 +18,7 @@ def find_digits(line):
 
 
 def main():
-    with open("input1.txt", "r") as f:
+    with open("input01.txt", "r") as f:
         lines = f.readlines()
         lines = [line.strip() for line in lines]
 

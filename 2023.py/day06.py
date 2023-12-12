@@ -6,7 +6,7 @@ def simulate(time: int, distance: int, hold: int):
     return (time - hold) * hold > distance
 
 def main():
-    with open("input6.txt", "r") as f:
+    with open("input06.txt", "r") as f:
         lines = f.readlines()
         lines = [line.strip() for line in lines]
     

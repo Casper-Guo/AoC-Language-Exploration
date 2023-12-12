@@ -14,7 +14,7 @@ def move_one(current, steps, instruction, network):
 
 
 def main():
-    with open("input8.txt", "r") as f:
+    with open("input08.txt", "r") as f:
         lines = f.readlines()
         lines = [line.strip() for line in lines]
 

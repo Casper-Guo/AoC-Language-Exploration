@@ -22,7 +22,7 @@ function full_reaction(polymer)
 end
 
 function main()
-    file = open("input5.txt")
+    file = open("input05.txt")
     polymer = read(file, String)
     close(file)
 

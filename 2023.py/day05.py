@@ -104,7 +104,7 @@ def map_intervals(intervals: list[tuple[int]], mappings: list[tuple[int]]) -> li
 
 
 def main():
-    with open("input5.txt", "r") as f:
+    with open("input05.txt", "r") as f:
         lines = f.read().split('\n\n')
 
     # part 1

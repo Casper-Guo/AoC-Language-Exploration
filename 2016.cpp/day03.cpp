@@ -1,7 +1,7 @@
 #include "utils.h"
 
 int main() {
-  std::ifstream f("input3.txt");
+  std::ifstream f("input03.txt");
   int side1, side2, side3;
 
   // part 1

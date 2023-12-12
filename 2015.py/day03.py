@@ -11,7 +11,7 @@ def translate_move(char: str) -> tuple[int, int]:
         return (0, 0)
 
 
-with open("input3.txt", "r") as f:
+with open("input03.txt", "r") as f:
     # part one
     input = f.read()
     visited = {(0, 0)}

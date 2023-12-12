@@ -6,7 +6,7 @@ def get_hex(key: str, salt: int) -> str:
     return hash.hexdigest()
 
 
-with open("input4.txt", "r") as f:
+with open("input04.txt", "r") as f:
     # part 1
     key = f.read()
     salt = 1

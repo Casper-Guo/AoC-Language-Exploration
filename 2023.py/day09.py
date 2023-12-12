@@ -18,7 +18,7 @@ def extrapolate_left(line, condensed_line):
 
 
 def main():
-    with open("input9.txt", "r") as f:
+    with open("input09.txt", "r") as f:
         lines = f.readlines()
         lines = [line.strip() for line in lines]
     lines = list(map(process_line, lines))
