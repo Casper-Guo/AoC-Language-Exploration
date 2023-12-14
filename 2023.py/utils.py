@@ -36,6 +36,24 @@ def words(s: str) -> list[str]:
     return re.findall(r"[a-zA-Z]+", s)
 
 
+def list_split(original: list, sep) -> list[list]:
+    """Split a list into list at lists by the value sep."""
+    splits = []
+    split = []
+
+    for i in original:
+        if i != sep:
+            split.append(i)
+        else:
+            splits.append(split)
+            split = []
+    
+    if split:
+        splits.append(split)
+
+    return splits
+
+
 class Grid(Generic[T]):
     """2D grid."""
 
