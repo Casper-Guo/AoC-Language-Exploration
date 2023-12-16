@@ -176,7 +176,7 @@ class Grid(Generic[T]):
         return diff_grid
     
     def __contains__(self, coord: Iterable[int]) -> bool:
-        return self.check_inbound(*coord)
+        return self.check_inbound(coord)
     
     def __eq__(self, other):
         """Two grids are equal if all elements are equal."""
