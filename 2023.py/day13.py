@@ -6,7 +6,7 @@ def diff_count(left, right) -> bool:
     return len([i for i in range(len(left)) if left[i] != right[i]])
 
 
-def find_reflections(equivs: defaultdict[int, set[int]], offs: defaultdict[int, set[int]], pattern: utils.Grid, length: int, part1: bool):
+def find_reflections(equivs: defaultdict[int, set[int]], offs: defaultdict[int, set[int]], length: int, part1: bool):
     reflections = []
 
     for reflect_line in range(1, length):
@@ -65,8 +65,8 @@ def summarize_pattern(pattern: utils.Grid, part1: bool) -> float:
                 col_off[i].add(j)
                 col_off[j].add(i)
 
-    vertical_sum = sum(find_reflections(col_equiv, col_off, pattern, pattern.cols, part1))
-    horizontal_sum = sum(find_reflections(row_equiv, row_off, pattern, pattern.rows, part1)) * 100
+    vertical_sum = sum(find_reflections(col_equiv, col_off, pattern.cols, part1))
+    horizontal_sum = sum(find_reflections(row_equiv, row_off, pattern.rows, part1)) * 100
 
     return vertical_sum + horizontal_sum
     

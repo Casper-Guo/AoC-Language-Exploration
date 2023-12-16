@@ -5,7 +5,7 @@ from typing import TypeAlias
 Coord: TypeAlias = tuple[int, int]
 
 
-def get_distance(galaxy1: Coord, galaxy2: Coord, expand_rows: set[int], expand_cols: set[int], expand_ratio) -> int:
+def get_distance(galaxy1: Coord, galaxy2: Coord, expand_rows: set[int], expand_cols: set[int], expand_ratio: int) -> int:
     x1, y1 = galaxy1
     x2, y2 = galaxy2
 

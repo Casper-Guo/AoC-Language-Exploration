@@ -2,10 +2,12 @@ from collections import deque
 import utils
 from typing import TypeAlias
 
-Node: TypeAlias = tuple[tuple[int, int], tuple[int, int]]
+Coord: TypeAlias = tuple[int, int]
+Direction: TypeAlias = tuple[int, int]
+Node: TypeAlias = tuple[Coord, Direction]
 
 
-def change_direction(current_coord: tuple[int, int], direction: tuple[int, int]) -> tuple[int, int]:
+def change_direction(current_coord: Coord, direction: Direction) -> Node:
     return (current_coord[0] + direction[0], current_coord[1] + direction[1]), direction
 
 
