@@ -4,6 +4,8 @@ import re
 from typing import Iterable, Generic, TypeVar, Self, TypeAlias
 
 Coord: TypeAlias = tuple[int, int]
+Direction: TypeAlias = tuple[int, int]
+Node: TypeAlias = tuple[Coord, Direction]
 
 T = TypeVar('T')
 
@@ -227,22 +229,30 @@ DELTA_TO_NESW = {
     (0, -1): "W",
 }
 
+def change_direction(current_coord: Coord, direction: Direction) -> Node:
+    return (current_coord[0] + direction[0], current_coord[1] + direction[1]), direction
+
+
+def get_direction(current: Coord, prev: Coord) -> Direction:
+    return current[0] - prev[0], current[1] - prev[1]
+
+
 # Grid movement functions
-def turn_180(drowcol:Coord) -> Coord:
+def turn_180(drowcol:Direction) -> Direction:
     drow, dcol = drowcol
     return -drow, -dcol
 
 
-def turn_right(drowcol:Coord) -> Coord:
+def turn_right(drowcol:Direction) -> Direction:
     # positive dcol -> positive drow
     # positive drow -> negative dcol
     drow, dcol = drowcol
     return dcol, -drow
 
 
-def turn_left(drowcol:Coord) -> Coord:
+def turn_left(drowcol:Direction) -> Direction:
     drow, dcol = drowcol
-    return [-dcol, drow]
+    return -dcol, drow
 
 
 def print_grid(grid):

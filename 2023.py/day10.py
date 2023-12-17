@@ -20,26 +20,17 @@ PIPE_CONNECTIONS = {
 PIPE_CONNECTIONS = {pipe:[utils.CHAR_TO_DELTA[direction] for direction in directions] for pipe, directions in PIPE_CONNECTIONS.items()}
 
 
-def reverse_direction(direction: Delta) -> Delta:
-    return -direction[0], -direction[1]
-
-
-def find_direction(current:Coord, next:Coord) -> Delta:
-    """Find the direction vector from current to next."""
-    return next[0] - current[0], next[1] - current[1]
-
-
 def check_connected(current: str, next: str, direction: Delta) -> bool:
     """Direction is the delta from current to next. Check the two coordinates are connected."""
     if current not in PIPE_CONNECTIONS or next not in PIPE_CONNECTIONS:
         return False
-    return direction in PIPE_CONNECTIONS[current] and reverse_direction(direction) in PIPE_CONNECTIONS[next]
+    return direction in PIPE_CONNECTIONS[current] and utils.turn_180(direction) in PIPE_CONNECTIONS[next]
 
 
 def expand_cycle(grid: utils.Grid, current: Coord) -> list[Coord]:
     next_coords = []
     for next in grid.get_dir_neighbors(current):
-        if check_connected(grid[current], grid[next], find_direction(current, next)):
+        if check_connected(grid[current], grid[next], utils.get_direction(next, current)):
             next_coords.append(next)
     return next_coords
 
