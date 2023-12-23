@@ -31,7 +31,7 @@ Progress: 50/50 stars (100%)
 Progress: 24/50 stars (48%)
 
 ### 2023
-Progress: 38/38 stars (100%)
+Progress: 42/42 stars (100%)
 
 ## The Benches
 

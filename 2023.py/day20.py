@@ -1,4 +1,4 @@
-from collections import defaultdict, Counter, deque
+from collections import defaultdict, deque
 
 
 class Module():
@@ -48,7 +48,7 @@ class Conjunction(Module):
         self.messages = defaultdict(lambda: False)
 
     def __repr__(self):
-        return f"Conjunction module {self.name}, last received messages {self.messages}, output to {self.output_modules}"
+        return f"Conjunction module {self.name}, input from {self.input_modules} last received messages {self.messages}, output to {self.output_modules}"
     
     def receive_message(self, message, sender=None):
         self.messages[sender] = message
