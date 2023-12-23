@@ -2,6 +2,7 @@
 
 import re
 from typing import Iterable, Generic, TypeVar, Self, TypeAlias
+from collections import defaultdict
 
 Coord: TypeAlias = tuple[int, int]
 Direction: TypeAlias = tuple[int, int]
@@ -38,6 +39,7 @@ def words(s: str) -> list[str]:
     return re.findall(r"[a-zA-Z]+", s)
 
 
+# built-in enhancements
 def list_split(original: list, sep) -> list[list]:
     """Split a list into list at lists by the value sep."""
     splits = []
@@ -54,6 +56,19 @@ def list_split(original: list, sep) -> list[list]:
         splits.append(split)
 
     return splits
+
+
+def dict_transpose(dictionary: dict) -> dict:
+    new_dict = defaultdict(set)
+
+    for key, value in dictionary.items():
+        if isinstance(value, Iterable):
+            for val in value:
+                new_dict[val].add(key)
+        else:
+            new_dict[value].add(key)
+
+    return dict(new_dict)
 
 
 class Grid(Generic[T]):
