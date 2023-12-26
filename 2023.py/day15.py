@@ -3,7 +3,7 @@ from collections import defaultdict
 
 
 def process_operation(operation: str):
-    captures = re.search(r'(\w+)([-=]{1})(\d*)', operation)
+    captures = re.search(r"(\w+)([-=]{1})(\d*)", operation)
     return captures.groups()
 
 
@@ -22,14 +22,14 @@ def get_focusing_power(lenses: defaultdict[int, dict[str, int]]):
     for box_num, box_lenses in lenses.items():
         for slot_num, (_, focal_length) in enumerate(box_lenses.items()):
             total_focusing_power += (box_num + 1) * (slot_num + 1) * focal_length
-    
+
     return total_focusing_power
 
 
 def main():
     with open("input15.txt", "r") as f:
         lines = f.read().strip()
-        strings = lines.split(',')
+        strings = lines.split(",")
 
     print(sum(map(get_hash_value, strings)))
 
@@ -38,12 +38,13 @@ def main():
 
     for label, command, focal_length in operations:
         box = get_hash_value(label)
-        if command == '=':
+        if command == "=":
             lenses[box][label] = int(focal_length)
         else:
             lenses[box].pop(label, None)
-    
+
     print(get_focusing_power(lenses))
     return
+
 
 main()

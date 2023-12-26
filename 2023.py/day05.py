@@ -1,11 +1,12 @@
 import more_itertools as more
 import utils
 
+
 def process_mappings(mappings: list[str]) -> list[list[tuple[int]]]:
     for idx, mapping in enumerate(mappings):
-        numbers = mapping.split('\n')[1:]
+        numbers = mapping.split("\n")[1:]
         mappings[idx] = [tuple(utils.ints(number)) for number in numbers]
-    
+
     return mappings
 
 
@@ -23,7 +24,7 @@ def process_seeds(seeds: str) -> list[tuple[int]]:
     for interval in more.windowed(utils.ints(seeds), 2, step=2):
         start, length = interval
         seed_intervals.append((start, start + length - 1))
-    
+
     return sorted(seed_intervals)
 
 
@@ -45,7 +46,7 @@ def collapse_once(intervals: list[tuple[int]]) -> list[tuple[int]]:
             return [(intervals[0][0], max(intervals[0][1], intervals[1][1]))]
         else:
             return intervals
-    
+
     mid = len(intervals) // 2
     return collapse_once(intervals[:mid]) + collapse_once(intervals[mid:])
 
@@ -63,25 +64,29 @@ def collapse_intervals(intervals: list[tuple[int]]) -> list[tuple[int]]:
     return intervals
 
 
-def map_intervals(intervals: list[tuple[int]], mappings: list[tuple[int]]) -> list[tuple[int]]:
+def map_intervals(
+    intervals: list[tuple[int]], mappings: list[tuple[int]]
+) -> list[tuple[int]]:
     new_intervals = set()
 
     for interval in intervals:
         interval_start, interval_end = interval
         interval_length = interval_end - interval_start + 1
-        relevant_mappings = [i for i in mappings if check_overlap(interval, (i[1], i[1] + i[2] - 1))]
+        relevant_mappings = [
+            i for i in mappings if check_overlap(interval, (i[1], i[1] + i[2] - 1))
+        ]
 
         if not relevant_mappings:
             new_intervals.add(interval)
             continue
-        
+
         not_mapped_start, not_mapped_end = interval_start, relevant_mappings[0][1] - 1
         for dest_start, source_start, length in relevant_mappings:
             source_end = source_start + length - 1
             not_mapped_end = source_start - 1
             if not_mapped_end > not_mapped_start and not_mapped_start <= interval_end:
                 new_intervals.add((not_mapped_start, min(interval_end, not_mapped_end)))
-            
+
             # three cases
             # 1, entire mapping interval is in the current interval
             # 2, the two intervals overlap partially (left overlap or right overlap)
@@ -90,10 +95,17 @@ def map_intervals(intervals: list[tuple[int]], mappings: list[tuple[int]]) -> li
                 length,
                 interval_end - source_start + 1,
                 source_end - interval_start + 1,
-                interval_length
+                interval_length,
             )
-            mapped_interval_start = dest_start + max(interval_start, source_start) - source_start
-            new_intervals.add((mapped_interval_start, mapped_interval_start + mapped_interval_length - 1))
+            mapped_interval_start = (
+                dest_start + max(interval_start, source_start) - source_start
+            )
+            new_intervals.add(
+                (
+                    mapped_interval_start,
+                    mapped_interval_start + mapped_interval_length - 1,
+                )
+            )
 
             not_mapped_start = source_end + 1
 
@@ -105,7 +117,7 @@ def map_intervals(intervals: list[tuple[int]], mappings: list[tuple[int]]) -> li
 
 def main():
     with open("input05.txt", "r") as f:
-        lines = f.read().split('\n\n')
+        lines = f.read().split("\n\n")
 
     # part 1
     part1_seeds = utils.ints(lines[0])
@@ -124,5 +136,6 @@ def main():
     print(sorted(part2_seeds)[0][0])
 
     return
+
 
 main()

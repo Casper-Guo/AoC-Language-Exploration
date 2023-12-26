@@ -5,27 +5,21 @@ boss_hp = 104
 boss_dmg = 8
 boss_armor = 1
 
-weapons = [(8, 4, 0),
-           (10, 5, 0),
-           (25, 6, 0),
-           (40, 7, 0),
-           (74, 8, 0)]
+weapons = [(8, 4, 0), (10, 5, 0), (25, 6, 0), (40, 7, 0), (74, 8, 0)]
 
-armors = [(0, 0, 0),
-          (13, 0, 1),
-          (31, 0, 2),
-          (53, 0, 3),
-          (75, 0, 4),
-          (102, 0, 5)]
+armors = [(0, 0, 0), (13, 0, 1), (31, 0, 2), (53, 0, 3), (75, 0, 4), (102, 0, 5)]
 
-rings = [(0, 0, 0),
-         (0, 0, 0),
-         (25, 1, 0),
-         (50, 2, 0),
-         (100, 3, 0),
-         (20, 0, 1),
-         (40, 0, 2),
-         (80, 0, 3)]
+rings = [
+    (0, 0, 0),
+    (0, 0, 0),
+    (25, 1, 0),
+    (50, 2, 0),
+    (100, 3, 0),
+    (20, 0, 1),
+    (40, 0, 2),
+    (80, 0, 3),
+]
+
 
 def judge_result(equipment: list) -> bool:
     """Judge if the boss can be beaten with the list of equipment."""
@@ -43,12 +37,13 @@ def judge_result(equipment: list) -> bool:
     # is strictly greater than boss_turn
     return player_turn > boss_turn
 
+
 # part 1
 # min_spending = 500
 
 # for weapon in weapons:
 #     current_cost = weapon[0]
-    
+
 #     if current_cost >= min_spending:
 #         continue
 

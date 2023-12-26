@@ -52,7 +52,7 @@ def expand_explore(grid: utils.Grid, current: Node) -> list[Node]:
                     ]
     else:
         return []
-    
+
 
 def simulate_beam(grid: utils.Grid, initial: Node) -> int:
     explore = deque([initial])
@@ -75,18 +75,29 @@ def main():
 
     # part 1
     print(simulate_beam(grid, ((0, 0), utils.CHAR_TO_DELTA['R'])))
-      
+
     # part 2
     max_energized = 0
     for i in range(grid.rows):
-        max_energized = max(max_energized, simulate_beam(grid, ((i, 0), utils.CHAR_TO_DELTA['R'])))
-        max_energized = max(max_energized, simulate_beam(grid, ((i, grid.rows - 1), utils.CHAR_TO_DELTA['L'])))
+        max_energized = max(
+            max_energized, simulate_beam(grid, ((i, 0), utils.CHAR_TO_DELTA['R']))
+        )
+        max_energized = max(
+            max_energized,
+            simulate_beam(grid, ((i, grid.rows - 1), utils.CHAR_TO_DELTA['L']))
+        )
 
     for i in range(grid.cols):
-        max_energized = max(max_energized, simulate_beam(grid, ((0, i), utils.CHAR_TO_DELTA['D'])))
-        max_energized = max(max_energized, simulate_beam(grid, ((grid.cols - 1, i), utils.CHAR_TO_DELTA['U'])))
+        max_energized = max(
+            max_energized, simulate_beam(grid, ((0, i), utils.CHAR_TO_DELTA['D']))
+        )
+        max_energized = max(
+            max_energized,
+            simulate_beam(grid, ((grid.cols - 1, i), utils.CHAR_TO_DELTA['U']))
+        )
 
     print(max_energized)
     return
+
 
 main()

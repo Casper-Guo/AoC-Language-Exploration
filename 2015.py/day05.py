@@ -1,6 +1,6 @@
 from itertools import pairwise
 
-vowels = ['a', 'e', 'i', 'o', 'u']
+vowels = ["a", "e", "i", "o", "u"]
 forbidden = ["ab", "cd", "pq", "xy"]
 
 

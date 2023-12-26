@@ -1,6 +1,7 @@
 import itertools
 import utils
 
+
 def process_line(line):
     return utils.ints(line)
 
@@ -49,7 +50,8 @@ def main():
         sum_extrapolated += line[0]
 
     print(sum_extrapolated)
-        
+
     return
+
 
 main()

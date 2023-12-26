@@ -11,7 +11,7 @@ def count_combos(target: int, used: list[int], unused: list[int]) -> int:
 
     for idx, bucket in enumerate(unused):
         new_used = used + [bucket]
-        new_unused = unused[idx + 1:]
+        new_unused = unused[idx + 1 :]
         total += count_combos(target, new_used, new_unused)
 
     return total

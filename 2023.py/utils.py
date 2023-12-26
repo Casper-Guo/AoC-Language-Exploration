@@ -1,4 +1,4 @@
-'''Source: https://github.com/mcpower/adventofcode/blob/master/utils.py#L12'''
+"""Source: https://github.com/mcpower/adventofcode/blob/master/utils.py#L12"""
 
 import re
 from typing import Iterable, Generic, TypeVar, Self, TypeAlias
@@ -8,10 +8,12 @@ Coord: TypeAlias = tuple[int, int]
 Direction: TypeAlias = tuple[int, int]
 Node: TypeAlias = tuple[Coord, Direction]
 
-T = TypeVar('T')
+T = TypeVar("T")
+
 
 def lmap(func, *iterables):
     return list(map(func, *iterables))
+
 
 # string processing
 def ints(s: str) -> list[int]:
@@ -51,7 +53,7 @@ def list_split(original: list, sep) -> list[list]:
         else:
             splits.append(split)
             split = []
-    
+
     if split:
         splits.append(split)
 
@@ -79,20 +81,20 @@ class Grid(Generic[T]):
         self.rows = len(self.grid)
         self.cols = len(self.grid[0])
         self.shape = (self.rows, self.cols)
-    
+
     def coords(self) -> list[Coord]:
         return [(r, c) for r in range(self.rows) for c in range(self.cols)]
-    
+
     def get_row(self, row: int) -> Iterable[T]:
         return self.grid[row]
-    
+
     def get_col(self, col: int) -> list[T]:
         return [self[i, col] for i in range(self.rows)]
-    
+
     def check_inbound(self, coord: Iterable[int]) -> bool:
         row, col = coord[0], coord[1]
         return 0 <= row < self.rows and 0 <= col < self.cols
-    
+
     def get_dir_neighbors(self, coord: Iterable[int]) -> list[Coord]:
         neighbors = []
         row, col = coord[0], coord[1]
@@ -101,7 +103,7 @@ class Grid(Generic[T]):
             if self.check_inbound(neighbor):
                 neighbors.append(neighbor)
         return neighbors
-    
+
     def get_adj_neighbors(self, coord: Iterable[int]) -> list[Coord]:
         neighbors = []
         row, col = coord[0], coord[1]
@@ -110,31 +112,31 @@ class Grid(Generic[T]):
             if self.check_inbound(neighbor):
                 neighbors.append(neighbor)
         return neighbors
-    
+
     def find(self, target: T) -> list[Coord]:
         return [coord for coord in self.coords() if self[coord] == target]
-    
+
     def transpose(self):
         new_grid = [self.get_col(i) for i in range(self.cols)]
         self.grid = new_grid
 
     def reflec_y(self):
         """Vertical reflection.
-        
+
         1 2
         3 4
 
         becomes
 
         2 1
-        4 3        
+        4 3
         """
         new_grid = [reversed(self.get_row(i)) for i in range(self.rows)]
         self.grid = new_grid
 
     def reflect_x(self):
         """Horizontal reflection.
-        
+
         1 2
         3 4
 
@@ -165,7 +167,7 @@ class Grid(Generic[T]):
         3 4
 
         becomes
-        
+
         3 1
         4 2
         """
@@ -181,7 +183,7 @@ class Grid(Generic[T]):
             sum_grid[coord] = self[coord] + other[coord]
 
         return sum_grid
-    
+
     def __sub__(self, other: Self) -> Self:
         assert self.shape == other.shape, f"Shape mismatch: {self.shape}, {other.shape}"
 
@@ -191,10 +193,10 @@ class Grid(Generic[T]):
             diff_grid[coord] = self[coord] - other[coord]
 
         return diff_grid
-    
+
     def __contains__(self, coord: Iterable[int]) -> bool:
         return self.check_inbound(coord)
-    
+
     def __eq__(self, other):
         """Two grids are equal if all elements are equal."""
         if self.rows != other.rows or self.cols != other.cols:
@@ -204,17 +206,17 @@ class Grid(Generic[T]):
                 if self[coord] != other[coord]:
                     return False
         return True
-    
+
     def __getitem__(self, coord: Iterable[int]) -> T:
         return self.grid[coord[0]][coord[1]]
-    
+
     def __setitem__(self, coord: Iterable[int], value: T):
         self.grid[coord[0]][coord[1]] = value
-    
+
     def __repr__(self):
-        ret = ''
+        ret = ""
         for i in range(self.rows):
-            ret += str(self.get_row(i)) + '\n'
+            ret += str(self.get_row(i)) + "\n"
         return ret
 
 
@@ -244,6 +246,7 @@ DELTA_TO_NESW = {
     (0, -1): "W",
 }
 
+
 def change_direction(current_coord: Coord, direction: Direction) -> Node:
     return (current_coord[0] + direction[0], current_coord[1] + direction[1]), direction
 
@@ -253,19 +256,19 @@ def get_direction(current: Coord, prev: Coord) -> Direction:
 
 
 # Grid movement functions
-def turn_180(drowcol:Direction) -> Direction:
+def turn_180(drowcol: Direction) -> Direction:
     drow, dcol = drowcol
     return -drow, -dcol
 
 
-def turn_right(drowcol:Direction) -> Direction:
+def turn_right(drowcol: Direction) -> Direction:
     # positive dcol -> positive drow
     # positive drow -> negative dcol
     drow, dcol = drowcol
     return dcol, -drow
 
 
-def turn_left(drowcol:Direction) -> Direction:
+def turn_left(drowcol: Direction) -> Direction:
     drow, dcol = drowcol
     return -dcol, drow
 
@@ -275,5 +278,17 @@ def print_grid(grid):
         print(*line, sep="")
     return
 
+
 # MISC
-DIGITS = {'zero':0, 'one':1, 'two':2, 'three':3, 'four':4, 'five':5, 'six':6, 'seven':7, 'eight':8, 'nine':9}
+DIGITS = {
+    "zero": 0,
+    "one": 1,
+    "two": 2,
+    "three": 3,
+    "four": 4,
+    "five": 5,
+    "six": 6,
+    "seven": 7,
+    "eight": 8,
+    "nine": 9,
+}

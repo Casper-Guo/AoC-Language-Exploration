@@ -2,16 +2,16 @@ def count_char(line: str) -> int:
     i = 0
     count = 0
     while i < len(line):
-        if line[i] == '\\':
-            if line[i+1] == '"' and i != len(line) - 2:
+        if line[i] == "\\":
+            if line[i + 1] == '"' and i != len(line) - 2:
                 # \" escape sequence
                 count += 1
                 i += 2
-            elif line[i+1] == '\\':
+            elif line[i + 1] == "\\":
                 # \\ escape sequence
                 count += 1
                 i += 2
-            elif line[i+1] == 'x':
+            elif line[i + 1] == "x":
                 # ASCII escape sequence
                 count += 1
                 i += 4
@@ -35,7 +35,7 @@ def translate(line: str) -> int:
     return (line.count(r'"') - 2) + 4 + line.count("\\")
 
 
-with open("input08.txt", 'r') as f:
+with open("input08.txt", "r") as f:
     # part 1
     input = f.readlines()
     input = [line.strip() for line in input]

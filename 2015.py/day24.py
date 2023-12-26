@@ -2,7 +2,7 @@ from math import prod
 from itertools import combinations
 
 
-with open("input24.txt", 'r') as f:
+with open("input24.txt", "r") as f:
     weights = f.readlines()
     weights = [int(i.strip()) for i in weights]
 
@@ -10,7 +10,9 @@ with open("input24.txt", 'r') as f:
 
     # part 1
     for i in range(5, len(weights)):
-        quantum_entanglement = [prod(combo) for combo in combinations(weights, i) if sum(combo) == group_weight]
+        quantum_entanglement = [
+            prod(combo) for combo in combinations(weights, i) if sum(combo) == group_weight
+        ]
 
         if quantum_entanglement:
             print(min(quantum_entanglement))
@@ -18,9 +20,11 @@ with open("input24.txt", 'r') as f:
 
     # part 2
     group_weight = sum(weights) // 4
-    
+
     for i in range(4, len(weights)):
-        quantum_entanglement = [prod(combo) for combo in combinations(weights, i) if sum(combo) == group_weight]
+        quantum_entanglement = [
+            prod(combo) for combo in combinations(weights, i) if sum(combo) == group_weight
+        ]
 
         if quantum_entanglement:
             print(min(quantum_entanglement))

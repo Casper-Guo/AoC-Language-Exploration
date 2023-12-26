@@ -17,8 +17,8 @@ def is_support(brick1, brick2):
     if brick1[5] != brick2[2] - 1:
         # if the top of brick1 is not one below the bottom of brick2
         # then brick1 definitely doesn't support brick2
-        return False 
-    
+        return False
+
     return check_overlap((brick1[0], brick1[3]), (brick2[0], brick2[3])) and check_overlap((brick1[1], brick1[4]), (brick2[1], brick2[4]))
 
 
@@ -27,7 +27,7 @@ def process_line(line):
 
 
 def simulate(bricks):
-    supports = {brick:set() for brick in bricks if brick[2] == 1}
+    supports = {brick: set() for brick in bricks if brick[2] == 1}
     falling = set(filter(lambda x: x[2] != 1, bricks))
 
     while falling:
@@ -91,5 +91,6 @@ def main():
 
     print(num_fall)
     return
+
 
 main()

@@ -1,6 +1,7 @@
 import itertools
 import utils
 
+
 def process_line(line):
     return tuple(utils.ints(line))
 
@@ -8,13 +9,13 @@ def process_line(line):
 def find_intersection(stone1, stone2):
     x_1, y_1, z_1, v_x1, v_y1, v_z1 = stone1
     x_2, y_2, z_2, v_x2, v_y2, v_z2 = stone2
-    
+
     m_1 = v_y1 / v_x1
     m_2 = v_y2 / v_x2
 
     if abs(m_1 - m_2) < 0.0001:
         return None, None
-    
+
     b_1 = y_1 - m_1 * x_1
     b_2 = y_2 - m_2 * x_2
 
@@ -26,7 +27,7 @@ def find_intersection(stone1, stone2):
 
     if t_1 < 0 or t_2 < 0:
         return None, None
-    
+
     return x, y
 
 
@@ -47,5 +48,6 @@ def main():
 
     print(test_area_intersect)
     return
+
 
 main()

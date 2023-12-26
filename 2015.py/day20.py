@@ -20,14 +20,16 @@ def list_factors(prime_factorization: dict[int, int]) -> list[int]:
     factors = []
 
     for exponent_set in product(*exponents):
-        factors.append(prod([factor ** exponent_set[idx] for idx, factor in enumerate(prime_factors)]))
+        factors.append(
+            prod([factor ** exponent_set[idx] for idx, factor in enumerate(prime_factors)])
+        )
 
     return factors
 
 
 def multiply_factors(prime_factorization: dict[int, int]) -> int:
     """Use the prime factorization to find the original number."""
-    terms = [key ** value for key, value in prime_factorization.items()]
+    terms = [key**value for key, value in prime_factorization.items()]
 
     return prod(terms)
 
@@ -36,12 +38,12 @@ def sum_factors(prime_factorization: dict[int, int]) -> int:
     """Calculate the sum of all factors given its prime factorization."""
     # part 1
     # terms = []
-    # for factor, freq in prime_factorization.items():       
+    # for factor, freq in prime_factorization.items():
     #     term = 0
     #     for i in range(freq + 1):
     #         term += factor ** i
     #     terms.append(term)
-    
+
     # return prod(terms)
 
     # part 2
@@ -54,7 +56,7 @@ def sum_factors(prime_factorization: dict[int, int]) -> int:
 def merge_factors(left: dict[int, int], right: dict[int, int]) -> dict[int, int]:
     """
     Merge two dictionaries, values of common keys are added.
-    
+
     Caveat: the value is always 1 for key value 1
     """
     new_dict = {}
@@ -64,19 +66,20 @@ def merge_factors(left: dict[int, int], right: dict[int, int]) -> dict[int, int]
             new_dict[key] = value + right[key]
         else:
             new_dict[key] = value
-    
+
     for key, value in right.items():
         if key not in new_dict:
             new_dict[key] = value
 
     return new_dict
 
+
 prime_factorization = {}
 factor_sums = {1: 1}
 current = 2
 
 # part 1
-upper_bound = 3600000   
+upper_bound = 3600000
 
 # part 2
 upper_bound = 36000000 // 11 + 1
@@ -96,7 +99,9 @@ while True:
         if considering in prime_factorization:
             continue
 
-        prime_factorization[considering] = merge_factors(prime_factorization[i], prime_factorization[current])
+        prime_factorization[considering] = merge_factors(
+            prime_factorization[i], prime_factorization[current]
+        )
 
         factors_sum = sum_factors(prime_factorization[considering])
         factor_sums[considering] = factors_sum
@@ -104,5 +109,5 @@ while True:
         if factors_sum > upper_bound:
             # too big
             break
-    
+
     current += 1

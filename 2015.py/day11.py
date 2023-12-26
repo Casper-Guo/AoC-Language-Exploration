@@ -2,22 +2,22 @@ from string import ascii_lowercase as lowercase
 
 
 def three_increasing(input: str) -> bool:
-    for i in range(len(input)-3):
-        if input[i: i+3] in lowercase:
+    for i in range(len(input) - 3):
+        if input[i : i + 3] in lowercase:
             return True
 
     return False
 
 
 def avoid(input: str) -> bool:
-    return all([i not in input for i in ['i', 'o', 'l']])
+    return all([i not in input for i in ["i", "o", "l"]])
 
 
 def two_pairs(input: str) -> bool:
     i = 1
     num_pairs = 0
     while i < len(input):
-        if input[i] == input[i-1]:
+        if input[i] == input[i - 1]:
             num_pairs += 1
             i += 2
         else:
@@ -27,14 +27,14 @@ def two_pairs(input: str) -> bool:
 
 
 def increment(input: str) -> str:
-    if input[-1] == 'z':
-        return increment(input[:-1]) + 'a'
+    if input[-1] == "z":
+        return increment(input[:-1]) + "a"
     next_letter = lowercase[lowercase.index(input[-1]) + 1]
     return input[:-1] + next_letter
 
 
 # part 1
-input = 'cqjxjnds'
+input = "cqjxjnds"
 
 while True:
     input = increment(input)

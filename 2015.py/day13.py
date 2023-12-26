@@ -2,11 +2,11 @@ from itertools import combinations
 
 
 def parse_line(line: str) -> tuple[str, str, int]:
-    splits = line.strip('\n.').split()
+    splits = line.strip("\n.").split()
 
-    if splits[2] == 'gain':
+    if splits[2] == "gain":
         return splits[0], splits[-1], int(splits[3])
-    elif splits[2] == 'lose':
+    elif splits[2] == "lose":
         return splits[0], splits[-1], -int(splits[3])
 
 
@@ -22,8 +22,7 @@ def held_karp(relationship: dict) -> int:
     g = {}
 
     for k in range(1, n):
-        g[tuple([tuple([k]), k])] = find_gain(
-            people[0], people[k], relationship)
+        g[tuple([tuple([k]), k])] = find_gain(people[0], people[k], relationship)
 
     for s in range(2, n):
         for S in combinations(range(1, n), s):
@@ -64,9 +63,9 @@ with open("input13.txt", "r") as f:
     print(held_karp(relationship))
 
     # part 2
-    relationship['Casper'] = {}
+    relationship["Casper"] = {}
     for people in relationship:
-        relationship[people]['Casper'] = 0
-        relationship['Casper'][people] = 0
+        relationship[people]["Casper"] = 0
+        relationship["Casper"][people] = 0
 
     print(held_karp(relationship))

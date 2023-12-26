@@ -6,7 +6,7 @@ num_calls = 0
 
 
 def parse_line(line: str) -> tuple[int]:
-    line = line.strip().replace(',', '')
+    line = line.strip().replace(",", "")
 
     # part 1
     # ignore calories
@@ -17,7 +17,7 @@ def parse_line(line: str) -> tuple[int]:
 
 
 def promising(remaining: int, properties: list[int], ingredients: list[tuple[int]]) -> bool:
-    '''
+    """
     Find whether the current combination is worth exploring further.
 
     Inputs:
@@ -28,7 +28,7 @@ def promising(remaining: int, properties: list[int], ingredients: list[tuple[int
     Returns:
         Determine if the upper bound on any property value in the final combination is
         non-positive (not promising).
-    '''
+    """
 
     for idx, property in enumerate(properties):
         max_value = max([ingredient[idx] for ingredient in ingredients])
@@ -39,7 +39,9 @@ def promising(remaining: int, properties: list[int], ingredients: list[tuple[int
     return True
 
 
-def combinations(combination: list[int], remaining: int, properties: list[int], ingredients: list[tuple[int]]) -> int:
+def combinations(
+    combination: list[int], remaining: int, properties: list[int], ingredients: list[tuple[int]]
+) -> int:
     global num_calls
     num_calls += 1
 
@@ -80,8 +82,7 @@ def combinations(combination: list[int], remaining: int, properties: list[int], 
         for idx in range(len(properties)):
             new_properties.append(properties[idx] + ingredient[idx] * i)
 
-        values.append(combinations(new_combo, remaining -
-                      i, new_properties, ingredients[1:]))
+        values.append(combinations(new_combo, remaining - i, new_properties, ingredients[1:]))
 
     return max(values)
 

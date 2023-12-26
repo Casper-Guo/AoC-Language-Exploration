@@ -1,12 +1,12 @@
 from collections import Counter
 from functools import total_ordering
 
-CARD_STRENGTH = ['A', 'K', 'Q', 'J', 'T'] + [str(i) for i in range(9, 1, -1)]
-CARD_STRENGTH = {card:i for i, card in enumerate(reversed(CARD_STRENGTH))}
+CARD_STRENGTH = ["A", "K", "Q", "J", "T"] + [str(i) for i in range(9, 1, -1)]
+CARD_STRENGTH = {card: i for i, card in enumerate(reversed(CARD_STRENGTH))}
 
 
 @total_ordering
-class Hand():
+class Hand:
     def __init__(self, hand):
         self.hand = hand
         self.counter = Counter(hand)
@@ -20,7 +20,7 @@ class Hand():
 
     def is_full_house(self):
         return sorted(self.counter.values()) == [2, 3]
-    
+
     def is_three(self):
         return any([i == 3 for i in self.counter.values()])
 
@@ -29,9 +29,9 @@ class Hand():
 
     def is_one(self):
         return any([i == 2 for i in self.counter.values()])
-    
+
     def part2_transform(self):
-        if 'J' in self.counter:
+        if "J" in self.counter:
             match self.type:
                 case 0:
                     # high card becomes pair
@@ -42,9 +42,9 @@ class Hand():
                 case 2:
                     # if J is not a pair then becomes full house
                     # else four of a kind
-                    if self.counter['J'] == 1:
+                    if self.counter["J"] == 1:
                         self.type = 4
-                    elif self.counter['J'] == 2:
+                    elif self.counter["J"] == 2:
                         self.type = 5
                 case 3:
                     # three becomes four
@@ -55,7 +55,7 @@ class Hand():
                 case 5:
                     # four of a kind becomes five
                     self.type = 6
-    
+
     def find_type(self):
         if self.is_five():
             self.type = 6
@@ -74,7 +74,7 @@ class Hand():
 
     def __eq__(self, other):
         return self.hand == other.hand
-    
+
     def __lt__(self, other):
         if self.type != other.type:
             return self.type < other.type
@@ -85,7 +85,7 @@ class Hand():
             return False
 
     def __repr__(self):
-        return f"{self.hand}, {self.type}"            
+        return f"{self.hand}, {self.type}"
 
 
 def process_line(line):
@@ -103,19 +103,20 @@ def main():
     winning = 0
     for idx, (hand, bid) in enumerate(sorted(lines, key=lambda x: x[0])):
         winning += (idx + 1) * bid
-    
+
     print(winning)
 
     # part 2
-    CARD_STRENGTH['J'] = -1
+    CARD_STRENGTH["J"] = -1
     for line in lines:
         line[0].part2_transform()
-    
+
     winning = 0
     for idx, (hand, bid) in enumerate(sorted(lines, key=lambda x: x[0])):
         winning += (idx + 1) * bid
-    
+
     print(winning)
     return
+
 
 main()

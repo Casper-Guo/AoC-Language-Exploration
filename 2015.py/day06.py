@@ -1,6 +1,6 @@
 def process_line(line: str) -> tuple[str, tuple[int, int], tuple[int, int]]:
     # replace the two commas with spaces
-    line = line.replace(',', ' ', 2)
+    line = line.replace(",", " ", 2)
 
     # split the line by spaces
     # last twi is always second coordinate
@@ -9,14 +9,15 @@ def process_line(line: str) -> tuple[str, tuple[int, int], tuple[int, int]]:
     # then the instruction
     words = line.split()
 
-    return ' '.join(words[:-5]), (int(words[-5]), int(words[-4])), (int(words[-2]), int(words[-1]))
+    return " ".join(words[:-5]), (int(words[-5]), int(words[-4])), (int(words[-2]), int(words[-1]))
 
 
-def switch_on_off(instruction: str,
-                  coordinate_1: tuple[int, int],
-                  coordinate_2: tuple[int, int],
-                  status: dict[tuple[int, int], bool]
-                  ) -> None:
+def switch_on_off(
+    instruction: str,
+    coordinate_1: tuple[int, int],
+    coordinate_2: tuple[int, int],
+    status: dict[tuple[int, int], bool],
+) -> None:
     x1, y1 = coordinate_1
     x2, y2 = coordinate_2
 
@@ -30,11 +31,12 @@ def switch_on_off(instruction: str,
                 status[(x, y)] = not status.get((x, y), False)
 
 
-def change_brightness(instruction: str,
-                      coordinate_1: tuple[int, int],
-                      coordinate_2: tuple[int, int],
-                      brightness: dict[tuple[int, int], int]
-                      ) -> None:
+def change_brightness(
+    instruction: str,
+    coordinate_1: tuple[int, int],
+    coordinate_2: tuple[int, int],
+    brightness: dict[tuple[int, int], int],
+) -> None:
     x1, y1 = coordinate_1
     x2, y2 = coordinate_2
 
@@ -48,7 +50,7 @@ def change_brightness(instruction: str,
                 brightness[(x, y)] = brightness.get((x, y), 0) + 2
 
 
-with open("input06.txt", 'r') as f:
+with open("input06.txt", "r") as f:
     # part 1
     status = {}
     instructions = f.readlines()

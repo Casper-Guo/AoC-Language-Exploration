@@ -28,5 +28,6 @@ def find_grid(x: int, y: int) -> int:
 
     return seed
 
+
 # part 1
 print(find_grid(3075, 2981))

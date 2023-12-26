@@ -108,4 +108,4 @@ with open("input07.txt", "r") as f:
         else:
             instructions.append(new_instruction)
 
-    print(signals['a'])
+    print(signals["a"])

@@ -1,5 +1,5 @@
 def translate_move(char: str) -> tuple[int, int]:
-    if char == '^':
+    if char == "^":
         return (0, 1)
     elif char == "v":
         return (0, -1)

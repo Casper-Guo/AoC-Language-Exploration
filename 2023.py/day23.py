@@ -1,25 +1,21 @@
-from collections import defaultdict, Counter, deque
+from collections import defaultdict, deque
 import utils
 
-SLOPES = {
-    '^': (-1, 0),
-    '>': (0, 1),
-    'v': (1, 0),
-    '<': (0, -1)
-}
+SLOPES = {"^": (-1, 0), ">": (0, 1), "v": (1, 0), "<": (0, -1)}
+
 
 def get_next_coords(grid, current):
-    if grid[current] == '.':
+    if grid[current] == ".":
         next_coords = []
         neighbors = grid.get_dir_neighbors(current)
         for neighbor in neighbors:
-            if grid[neighbor] == '.':
+            if grid[neighbor] == ".":
                 next_coords.append(neighbor)
             elif grid[neighbor] in SLOPES:
                 if utils.get_direction(neighbor, current) == SLOPES[grid[neighbor]]:
                     next_coords.append(neighbor)
         return next_coords
-    
+
     return [utils.change_direction(current, SLOPES[grid[current]])[0]]
 
 
@@ -51,8 +47,8 @@ def main():
         lines = f.readlines()
         lines = [[i for i in line.strip()] for line in lines]
     grid = utils.Grid(lines)
-    start = grid.find('.')[0]
-    end = grid.find('.')[-1]
+    start = grid.find(".")[0]
+    end = grid.find(".")[-1]
 
     # part 1
     step_counts = bfs(grid, start)
@@ -61,5 +57,6 @@ def main():
     # part 2
 
     return
+
 
 main()

@@ -1,8 +1,9 @@
 import collections
 import utils
 
+
 def process_line(line) -> tuple[set, set]:
-    cards = line.split('|')
+    cards = line.split("|")
     winning_numbers = set(utils.ints(cards[0])[1:])
     actual_numbers = set(utils.ints(cards[1]))
 
@@ -11,12 +12,12 @@ def process_line(line) -> tuple[set, set]:
 
 def calc_points(winning_numbers: set[int], actual_numbers: set[int]) -> float:
     num_winning = len([i for i in actual_numbers if i in winning_numbers])
-    
+
     if num_winning:
         return 2 ** (num_winning - 1)
     else:
         return 0
-    
+
 
 def num_winning(winning_numbers: set[int], actual_numbers: set[int]) -> float:
     return len([i for i in actual_numbers if i in winning_numbers])
@@ -44,5 +45,6 @@ def main():
 
     print(sum(val for key, val in num_cards.items() if key <= len(lines)))
     return
+
 
 main()

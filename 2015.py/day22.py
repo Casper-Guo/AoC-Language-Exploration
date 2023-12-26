@@ -24,46 +24,27 @@ class Spell:
 
 class Magic_Missile(Spell):
     def __init__(self):
-        super().__init__("Magic Missle",
-                         cost=53,
-                         dmg=4
-                         )
+        super().__init__("Magic Missle", cost=53, dmg=4)
 
 
 class Drain(Spell):
     def __init__(self):
-        super().__init__("Drain",
-                         cost=73,
-                         dmg=2,
-                         heal=2
-                         )
+        super().__init__("Drain", cost=73, dmg=2, heal=2)
 
 
 class Shield(Spell):
     def __init__(self):
-        super().__init__("Shield",
-                         cost=113,
-                         armor=7,
-                         duration=6
-                         )
+        super().__init__("Shield", cost=113, armor=7, duration=6)
 
 
 class Poison(Spell):
     def __init__(self):
-        super().__init__("Poison",
-                         cost=173,
-                         dmg=3,
-                         duration=6
-                         )
+        super().__init__("Poison", cost=173, dmg=3, duration=6)
 
 
 class Recharge(Spell):
     def __init__(self):
-        super().__init__("Recharge",
-                         cost=229,
-                         mana=101,
-                         duration=5
-                         )
+        super().__init__("Recharge", cost=229, mana=101, duration=5)
 
 
 SPELLS = [Magic_Missile, Drain, Shield, Poison, Recharge]
@@ -88,9 +69,11 @@ class Player:
         self.spells = set()
 
     def __repr__(self):
-        return (f"Player remaining hp: {self.hp}\n"
-                f"Player remaining mana: {self.mana}\n"
-                "Active Spells:\n" + "\n".join([str(spell) for spell in self.spells]))
+        return (
+            f"Player remaining hp: {self.hp}\n"
+            f"Player remaining mana: {self.mana}\n"
+            "Active Spells:\n" + "\n".join([str(spell) for spell in self.spells])
+        )
 
     def cast_spell(self, spell, boss):
         self.mana -= spell.cost
@@ -126,8 +109,7 @@ class Player:
 
 
 def spell_factory(spells):
-    str_to_spell = {"M": Magic_Missile, "D": Drain,
-                    "S": Shield, "P": Poison, "R": Recharge}
+    str_to_spell = {"M": Magic_Missile, "D": Drain, "S": Shield, "P": Poison, "R": Recharge}
     return [str_to_spell[i]() for i in spells]
 
 
@@ -153,7 +135,11 @@ def simulate(spells):
             MIN_SPENT = min(MIN_SPENT, player.spent)
             return
 
-        if spell.cost > player.mana or spell in player.spells or player.spent + spell.cost > MIN_SPENT:
+        if (
+            spell.cost > player.mana
+            or spell in player.spells
+            or player.spent + spell.cost > MIN_SPENT
+        ):
             return
         else:
             player.cast_spell(spell, boss)

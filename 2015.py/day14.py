@@ -18,7 +18,7 @@ def new_score(time: int, reindeers: list[tuple[int, int, int]]) -> list[int]:
         max_distance = 0
         max_index = []
 
-        for (index, distance) in enumerate(distances):
+        for index, distance in enumerate(distances):
             if distance > max_distance:
                 max_distance = distance
                 max_index = [index]

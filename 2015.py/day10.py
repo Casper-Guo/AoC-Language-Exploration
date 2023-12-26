@@ -22,7 +22,7 @@ def transform_string(input: str) -> str:
     return output
 
 
-input = '1321131112'
+input = "1321131112"
 
 # part 1
 for i in range(40):

@@ -10,11 +10,11 @@ def shoelace(coord1, coord2):
 
 
 def move_coord(start, move, amt):
-    return start[0] + amt*move[0], start[1] + amt*move[1]
+    return start[0] + amt * move[0], start[1] + amt * move[1]
 
 
 def process_line(line):
-    search = re.search(r'(\w{1}) (\d+) \(\#(.+)\)', line)
+    search = re.search(r"(\w{1}) (\d+) \(\#(.+)\)", line)
     return search.group(1), int(search.group(2)), search.group(3)
 
 
@@ -28,7 +28,7 @@ def find_area(instructions):
         end = move_coord(start, utils.CHAR_TO_DELTA[direction], amt)
         internal_area += shoelace(start, end)
         start = end
-    
+
     internal_points = abs(internal_area) + 1 - (num_edge_points / 2)
     return num_edge_points + internal_points
 
@@ -41,13 +41,14 @@ def main():
 
     # part 1
     print(find_area(zip([line[0] for line in lines], [line[1] for line in lines])))
-    
+
     # part 2
-    num_to_direction = {'0':'R', '1':'D', '2':'L', '3':'U'}
+    num_to_direction = {"0": "R", "1": "D", "2": "L", "3": "U"}
     part2_directions = list(map(lambda x: num_to_direction[x[2][-1]], lines))
     part2_amts = list(map(lambda x: int(x[2][:-1], 16), lines))
 
     print(find_area(zip(part2_directions, part2_amts)))
     return
+
 
 main()

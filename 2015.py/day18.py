@@ -4,7 +4,7 @@ from copy import deepcopy
 
 def parse_line(line: str) -> list[int]:
     line = line.rstrip()
-    return [0 if i == '.' else 1 for i in line]
+    return [0 if i == "." else 1 for i in line]
 
 
 def validate_index(row: int, col: int, grid_size: int) -> bool:
@@ -50,15 +50,14 @@ def one_iter(grid: list[list[int]]) -> list[list[int]]:
 
 
 def translate_grid(light: int) -> str:
-    return "#" if light == 1 else '.'
+    return "#" if light == 1 else "."
 
 
 def print_grid(grid: list[list[int]]):
-    print('\n'.join([''.join([translate_grid(i) for i in row])
-          for row in grid]), "\n")
+    print("\n".join(["".join([translate_grid(i) for i in row]) for row in grid]), "\n")
 
 
-with open("input18.txt", 'r') as f:
+with open("input18.txt", "r") as f:
     input = f.readlines()
 
     # part 1 and part 2 differs in sum_neighbor implementation
