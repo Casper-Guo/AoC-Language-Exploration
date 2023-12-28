@@ -102,14 +102,13 @@ function main()
                     worker.task = dequeue!(step_queue)
                     worker.timer = Int(worker.task) - 4
                     worker.runtime = time + worker.timer
-                    println("Time: ", time, ", Assigned step ", worker.task, " to worker ", idx)
                 end
             end
         end
         time += 1
     end
 
-    println([worker.runtime for worker in workers])
+    println([worker.runtime for worker in workers][1])
 end
 
 main()

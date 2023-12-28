@@ -20,7 +20,7 @@ function main()
         for line in lines
             frequency += parse(Int64, line)
             if haskey(reached, frequency)
-                println("Repeat: ", frequency)
+                println(frequency)
                 found_repeat = true
                 break
             end

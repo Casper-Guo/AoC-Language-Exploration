@@ -35,8 +35,8 @@ end
 
 function main()
     tree = map(x -> parse(Int, x), split(readline("input08.txt"), " "))
-    println(sum_metadata(tree[3:end], tree[1], tree[2]))
-    println(root_node(tree[3:end], tree[1], tree[2]))
+    println(sum_metadata(tree[3:end], tree[1], tree[2])[1])
+    println(root_node(tree[3:end], tree[1], tree[2])[1])
 end
 
 main()
