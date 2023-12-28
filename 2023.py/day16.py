@@ -10,48 +10,44 @@ Node: TypeAlias = tuple[Coord, Direction]
 def expand_explore(grid: utils.Grid, current: Node) -> list[Node]:
     current_coord, current_direction = current
 
-    if current_coord in grid:
-        match grid[current_coord]:
-            case '.':
+    match grid[current_coord]:
+        case '.':
+            return [utils.change_direction(current_coord, current_direction)]
+        case '/':
+            match utils.DELTA_TO_NESW[current_direction]:
+                case 'N':
+                    return [utils.change_direction(current_coord, utils.CHAR_TO_DELTA['E'])]
+                case 'S':
+                    return [utils.change_direction(current_coord, utils.CHAR_TO_DELTA['W'])]
+                case 'E':
+                    return [utils.change_direction(current_coord, utils.CHAR_TO_DELTA['N'])]
+                case 'W':
+                    return [utils.change_direction(current_coord, utils.CHAR_TO_DELTA['S'])]
+        case '\\':
+            match utils.DELTA_TO_NESW[current_direction]:
+                case 'N':
+                    return [utils.change_direction(current_coord, utils.CHAR_TO_DELTA['W'])]
+                case 'S':
+                    return [utils.change_direction(current_coord, utils.CHAR_TO_DELTA['E'])]
+                case 'E':
+                    return [utils.change_direction(current_coord, utils.CHAR_TO_DELTA['S'])]
+                case 'W':
+                    return [utils.change_direction(current_coord, utils.CHAR_TO_DELTA['N'])]
+        case '|':
+            if utils.DELTA_TO_NESW[current_direction] in ['N', 'S']:
                 return [utils.change_direction(current_coord, current_direction)]
-            case '/':
-                match utils.DELTA_TO_NESW[current_direction]:
-                    case 'N':
-                        return [utils.change_direction(current_coord, utils.CHAR_TO_DELTA['E'])]
-                    case 'S':
-                        return [utils.change_direction(current_coord, utils.CHAR_TO_DELTA['W'])]
-                    case 'E':
-                        return [utils.change_direction(current_coord, utils.CHAR_TO_DELTA['N'])]
-                    case 'W':
-                        return [utils.change_direction(current_coord, utils.CHAR_TO_DELTA['S'])]
-            case '\\':
-                match utils.DELTA_TO_NESW[current_direction]:
-                    case 'N':
-                        return [utils.change_direction(current_coord, utils.CHAR_TO_DELTA['W'])]
-                    case 'S':
-                        return [utils.change_direction(current_coord, utils.CHAR_TO_DELTA['E'])]
-                    case 'E':
-                        return [utils.change_direction(current_coord, utils.CHAR_TO_DELTA['S'])]
-                    case 'W':
-                        return [utils.change_direction(current_coord, utils.CHAR_TO_DELTA['N'])]
-            case '|':
-                if utils.DELTA_TO_NESW[current_direction] in ['N', 'S']:
-                    return [utils.change_direction(current_coord, current_direction)]
-                else:
-                    return [
-                        utils.change_direction(current_coord, utils.CHAR_TO_DELTA['N']),
-                        utils.change_direction(current_coord, utils.CHAR_TO_DELTA['S'])
-                    ]
-            case '-':
-                if utils.DELTA_TO_NESW[current_direction] in ['W', 'E']:
-                    return [utils.change_direction(current_coord, current_direction)]
-                else:
-                    return [
-                        utils.change_direction(current_coord, utils.CHAR_TO_DELTA['W']),
-                        utils.change_direction(current_coord, utils.CHAR_TO_DELTA['E'])
-                    ]
-    else:
-        return []
+            return [
+                utils.change_direction(current_coord, utils.CHAR_TO_DELTA['N']),
+                utils.change_direction(current_coord, utils.CHAR_TO_DELTA['S'])
+            ]
+        case '-':
+            if utils.DELTA_TO_NESW[current_direction] in ['W', 'E']:
+                return [utils.change_direction(current_coord, current_direction)]
+            return [
+                utils.change_direction(current_coord, utils.CHAR_TO_DELTA['W']),
+                utils.change_direction(current_coord, utils.CHAR_TO_DELTA['E'])
+            ]
+    return []
 
 
 def simulate_beam(grid: utils.Grid, initial: Node) -> int:
