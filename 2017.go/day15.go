@@ -5,19 +5,10 @@ import (
 )
 
 func judge(a, b int) bool {
-	a_binary := fmt.Sprintf("%b", a)
-	b_binary := fmt.Sprintf("%b", b)
+	last16_a := a & 0xFFFF
+	last16_b := b & 0xFFFF
 
-	a_start := len(a_binary) - 16
-	if a_start < 0 {
-		a_start = 0
-	}
-	b_start := len(b_binary) - 16
-	if b_start < 0 {
-		b_start = 0
-	}
-
-	return a_binary[a_start:] == b_binary[b_start:]
+	return last16_a == last16_b
 }
 
 func main() {

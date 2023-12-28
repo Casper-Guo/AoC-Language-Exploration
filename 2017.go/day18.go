@@ -72,7 +72,6 @@ func part2(instructions []string, id int, out, in chan int) int {
 			select {
 			case out <- registers_get(tokens[1], registers):
 				num_sends++
-				fmt.Println("Send ", registers_get(tokens[1], registers), " from ", id)
 			case <-time.After(1 * time.Second):
 				return num_sends
 			}
@@ -80,7 +79,6 @@ func part2(instructions []string, id int, out, in chan int) int {
 		case "rcv":
 			select {
 			case registers[tokens[1]] = <-in:
-				fmt.Println("Received ", registers[tokens[1]], " at ", id)
 			case <-time.After(1 * time.Second):
 				return num_sends
 			}
