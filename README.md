@@ -2,7 +2,7 @@
 
 Attempting Advent of Code 2015 - 2022 using a different language for each year.
 
-Progress: 174/400 stars (43.5%)
+Progress: 228/450 stars (50.7%)
 
 ## Starting Lineup
 
@@ -11,6 +11,8 @@ Progress: 174/400 stars (43.5%)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
 Progress: 50/50 stars (100%)
+
+Todo: optimize day 6, 10, 18, 20
 
 ### 2016
 
@@ -24,14 +26,23 @@ Progress: 50/50 stars (100%)
 
 Progress: 50/50 stars (100%)
 
+Todo: optimize day 13, 18, 20
+
 ### 2018
 
 ![Julia](https://img.shields.io/badge/-Julia-9558B2?style=for-the-badge&logo=julia&logoColor=white)
 
 Progress: 24/50 stars (48%)
 
+Todo: optimize day 5, 6, 9, 11
+
 ### 2023
-Progress: 46/48 stars (96%)
+
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+
+Progress: 46/50 stars (92%)
+
+Todo: optimize day 12, 14, 16, 17, 22
 
 ## The Benches
 
