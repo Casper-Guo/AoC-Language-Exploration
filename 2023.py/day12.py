@@ -9,7 +9,7 @@ def process_line(line):
     # replace consecutive operational springs
     line[0] = re.sub(r"\.+", ".", line[0])
 
-    return tuple([i for i in line[0]]), tuple(utils.ints(line[1]))
+    return tuple(line[0]), tuple(utils.ints(line[1]))
 
 
 @cache
@@ -18,16 +18,14 @@ def calc_config(condition, groups, current_group=0):
     if not condition:
         if current_group:
             return int(len(groups) == 1 and current_group == groups[0])
-        else:
-            return int(len(groups) == 0)
-
-    if current_group:
-        # current group is too long
-        if not groups or current_group > groups[0]:
-            return 0
-
+        return int(len(groups) == 0)
+        
     if not groups:
-        return int("#" not in condition)
+        return int("#" not in condition or current_group)
+
+    if current_group > groups[0]:
+        # current group is too long
+        return 0
 
     # recursive cases
     if condition[0] == ".":
@@ -38,17 +36,16 @@ def calc_config(condition, groups, current_group=0):
         if current_group:
             if current_group != groups[0]:
                 return 0
-            else:
-                groups = groups[1:]
+            groups = groups[1:]
+
         return calc_config(condition[1:], groups, 0)
     if condition[0] == "#":
         # increment current group length
         return calc_config(condition[1:], groups, current_group + 1)
     else:
         # this location can either be operational or broken
-        if not groups or current_group == groups[0]:
+        if current_group == groups[0]:
             # if current group length matches the first group in groups
-            # or that there are no remaining groups
             # then the current location must be operational
             return calc_config(condition[1:], groups[1:], 0)
         else:
@@ -56,11 +53,10 @@ def calc_config(condition, groups, current_group=0):
             # and the group has started, then the current location must be broken
             if current_group:
                 return calc_config(condition[1:], groups, current_group + 1)
-            else:
-                # if the group haven't started, then it doesn't have to start now
-                return calc_config(
-                    condition[1:], groups, current_group + 1
-                ) + calc_config(condition[1:], groups, current_group)
+            # if the group haven't started, then it doesn't have to start now
+            return calc_config(
+                condition[1:], groups, current_group + 1
+            ) + calc_config(condition[1:], groups, current_group)
 
 
 def part2_modify(condition):
@@ -91,6 +87,5 @@ def main():
         total_config += calc_config(part2_modify(condition), 5 * groups)
 
     print(total_config)
-
 
 main()
