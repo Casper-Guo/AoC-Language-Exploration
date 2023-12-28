@@ -29,7 +29,7 @@ def two_pairs(input: str) -> bool:
 def increment(input: str) -> str:
     if input[-1] == "z":
         return increment(input[:-1]) + "a"
-    next_letter = lowercase[lowercase.index(input[-1]) + 1]
+    next_letter = chr(ord(input[-1]) + 1)
     return input[:-1] + next_letter
 
 
