@@ -1,8 +1,8 @@
 # Advent of Code - Language BFS
 
-Attempting Advent of Code 2015 - 2022 using a different language for each year.
+Attempting Advent of Code 2015 - 2024 using a different language for each year.
 
-Progress: 228/450 stars (50.7%)
+Progress: 220/450 stars (48.9%)
 
 ## Starting Lineup
 
@@ -44,9 +44,17 @@ Progress: 46/50 stars (92%)
 
 Todo: optimize day 12, 14, 16, 17, 22
 
+### 2024
+
+![Ruby](https://img.shields.io/badge/ruby-%23CC342D.svg?style=for-the-badge&logo=ruby&logoColor=white)
+
+Progress: waiting...
+
 ## The Benches
 
-![OCaml](https://img.shields.io/badge/OCaml-%23E98407.svg?style=for-the-badge&logo=ocaml&logoColor=white)
-![Ruby](https://img.shields.io/badge/ruby-%23CC342D.svg?style=for-the-badge&logo=ruby&logoColor=white)
 ![Rust](https://img.shields.io/badge/rust-%23000000.svg?style=for-the-badge&logo=rust&logoColor=white)
 ![Scala](https://img.shields.io/badge/scala-%23DC322F.svg?style=for-the-badge&logo=scala&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=csharp&logoColor=white)
+![OCaml](https://img.shields.io/badge/OCaml-%23E98407.svg?style=for-the-badge&logo=ocaml&logoColor=white)
+
