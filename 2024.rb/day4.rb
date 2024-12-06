@@ -1,32 +1,12 @@
-lines = File.readlines('input4.txt', chomp: true)
-lines = lines.map(&:chars)
+require_relative 'utils'
 
-# Utility class for grids/matrices etc.
-# Assumes the input is rectangular
-class Grid
-  attr_accessor :num_rows, :num_cols
-
-  def initialize(grid)
-    @grid = grid
-    @num_rows = grid.length
-    @num_cols = grid[0].length
-  end
-
-  def check_inbound(row, col)
-    row.between?(0, @num_rows - 1) && col.between?(0, @num_cols - 1)
-  end
-
-  def at(row, col)
-    check_inbound(row, col) ? @grid[row][col] : nil
-  end
-end
+grid = Grid.new(File.readlines('input4.txt', chomp: true).map(&:chars))
 
 delta_row = [-1, 0, 1]
 delta_col = [-1, 0, 1]
 
 xmas_count = 0
 x_mas_count = 0
-grid = Grid.new(lines)
 
 (0...grid.num_rows).each do |row|
   (0...grid.num_cols).each do |col|
