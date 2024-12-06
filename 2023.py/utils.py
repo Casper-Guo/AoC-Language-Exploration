@@ -120,7 +120,7 @@ class Grid(Generic[T]):
         new_grid = [self.get_col(i) for i in range(self.cols)]
         self.grid = new_grid
 
-    def reflec_y(self):
+    def reflect_y(self):
         """Vertical reflection.
 
         1 2
