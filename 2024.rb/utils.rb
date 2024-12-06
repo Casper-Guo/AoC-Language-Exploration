@@ -1,5 +1,10 @@
 # Utility class for grids/matrices etc.
 # Assumes the input is rectangular
+
+def ints(line)
+  line.scan(/\d+/).map(&:to_i)
+end
+
 class Grid
   attr_accessor :grid, :num_rows, :num_cols
 
