@@ -25,7 +25,7 @@ end
 
 def detect_cycle(current_coord, direction_index)
   path = {}
-  while $grid.check_inbound(*current_coord)
+  while $grid.inbound?(*current_coord)
     next_coord, direction_index = move_once(current_coord, direction_index)
     return true if $visited[current_coord]&.include?(direction_index) || path[current_coord]&.include?(direction_index)
 
@@ -35,13 +35,13 @@ def detect_cycle(current_coord, direction_index)
   false
 end
 
-while $grid.check_inbound(*current_coord)
+while $grid.inbound?(*current_coord)
   next_coord, direction_index = move_once(current_coord, direction_index)
   ($visited[current_coord] ||= Set.new) << direction_index
 
   # if the next coordinate has been visited before
   # then we must have tried using it as an obstruction already
-  if !$visited.key?(next_coord) && $grid.check_inbound(*next_coord)
+  if !$visited.key?(next_coord) && $grid.inbound?(*next_coord)
     original = $grid[next_coord]
     $grid[next_coord] = '#'
     obstructions << next_coord if detect_cycle(current_coord, direction_index)

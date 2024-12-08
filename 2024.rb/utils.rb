@@ -26,12 +26,12 @@ class Grid
     "#{@grid}"
   end
 
-  def check_inbound(row, col)
+  def inbound?(row, col)
     row.between?(0, @num_rows - 1) && col.between?(0, @num_cols - 1)
   end
 
   def at(row, col)
-    check_inbound(row, col) ? @grid[row][col] : nil
+    inbound?(row, col) ? @grid[row][col] : nil
   end
 
   def find(item)
