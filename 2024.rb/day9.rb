@@ -7,10 +7,14 @@ current_index = 0
 file = true
 disk_map.chars.each do |char|
   size = char.to_i
-  file_sizes[file_id] = size if file
-  file_index[file_id] = current_index if file
   blocks += file ? [file_id] * size : [nil] * size
-  file_id += 1 if file
+
+  if file
+    file_sizes[file_id] = size
+    file_index[file_id] = current_index
+    file_id += 1
+  end
+
   current_index += size
   file = !file
 end
@@ -42,10 +46,12 @@ def move_part1(blocks)
 end
 
 def move_part2(blocks, file_sizes, file_index)
+  start_search = Hash.new(0)
   file_sizes.reverse_each do |file_id, size|
-    (0...file_index[file_id]).each do |window_start|
+    (start_search[size]...file_index[file_id]).each do |window_start|
       next unless blocks[window_start...window_start + size].all?(&:nil?)
 
+      start_search[size] = window_start + size
       (0...size).each do |offset|
         blocks[window_start + offset] = file_id
         blocks[file_index[file_id] + offset] = nil
