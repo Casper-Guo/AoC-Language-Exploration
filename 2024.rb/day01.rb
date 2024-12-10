@@ -1,4 +1,4 @@
-lines = File.readlines('input1.txt', chomp: true)
+lines = File.readlines('input01.txt', chomp: true)
 list1 = []
 list2 = []
 freq = Hash.new(0)

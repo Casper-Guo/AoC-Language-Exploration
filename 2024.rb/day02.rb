@@ -1,4 +1,4 @@
-lines = File.readlines('input2.txt', chomp: true)
+lines = File.readlines('input02.txt', chomp: true)
 lines = lines.map { |line| line.split.map(&:to_i) }
 
 def safety_check(report)

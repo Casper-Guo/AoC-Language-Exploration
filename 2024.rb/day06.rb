@@ -1,7 +1,7 @@
 require_relative 'utils'
 require 'set'
 
-$grid = Grid.new(File.readlines('input6.txt', chomp: true).map(&:chars))
+$grid = Grid.new(File.readlines('input06.txt', chomp: true).map(&:chars))
 $visited = {}
 $directions = [[-1, 0], [0, 1], [1, 0], [0, -1]]
 direction_index = 0

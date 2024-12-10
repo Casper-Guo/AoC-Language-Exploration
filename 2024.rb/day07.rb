@@ -1,6 +1,6 @@
 require_relative 'utils'
 
-equations = File.readlines('input7.txt').map { |line| ints(line) }
+equations = File.readlines('input07.txt').map { |line| ints(line) }
 
 def solve_part1(equation)
   target = equation[0]

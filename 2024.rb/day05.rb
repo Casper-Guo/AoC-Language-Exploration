@@ -11,7 +11,7 @@ def fix_update(update, rules)
   update.sort { |a, b| !rules[a].nil? && rules[a].include?(b) ? 1 : -1 }
 end
 
-sections = File.read('input5.txt').split("\n\n").map { |section| section.split("\n") }
+sections = File.read('input05.txt').split("\n\n").map { |section| section.split("\n") }
 parsed_rules = sections[0].map { |rule| rule.split('|') }
 updates = sections[1].map { |update| update.split(',') }
 rules = {}

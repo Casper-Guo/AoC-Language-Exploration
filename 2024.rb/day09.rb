@@ -1,4 +1,4 @@
-disk_map = File.read('input9.txt').chomp
+disk_map = File.read('input09.txt').chomp
 blocks = []
 file_sizes = {}
 file_index = {}

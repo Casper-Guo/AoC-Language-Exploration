@@ -50,8 +50,8 @@ def analyze_antennas_part2(grid, antenna1, antenna2)
   antinodes
 end
 
-freqs = Set.new(File.read('input8.txt').chars) - ['.', "\n"]
-grid = Grid.new(File.readlines('input8.txt', chomp: true).map(&:chars))
+freqs = Set.new(File.read('input08.txt').chars) - ['.', "\n"]
+grid = Grid.new(File.readlines('input08.txt', chomp: true).map(&:chars))
 
 # this is a 4D array!
 freq_antinodes = freqs.map { |freq| analyze_freq(grid, freq) }

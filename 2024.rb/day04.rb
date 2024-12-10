@@ -1,6 +1,6 @@
 require_relative 'utils'
 
-grid = Grid.new(File.readlines('input4.txt', chomp: true).map(&:chars))
+grid = Grid.new(File.readlines('input04.txt', chomp: true).map(&:chars))
 
 delta_row = [-1, 0, 1]
 delta_col = [-1, 0, 1]
