@@ -8,8 +8,9 @@ end
 class Grid
   attr_accessor :grid, :num_rows, :num_cols
 
-  @@neighbor_delta = [[1, 0], [-1, 0], [0, 1], [0, -1]]
-  @@adj_delta = [[1, 1], [-1, -1], [1, -1], [-1, 1]] + @@neighbor_delta
+  # clockwise from north
+  @@neighbor_delta = [[-1, 0], [0, 1], [1, 0], [0, -1]]
+  @@adj_delta = [[-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [-1, -1]]
 
   def initialize(grid)
     @grid = grid
@@ -65,20 +66,28 @@ class Grid
     instances
   end
 
-  def get_direct_neighbors(row, col)
+  def get_direct_neighbors(row, col, all: false)
     neighbors = []
     @@neighbor_delta.each do |drow, dcol|
       neighbor = [row + drow, col + dcol]
-      neighbors << [neighbor, at(*neighbor)] if inbound?(*neighbor)
+      if !all
+        neighbors << [neighbor, at(*neighbor)] if inbound?(*neighbor)
+      else
+        neighbors << [neighbor, at(*neighbor)]
+      end
     end
     neighbors
   end
 
-  def get_adjacent_neighbors(row, col)
+  def get_adjacent_neighbors(row, col, all: false)
     neighbors = []
     @@adj_delta.each do |drow, dcol|
       neighbor = [row + drow, col + dcol]
-      neighbors << [neighbor, at(*neighbor)] if inbound?(*neighbor)
+      if !all
+        neighbors << [neighbor, at(*neighbor)] if inbound?(*neighbor)
+      else
+        neighbors << [neighbor, at(*neighbor)]
+      end
     end
     neighbors
   end
