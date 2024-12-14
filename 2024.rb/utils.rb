@@ -2,7 +2,7 @@
 # Assumes the input is rectangular
 
 def ints(line)
-  line.scan(/\d+/).map(&:to_i)
+  line.scan(/-?\d+/).map(&:to_i)
 end
 
 class Grid
