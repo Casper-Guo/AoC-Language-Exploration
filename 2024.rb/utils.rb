@@ -27,7 +27,7 @@ class Grid
   end
 
   def to_s
-    @grid.to_s
+    @grid.map { |row| row.join('') }.join("\n")
   end
 
   def inbound?(row, col)
@@ -91,4 +91,29 @@ class Grid
     end
     neighbors
   end
+
+  def move_one(row, col, drow, dcol)
+    [row + drow, col + dcol]
+  end
+
+  def move_n(row, col, drow, dcol, n)
+    [row + drow * n, col + dcol * n]
+  end
 end
+
+DELTA_TO_DIRECTION = {
+  [-1, 0] => 'N',
+  [0, 1] => 'E',
+  [1, 0] => 'S',
+  [0, -1] => 'W'
+}
+
+DELTA_TO_CHAR = {
+  [-1, 0] => '^',
+  [0, 1] => '>',
+  [1, 0] => 'v',
+  [0, -1] => '<'
+}
+
+DIRECTION_TO_DELTA = DELTA_TO_DIRECTION.invert
+CHAR_TO_DELTA = DELTA_TO_CHAR.invert

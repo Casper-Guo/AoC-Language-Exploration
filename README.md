@@ -2,7 +2,7 @@
 
 Attempting Advent of Code 2015 - 2024 using a different language for each year.
 
-Progress: 248/500 stars (49.6%)
+Progress: 250/500 stars (50%)
 
 ## Starting Lineup
 
@@ -48,7 +48,7 @@ Todo: optimize day 12, 14, 16, 17, 22
 
 ![Ruby](https://img.shields.io/badge/ruby-%23CC342D.svg?style=for-the-badge&logo=ruby&logoColor=white)
 
-Progress: 28/50 stars (56%)
+Progress: 30/50 stars (60%)
 
 Todo: optimize day 6
 
