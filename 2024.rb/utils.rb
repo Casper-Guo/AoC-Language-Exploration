@@ -5,6 +5,7 @@ def ints(line)
   line.scan(/-?\d+/).map(&:to_i)
 end
 
+# utility functions for a 2D grid
 class Grid
   attr_accessor :grid, :num_rows, :num_cols
 
@@ -32,6 +33,18 @@ class Grid
 
   def inbound?(row, col)
     row.between?(0, @num_rows - 1) && col.between?(0, @num_cols - 1)
+  end
+
+  def euclid(row1, col1, row2, col2)
+    Math.sqrt((row2 - row1)**2 + (col2 - col1)**2)
+  end
+
+  def manhattan(row1, col1, row2, col2)
+    (row2 - row1).abs + (col2 - col1).abs
+  end
+
+  def chebyshev(row1, col1, row2, col2)
+    [(row2 - row1).abs, (col2 - col1).abs].max
   end
 
   def coords
@@ -99,6 +112,10 @@ class Grid
   def move_n(row, col, drow, dcol, n)
     [row + drow * n, col + dcol * n]
   end
+
+  def get_direction(from_row, from_col, to_row, to_col)
+    [to_row - from_row, to_col - from_col]
+  end
 end
 
 DELTA_TO_DIRECTION = {
@@ -106,14 +123,14 @@ DELTA_TO_DIRECTION = {
   [0, 1] => 'E',
   [1, 0] => 'S',
   [0, -1] => 'W'
-}
+}.freeze
 
 DELTA_TO_CHAR = {
   [-1, 0] => '^',
   [0, 1] => '>',
   [1, 0] => 'v',
   [0, -1] => '<'
-}
+}.freeze
 
 DIRECTION_TO_DELTA = DELTA_TO_DIRECTION.invert
 CHAR_TO_DELTA = DELTA_TO_CHAR.invert
