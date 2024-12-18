@@ -21,7 +21,11 @@ def A_star(grid, start, finish)
   discovered = PairingHeap::MinPriorityQueue.new
   discovered.push([start, [0, 1]], grid.manhattan(*start, *finish))
 
-  prev = {}
+  # part1
+  # prev = {}
+  # part 2
+  prev = Hash.new(Set.new)
+
   known_cost = Hash.new(2**64 - 1)
   known_cost[[start, [0, 1]]] = 0
 
@@ -31,9 +35,17 @@ def A_star(grid, start, finish)
 
     get_neighbors(grid, current).each do |next_coord, to_direction|
       cost = known_cost[[current, from_direction]] + (from_direction == to_direction ? 1 : 1001)
-      next unless cost < known_cost[[next_coord, to_direction]]
+      next if cost > known_cost[[next_coord, to_direction]]
 
-      prev[[next_coord, to_direction]] = [current, from_direction]
+      # part 1
+      # prev[[next_coord, to_direction]] = [current, from_direction]
+      # part 2
+      prev[[next_coord, to_direction]] = if cost < known_cost[[next_coord, to_direction]]
+                                           Set[[current, from_direction]]
+                                         else
+                                           prev[[next_coord, to_direction]] << [current, from_direction]
+                                         end
+
       known_cost[[next_coord, to_direction]] = cost
 
       begin
@@ -43,23 +55,36 @@ def A_star(grid, start, finish)
       end
     end
   end
-  raise 'Cannot find path'
 end
 
 # draw the least cost path onto the grid
-# todo: fix
-# def show_path(grid, prev, start, finish)
-#   current = finish
+# only compatible with part 1 version of A*
+def show_path(grid, prev, start, finish)
+  # each key is a coordinate, direction tuple
+  current = finish
 
-#   until current == start
-#     previous = prev[current]
-#     direction = DELTA_TO_CHAR[grid.get_direction(*previous, *current)]
-#     grid[previous] = direction
-#     current = previous
-#     print current, "\n"
-#   end
-#   grid
-# end
+  until current[0] == start
+    previous = prev[current]
+    # current[1] is the direction taken from previous[0] to current[0]
+    grid[previous[0]] = DELTA_TO_CHAR[current[1]]
+    current = previous
+  end
+  grid
+end
 
-_, cost = A_star(grid, start, finish)
-puts cost.keep_if { |key, _| key[0] == finish }.map { |_, val| val }.min
+def backtrack(grid, prev, start, finish)
+  visited = Set.new
+  return Set[start] if finish[0] == start
+
+  visited << finish[0]
+  prev[finish].each do |previous|
+    visited |= backtrack(grid, prev, start, previous)
+  end
+
+  visited
+end
+
+prev, cost = A_star(grid, start, finish)
+final_key, min_cost = cost.filter { |key, _| key[0] == finish }.to_a[0]
+puts min_cost
+puts backtrack(grid, prev, start, final_key).size
