@@ -195,7 +195,7 @@ class Computer
   end
 
   def print_reg
-    puts "regA: #{@regA} regB: #{regB} regC: #{regC}"
+    puts "regA: #{@regA.to_s(2)} regB: #{@regB.to_s(2)} regC: #{@regC.to_s(2)}"
   end
 
   def assemble
@@ -206,7 +206,7 @@ class Computer
     "#{instructions.join("\n")}\n"
   end
 
-  def simulate(log: false)
+  def simulate(log: false, string: true)
     output = []
     print_reg if log
     pc = 0
@@ -242,6 +242,6 @@ class Computer
       print_reg if log
       pc += 2 unless jump
     end
-    output.join(',')
+    string ? output.join(',') : output
   end
 end
