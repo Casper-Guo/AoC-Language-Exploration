@@ -35,6 +35,10 @@ def A_star(grid, start, finish)
 
     get_neighbors(grid, current).each do |next_coord, to_direction|
       cost = known_cost[[current, from_direction]] + (from_direction == to_direction ? 1 : 1001)
+
+      # part 1
+      next if cost >= known_cost[[next_coord, to_direction]]
+      # part 2
       next if cost > known_cost[[next_coord, to_direction]]
 
       # part 1
