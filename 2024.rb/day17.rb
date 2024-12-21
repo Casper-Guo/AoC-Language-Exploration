@@ -1,7 +1,7 @@
 require_relative 'utils'
 require 'set'
 
-ints = File.readlines('test17.txt', chomp: true).map { |line| ints(line) }
+ints = File.readlines('input17.txt', chomp: true).map { |line| ints(line) }
 computer = Computer.new(ints[-1], ints[0][0], ints[1][0], ints[2][0])
 print "#{computer.simulate}\n"
 
