@@ -1,0 +1,40 @@
+AllCops:
+  NewCops: enable
+
+Metrics/AbcSize:
+  Enabled: False
+
+# Configuration parameters: AllowedMethods, AllowedPatterns.
+Metrics/CyclomaticComplexity:
+  Enabled: False
+
+# Configuration parameters: CountComments, CountAsOne, AllowedMethods, AllowedPatterns.
+Metrics/MethodLength:
+  Enabled: False
+
+# Configuration parameters: AllowedMethods, AllowedPatterns.
+Metrics/PerceivedComplexity:
+  Enabled: False
+
+# Configuration parameters: EnforcedStyle, AllowedPatterns.
+Naming/MethodName:
+  AllowedPatterns: ["A_star", "Bron_Kerbosch", "regA", "regB", "regC"]
+
+# Configuration parameters: MinNameLength, AllowNamesEndingInNumbers, AllowedNames, ForbiddenNames.
+# AllowedNames: as, at, by, cc, db, id, if, in, io, ip, of, on, os, pp, to
+Naming/MethodParameterName:
+  AllowedNames: ["n", "regA", "regB", "regC"]
+
+# Configuration parameters: EnforcedStyle, AllowedIdentifiers, AllowedPatterns.
+# SupportedStyles: snake_case, camelCase
+Naming/VariableName:
+  AllowedIdentifiers: ["regA", "regB", "regC"]
+
+Style/ClassVars:
+  Enabled: False
+
+Style/GlobalVars:
+  Enabled: False
+
+Lint/AmbiguousOperatorPrecedence:
+  Enabled: False
