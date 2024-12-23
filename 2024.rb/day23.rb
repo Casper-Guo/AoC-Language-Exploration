@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'set'
 
 edges = File.readlines('input23.txt', chomp: true).map { |line| line.split('-') }

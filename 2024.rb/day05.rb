@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'set'
 
 def check_order(update, rules)

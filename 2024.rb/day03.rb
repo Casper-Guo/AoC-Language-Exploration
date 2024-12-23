@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 file = File.read('input03.txt')
 result1 = file.scan(/mul\(([0-9]{1,3}),([0-9]{1,3})\)/).sum { |num1, num2| num1.to_i * num2.to_i }
 

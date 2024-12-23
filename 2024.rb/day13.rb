@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'utils'
 
 # x1, y1, x2, y2, target_x, target_y in order
@@ -9,7 +11,7 @@ def validate_solution(sol_x, sol_y, part2: false)
   int_y = sol_y.round
   return 0 unless (sol_x - int_x).abs < tol && (sol_y - int_y).abs < tol
 
-  return 3 * int_x + int_y if part2
+  return (3 * int_x + int_y) if part2
 
   int_x.between?(0, 100) && int_y.between?(0, 100) ? 3 * int_x + int_y : 0
 end

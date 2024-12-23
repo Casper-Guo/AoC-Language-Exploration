@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'utils'
 
 stones = ints(File.read('input11.txt', chomp: true))
@@ -27,7 +29,6 @@ end
   stones_freq = blink_all(stones_freq)
 end
 puts stones_freq.values.sum
-
 
 50.times do
   stones_freq = blink_all(stones_freq)

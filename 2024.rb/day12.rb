@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'utils'
 require 'set'
 
@@ -23,7 +25,7 @@ def calc_price(grid, current_coord)
 
     # 1 for non-matching neighbors, and vice versa
     # perimeter length of this grid is the number of non-matching neighbors (including boundary)
-    total_perimeter += neighbors.map { |_, neighbor_plant| neighbor_plant != plot_type ? 1 : 0 }.sum
+    total_perimeter += neighbors.map { |_, neighbor_plant| neighbor_plant == plot_type ? 0 : 1 }.sum
 
     neighbors.each do |neighbor_coord, plant_type|
       to_visit << neighbor_coord if plant_type == plot_type

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'utils'
 
 grid = Grid.new(File.readlines('input04.txt', chomp: true).map(&:chars))

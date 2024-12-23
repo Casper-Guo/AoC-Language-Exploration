@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 disk_map = File.read('input09.txt').chomp
 blocks = []
 file_sizes = {}

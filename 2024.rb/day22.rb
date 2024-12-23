@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'set'
 
 seeds = File.readlines('input22.txt', chomp: true).map(&:to_i)

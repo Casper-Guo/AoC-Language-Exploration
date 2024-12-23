@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Utility class for grids/matrices etc.
 # Assumes the input is rectangular
 
@@ -28,7 +30,7 @@ class Grid
   end
 
   def to_s
-    @grid.map { |row| row.join('') }.join("\n")
+    @grid.map(&:join).join("\n")
   end
 
   def inbound?(row, col)
@@ -83,10 +85,10 @@ class Grid
     neighbors = []
     @@neighbor_delta.each do |drow, dcol|
       neighbor = [row + drow, col + dcol]
-      if !all
-        neighbors << [neighbor, at(*neighbor)] if inbound?(*neighbor)
-      else
+      if all
         neighbors << [neighbor, at(*neighbor)]
+      else
+        neighbors << [neighbor, at(*neighbor)] if inbound?(*neighbor) # rubocop:disable Style/IfInsideElse
       end
     end
     neighbors
@@ -96,10 +98,10 @@ class Grid
     neighbors = []
     @@adj_delta.each do |drow, dcol|
       neighbor = [row + drow, col + dcol]
-      if !all
-        neighbors << [neighbor, at(*neighbor)] if inbound?(*neighbor)
-      else
+      if all
         neighbors << [neighbor, at(*neighbor)]
+      else
+        neighbors << [neighbor, at(*neighbor)] if inbound?(*neighbor) # rubocop:disable Style/IfInsideElse
       end
     end
     neighbors
@@ -231,7 +233,7 @@ class Computer
       when 4
         @regB ^= @regC
       when 5
-        output << get_combo_operand(arg) % 8
+        output << (get_combo_operand(arg) % 8)
       when 6
         @regB = (@regA / 2**get_combo_operand(arg)).to_i
       when 7

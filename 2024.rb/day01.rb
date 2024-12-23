@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 lines = File.readlines('input01.txt', chomp: true)
 list1 = []
 list2 = []
