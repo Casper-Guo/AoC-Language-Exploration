@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'utils'
 
 instructions = File.readlines('input21.txt', chomp: true)

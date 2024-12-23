@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 input = File.read('input19.txt').split("\n\n")
 prefixes = input[0].strip.split(', ')
 designs = input[1].split("\n")

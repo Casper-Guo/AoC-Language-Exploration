@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'utils'
 
 equations = File.readlines('input07.txt').map { |line| ints(line) }
