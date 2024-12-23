@@ -23,8 +23,13 @@ def blink_all(stones_freq)
   new_freq
 end
 
-75.times do
+25.times do
   stones_freq = blink_all(stones_freq)
 end
+puts stones_freq.values.sum
 
+
+50.times do
+  stones_freq = blink_all(stones_freq)
+end
 puts stones_freq.values.sum

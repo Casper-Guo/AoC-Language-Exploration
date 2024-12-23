@@ -94,4 +94,4 @@ _, cost = A_star(grid, start, finish)
 min_length = cost[finish]
 puts min_length
 blocker_index = binary_search(failures, dim, left: num_failures) - 1
-print failures[blocker_index]
+print "#{failures[blocker_index]}\n"
