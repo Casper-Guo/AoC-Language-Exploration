@@ -64,7 +64,7 @@ class Grid
   end
 
   def get_col(col)
-    (0...@num_rows).map { |row| @grid[[row, col]] }
+    (0...@num_rows).map { |row| @grid[row][col] }
   end
 
   def at(row, col)
