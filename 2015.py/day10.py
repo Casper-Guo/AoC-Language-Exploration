@@ -24,16 +24,16 @@ def transform_string(input: list[str]) -> list[str]:
     return output
 
 
-input = [i for i in "1321131112"]
+input = list("1321131112")
 
 # part 1
-for i in range(40):
+for _ in range(40):
     input = transform_string(input)
 
 print(len(input))
 
 # part 2
-for i in range(10):
+for _ in range(10):
     input = transform_string(input)
 
 print(len(input))

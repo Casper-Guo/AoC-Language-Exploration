@@ -1,5 +1,4 @@
 from collections import deque
-import time
 
 
 class Instruction:
@@ -12,7 +11,7 @@ class Instruction:
         return f"{self.inputs} {self.operation} {self.output}"
 
     def check_inputs(self, signals: dict[str, int]) -> bool:
-        return all([input in signals for input in self.inputs if not input.isdigit()])
+        return all(input in signals for input in self.inputs if not input.isdigit())
 
     def find_output(self, signals: dict[str, int]) -> None:
         if self.operation == "NOT":
@@ -24,16 +23,8 @@ class Instruction:
                 # e.g lx -> a
                 output = signals[self.inputs[0]]
         else:
-            left, right = None, None
-            if self.inputs[0].isdigit():
-                left = int(self.inputs[0])
-            else:
-                left = signals[self.inputs[0]]
-
-            if self.inputs[1].isdigit():
-                right = int(self.inputs[1])
-            else:
-                right = signals[self.inputs[1]]
+            left = int(self.inputs[0]) if self.inputs[0].isdigit() else signals[self.inputs[0]]
+            right = int(self.inputs[1]) if self.inputs[1].isdigit() else signals[self.inputs[1]]
 
             if self.operation == "AND":
                 output = left & right
@@ -54,15 +45,16 @@ class Instruction:
 def parse_line(line: str) -> Instruction:
     words = line.split()
 
-    if len(words) == 3:
-        # straight forward pass from one wire to next
-        return Instruction([words[0]], words[1], words[2])
-    elif len(words) == 4:
-        # Not operation
-        return Instruction([words[1]], words[0], words[3])
-    elif len(words) == 5:
-        # all other operations
-        return Instruction([words[0], words[2]], words[1], words[4])
+    match len(words):
+        case 3:
+            # straight forward pass from one wire to next
+            return Instruction([words[0]], words[1], words[2])
+        case 4:
+            # Not operation
+            return Instruction([words[1]], words[0], words[3])
+        case 5:
+            # all other operations
+            return Instruction([words[0], words[2]], words[1], words[4])
 
 
 with open("input07.txt", "r") as f:

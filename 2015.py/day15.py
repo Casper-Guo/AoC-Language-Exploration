@@ -1,6 +1,6 @@
 from math import prod
-import utils
 
+import utils
 
 num_calls = 0
 

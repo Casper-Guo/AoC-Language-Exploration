@@ -1,4 +1,3 @@
-from copy import deepcopy
 from itertools import product
 
 
@@ -22,7 +21,7 @@ class Spell:
         return hash(self.name)
 
 
-class Magic_Missile(Spell):
+class MagicMissile(Spell):
     def __init__(self):
         super().__init__("Magic Missle", cost=53, dmg=4)
 
@@ -47,7 +46,7 @@ class Recharge(Spell):
         super().__init__("Recharge", cost=229, mana=101, duration=5)
 
 
-SPELLS = [Magic_Missile, Drain, Shield, Poison, Recharge]
+SPELLS = [MagicMissile, Drain, Shield, Poison, Recharge]
 
 
 class Boss:
@@ -109,7 +108,7 @@ class Player:
 
 
 def spell_factory(spells):
-    str_to_spell = {"M": Magic_Missile, "D": Drain, "S": Shield, "P": Poison, "R": Recharge}
+    str_to_spell = {"M": MagicMissile, "D": Drain, "S": Shield, "P": Poison, "R": Recharge}
     return [str_to_spell[i]() for i in spells]
 
 
@@ -125,8 +124,7 @@ def simulate(spells):
         # part 2
         if player.hp <= 1:
             return
-        else:
-            player.hp -= 1
+        player.hp -= 1
 
         player.player_turn(boss)
         player.remove_inactive_spell()
@@ -141,20 +139,19 @@ def simulate(spells):
             or player.spent + spell.cost > MIN_SPENT
         ):
             return
-        else:
-            player.cast_spell(spell, boss)
+        player.cast_spell(spell, boss)
 
-            if boss.hp <= 0:
-                MIN_SPENT = min(MIN_SPENT, player.spent)
-                return
+        if boss.hp <= 0:
+            MIN_SPENT = min(MIN_SPENT, player.spent)
+            return
 
-            player.boss_turn(boss)
+        player.boss_turn(boss)
 
-            if boss.hp <= 0:
-                MIN_SPENT = min(MIN_SPENT, player.spent)
-                return
-            elif player.hp <= 0:
-                return
+        if boss.hp <= 0:
+            MIN_SPENT = min(MIN_SPENT, player.spent)
+            return
+        if player.hp <= 0:
+            return
 
 
 for spells in product("MDSPR", repeat=9):

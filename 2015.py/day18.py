@@ -1,5 +1,5 @@
-from itertools import product
 from copy import deepcopy
+from itertools import product
 
 
 def parse_line(line: str) -> list[int]:
@@ -18,9 +18,8 @@ def sum_neighbors(row: int, col: int, grid: list[list[int]]) -> int:
 
     # part 2 only
     # keep the corner lights on
-    if row == 0 or row == size - 1:
-        if col == 0 or col == size - 1:
-            return 2
+    if row in [0, size - 1] and col in [0, size - 1]:
+        return 2
 
     for delta_row, delta_col in product(deltas, repeat=2):
         if delta_row == 0 and delta_col == 0:
@@ -63,7 +62,7 @@ with open("input18.txt", "r") as f:
     # part 1 and part 2 differs in sum_neighbor implementation
     grid = [parse_line(line) for line in input]
 
-    for i in range(100):
+    for _ in range(100):
         grid = one_iter(grid)
 
     print(sum([sum(row) for row in grid]))

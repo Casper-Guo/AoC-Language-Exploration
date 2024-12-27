@@ -1,6 +1,5 @@
-from math import prod
 from itertools import combinations
-
+from math import prod
 
 with open("input24.txt", "r") as f:
     weights = f.readlines()

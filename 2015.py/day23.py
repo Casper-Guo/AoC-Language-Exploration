@@ -7,48 +7,43 @@ def execute_instruction(
 ) -> tuple[int, int, int]:
     instruction = instructions[index]
 
-    if instruction[0] == "hlf":
-        if instruction[1] == "a":
-            reg_a /= 2
-        else:
-            reg_b /= 2
-        return reg_a, reg_b, index + 1
-    elif instruction[0] == "tpl":
-        if instruction[1] == "a":
-            reg_a *= 3
-        else:
-            reg_b *= 3
-        return reg_a, reg_b, index + 1
-    elif instruction[0] == "inc":
-        if instruction[1] == "a":
-            reg_a += 1
-        else:
-            reg_b += 1
-        return reg_a, reg_b, index + 1
-    elif instruction[0] == "jmp":
-        return reg_a, reg_b, index + int(instruction[1])
-    elif instruction[0] == "jie":
-        if instruction[1] == "a":
-            if reg_a % 2 == 0:
-                return reg_a, reg_b, index + int(instruction[2])
+    match instruction[0]:
+        case "hlf":
+            if instruction[1] == "a":
+                reg_a /= 2
             else:
+                reg_b /= 2
+            return reg_a, reg_b, index + 1
+        case "tpl":
+            if instruction[1] == "a":
+                reg_a *= 3
+            else:
+                reg_b *= 3
+            return reg_a, reg_b, index + 1
+        case "inc":
+            if instruction[1] == "a":
+                reg_a += 1
+            else:
+                reg_b += 1
+            return reg_a, reg_b, index + 1
+        case "jmp":
+            return reg_a, reg_b, index + int(instruction[1])
+        case "jie":
+            if instruction[1] == "a":
+                if reg_a % 2 == 0:
+                    return reg_a, reg_b, index + int(instruction[2])
                 return reg_a, reg_b, index + 1
-        else:
             if reg_b % 2 == 0:
                 return reg_a, reg_b, index + int(instruction[2])
-            else:
+            return reg_a, reg_b, index + 1
+        case "jio":
+            if instruction[1] == "a":
+                if reg_a == 1:
+                    return reg_a, reg_b, index + int(instruction[2])
                 return reg_a, reg_b, index + 1
-    elif instruction[0] == "jio":
-        if instruction[1] == "a":
-            if reg_a == 1:
-                return reg_a, reg_b, index + int(instruction[2])
-            else:
-                return reg_a, reg_b, index + 1
-        else:
             if reg_b == 1:
                 return reg_a, reg_b, index + int(instruction[2])
-            else:
-                return reg_a, reg_b, index + 1
+            return reg_a, reg_b, index + 1
 
 
 with open("input23.txt", "r") as f:

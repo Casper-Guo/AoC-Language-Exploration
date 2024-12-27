@@ -4,10 +4,11 @@ from itertools import combinations
 def parse_line(line: str) -> tuple[str, str, int]:
     splits = line.strip("\n.").split()
 
-    if splits[2] == "gain":
-        return splits[0], splits[-1], int(splits[3])
-    elif splits[2] == "lose":
-        return splits[0], splits[-1], -int(splits[3])
+    match splits[2]:
+        case "gain":
+            return splits[0], splits[-1], int(splits[3])
+        case "lose":
+            return splits[0], splits[-1], -int(splits[3])
 
 
 def find_gain(start: str, end: str, relationship: dict[str, dict[str, int]]) -> int:
@@ -22,10 +23,10 @@ def held_karp(relationship: dict) -> int:
     g = {}
 
     for k in range(1, n):
-        g[tuple([tuple([k]), k])] = find_gain(people[0], people[k], relationship)
+        g[(tuple(k), k)] = find_gain(people[0], people[k], relationship)
 
     for s in range(2, n):
-        for S in combinations(range(1, n), s):
+        for S in combinations(range(1, n), s):  # noqa: N806
             for k in S:
                 options = []
                 for m in S:
@@ -33,7 +34,7 @@ def held_karp(relationship: dict) -> int:
                         continue
                     m_k = find_gain(people[m], people[k], relationship)
 
-                    S_not_k = tuple([i for i in S if i != k])
+                    S_not_k = tuple([i for i in S if i != k])  # noqa: N806
                     options.append(g[(S_not_k, m)] + m_k)
 
                 g[(S, k)] = max(options)
@@ -42,7 +43,7 @@ def held_karp(relationship: dict) -> int:
 
     for k in range(1, n):
         k_1 = find_gain(people[0], people[k], relationship)
-        paths.append(g[tuple([tuple(i for i in range(1, n)), k])] + k_1)
+        paths.append(g[(tuple(i for i in range(1, n)), k)] + k_1)
 
     return max(paths)
 

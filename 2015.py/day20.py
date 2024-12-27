@@ -8,8 +8,8 @@ If X = a * b and a and b are relatively prime, then f(X) = f(a) * f(b)
 If X = a^n and a is prime, then f(X) = a^0 + a^1 + ... a^n
 """
 
-from math import prod
 from itertools import product
+from math import prod
 
 
 def list_factors(prime_factorization: dict[int, int]) -> list[int]:
