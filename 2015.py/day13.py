@@ -23,7 +23,7 @@ def held_karp(relationship: dict) -> int:
     g = {}
 
     for k in range(1, n):
-        g[(tuple(k), k)] = find_gain(people[0], people[k], relationship)
+        g[((k,), k)] = find_gain(people[0], people[k], relationship)
 
     for s in range(2, n):
         for S in combinations(range(1, n), s):  # noqa: N806
