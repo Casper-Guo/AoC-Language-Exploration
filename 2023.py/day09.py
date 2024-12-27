@@ -1,4 +1,5 @@
 import itertools
+
 import utils
 
 
@@ -7,7 +8,7 @@ def process_line(line):
 
 
 def condense(line):
-    return list((b - a for a, b in itertools.pairwise(line)))
+    return [b - a for a, b in itertools.pairwise(line)]
 
 
 def extrapolate(line, condensed_line):

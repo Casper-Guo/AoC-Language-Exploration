@@ -34,8 +34,7 @@ def check_overlap(left: tuple[int], right: tuple[int]) -> bool:
 
     if left_start <= right_start:
         return left_end >= right_start
-    else:
-        return left_start <= right_end
+    return left_start <= right_end
 
 
 def collapse_once(intervals: list[tuple[int]]) -> list[tuple[int]]:
@@ -44,8 +43,7 @@ def collapse_once(intervals: list[tuple[int]]) -> list[tuple[int]]:
     if len(intervals) == 2:
         if check_overlap(*intervals):
             return [(intervals[0][0], max(intervals[0][1], intervals[1][1]))]
-        else:
-            return intervals
+        return intervals
 
     mid = len(intervals) // 2
     return collapse_once(intervals[:mid]) + collapse_once(intervals[mid:])
@@ -64,9 +62,7 @@ def collapse_intervals(intervals: list[tuple[int]]) -> list[tuple[int]]:
     return intervals
 
 
-def map_intervals(
-    intervals: list[tuple[int]], mappings: list[tuple[int]]
-) -> list[tuple[int]]:
+def map_intervals(intervals: list[tuple[int]], mappings: list[tuple[int]]) -> list[tuple[int]]:
     new_intervals = set()
 
     for interval in intervals:
@@ -122,9 +118,9 @@ def main():
     # part 1
     part1_seeds = utils.ints(lines[0])
     mappings = process_mappings(lines[1:])
-    mappings = list(map(lambda mapping: sorted(mapping, key=lambda x: x[1]), mappings))
+    mappings = [sorted(mapping, key=lambda x: x[1]) for mapping in mappings]
 
-    part1_seeds = list(map(lambda seed: seed_to_location(seed, mappings), part1_seeds))
+    part1_seeds = [seed_to_location(seed, mappings) for seed in part1_seeds]
     print(min(part1_seeds))
 
     # part 2

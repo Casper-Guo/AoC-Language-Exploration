@@ -1,4 +1,5 @@
 from collections import defaultdict, deque
+
 import utils
 
 SLOPES = {"^": (-1, 0), ">": (0, 1), "v": (1, 0), "<": (0, -1)}
@@ -11,7 +12,7 @@ def get_next_coords(grid, current):
         for neighbor in neighbors:
             if grid[neighbor] == ".":
                 next_coords.append(neighbor)
-            elif grid[neighbor] in SLOPES:
+            elif grid[neighbor] in SLOPES:  # noqa: SIM102
                 if utils.get_direction(neighbor, current) == SLOPES[grid[neighbor]]:
                     next_coords.append(neighbor)
         return next_coords
@@ -45,7 +46,7 @@ def bfs(grid, start):
 def main():
     with open("input23.txt", "r") as f:
         lines = f.readlines()
-        lines = [[i for i in line.strip()] for line in lines]
+        lines = [list(line.strip()) for line in lines]
     grid = utils.Grid(lines)
     start = grid.find(".")[0]
     end = grid.find(".")[-1]

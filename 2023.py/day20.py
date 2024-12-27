@@ -14,17 +14,20 @@ class Module:
         # default to rebroadcasting first received message
         if self.messages:
             return self.messages.popleft()
-        else:
-            return None
+        return None
 
 
-class Flip_Flop(Module):
+class FlipFlop(Module):
     def __init__(self, name, output_modules):
         super().__init__(name, output_modules)
         self.status = False
 
     def __repr__(self):
-        return f"Flip Flop module {self.name}, output to {self.output_modules}, {'ON' if self.status else 'OFF'}"
+        return (
+            f"Flip Flop module {self.name},"
+            f" output to {self.output_modules},"
+            f" {'ON' if self.status else 'OFF'}"
+        )
 
     def receive_message(self, message, sender=None):
         super().receive_message(message, sender)
@@ -37,8 +40,7 @@ class Flip_Flop(Module):
         if first_received:
             # do nothing for high pulse
             return None
-        else:
-            return self.status
+        return self.status
 
 
 class Conjunction(Module):
@@ -48,7 +50,11 @@ class Conjunction(Module):
         self.messages = defaultdict(lambda: False)
 
     def __repr__(self):
-        return f"Conjunction module {self.name}, input from {self.input_modules} last received messages {self.messages}, output to {self.output_modules}"
+        return (
+            f"Conjunction module {self.name},"
+            f" input from {self.input_modules} last received messages {self.messages},"
+            f" output to {self.output_modules}"
+        )
 
     def receive_message(self, message, sender=None):
         self.messages[sender] = message
@@ -67,7 +73,9 @@ class Broadcast(Module):
 
 
 class Output(Module):
-    def __init__(self, name="output", output_modules=[]):
+    def __init__(self, name="output", output_modules=None):
+        if output_modules is None:
+            output_modules = []
         super().__init__(name, output_modules)
 
     def __repr__(self):
@@ -99,7 +107,7 @@ def make_modules(inputs, outputs):
             case "b":
                 modules["broadcaster"] = Broadcast("broadcaster", connected)
             case "%":
-                modules[name[1:]] = Flip_Flop(name[1:], connected)
+                modules[name[1:]] = FlipFlop(name[1:], connected)
             case "&":
                 modules[name[1:]] = Conjunction(name[1:], connected, inputs[name[1:]])
 
@@ -130,9 +138,7 @@ def press_once(modules, log=False):
                     num_low += 1
 
                 if log:
-                    print(
-                        f"{processing.name} -{'high' if to_send else 'low'}-> {module}"
-                    )
+                    print(f"{processing.name} -{'high' if to_send else 'low'}-> {module}")
 
                 if module not in modules:
                     continue
@@ -152,7 +158,7 @@ def main():
     num_presses = 1000
     num_low, num_high = 0, 0
 
-    for i in range(num_presses):
+    for _ in range(num_presses):
         low_sent, high_sent = press_once(modules, False)
         num_low += low_sent
         num_high += high_sent

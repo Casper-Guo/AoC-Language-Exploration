@@ -1,7 +1,8 @@
-import regex as re
 import collections
-import utils
 from math import prod
+
+import regex as re
+import utils
 
 DIGITS = [str(i) for i in range(0, 10)]
 NON_SYMBOLS = DIGITS + ["."]
@@ -12,7 +13,7 @@ def validate_number(grid: utils.Grid, row_idx: int, match: re.match) -> bool:
     for col_idx in range(*match.span()):
         neighbors.update(grid.get_adj_neighbors((row_idx, col_idx)))
     neighbor_items = [grid[coord] for coord in neighbors]
-    return any([item not in NON_SYMBOLS for item in neighbor_items])
+    return any(item not in NON_SYMBOLS for item in neighbor_items)
 
 
 def search_gears(
@@ -26,7 +27,7 @@ def search_gears(
     for gear in adj_gears:
         gears[gear].append(int(match.group()))
 
-    return None
+    return
 
 
 def process_line(line) -> list[re.Match]:
@@ -64,7 +65,7 @@ def main():
 
     print(gear_ratio_sum)
 
-    return None
+    return
 
 
 main()

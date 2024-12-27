@@ -1,4 +1,5 @@
 import collections
+
 import utils
 
 
@@ -15,8 +16,7 @@ def calc_points(winning_numbers: set[int], actual_numbers: set[int]) -> float:
 
     if num_winning:
         return 2 ** (num_winning - 1)
-    else:
-        return 0
+    return 0
 
 
 def num_winning(winning_numbers: set[int], actual_numbers: set[int]) -> float:
@@ -30,7 +30,7 @@ def main():
     lines = list(map(process_line, lines))
 
     # part 1
-    print(sum(map(lambda x: calc_points(*x), lines)))
+    print(sum(calc_points(*x) for x in lines))
 
     # part 2
     num_cards = collections.defaultdict(lambda: 1)
