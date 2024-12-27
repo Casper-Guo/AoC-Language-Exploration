@@ -34,10 +34,10 @@ def held_karp(graph: dict) -> int:
     g = {}
 
     for k in range(1, n):
-        g[tuple([tuple([k]), k])] = lookup_dist(cities[0], cities[k], graph)
+        g[(tuple(k), k)] = lookup_dist(cities[0], cities[k], graph)
 
     for s in range(2, n):
-        for S in combinations(range(1, n), s):
+        for S in combinations(range(1, n), s):  # noqa: N806
             for k in S:
                 options = []
                 for m in S:
@@ -45,7 +45,7 @@ def held_karp(graph: dict) -> int:
                         continue
                     m_k = lookup_dist(cities[m], cities[k], graph)
 
-                    S_not_k = tuple([i for i in S if i != k])
+                    S_not_k = tuple([i for i in S if i != k])  # noqa: N806
                     options.append(g[(S_not_k, m)] + m_k)
 
                 g[(S, k)] = max(options)
@@ -55,7 +55,7 @@ def held_karp(graph: dict) -> int:
     for k in range(1, n):
         # distance to desginated start (dummy)
         # is always 0
-        paths.append(g[tuple([tuple(i for i in range(1, n)), k])])
+        paths.append(g[(tuple(i for i in range(1, n)), k)])
 
     return max(paths)
 

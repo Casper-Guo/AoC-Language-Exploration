@@ -1,5 +1,5 @@
-from math import ceil
 from itertools import combinations
+from math import ceil
 
 boss_hp = 104
 boss_dmg = 8

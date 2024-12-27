@@ -14,19 +14,11 @@ def three_vowels(input: str) -> bool:
 
 
 def repeat_letter(input: str) -> bool:
-    for i in range(len(input) - 1):
-        if input[i] == input[i + 1]:
-            return True
-
-    return False
+    return any(input[i] == input[i + 1] for i in range(len(input) - 1))
 
 
 def separate_repeat(input: str) -> bool:
-    for i in range(len(input) - 2):
-        if input[i] == input[i + 2]:
-            return True
-
-    return False
+    return any(input[i] == input[i + 2] for i in range(len(input) - 2))
 
 
 def repeat_twice(input: str) -> bool:
@@ -43,7 +35,7 @@ def repeat_twice(input: str) -> bool:
 
 
 def no_forbidden(input: str) -> bool:
-    return all([seq not in input for seq in forbidden])
+    return all(seq not in input for seq in forbidden)
 
 
 with open("input05.txt", "r") as f:

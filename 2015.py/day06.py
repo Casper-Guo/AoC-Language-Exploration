@@ -9,7 +9,11 @@ def process_line(line: str) -> tuple[str, tuple[int, int], tuple[int, int]]:
     # then the instruction
     words = line.split()
 
-    return " ".join(words[:-5]), (int(words[-5]), int(words[-4])), (int(words[-2]), int(words[-1]))
+    return (
+        " ".join(words[:-5]),
+        (int(words[-5]), int(words[-4])),
+        (int(words[-2]), int(words[-1])),
+    )
 
 
 def switch_on_off(

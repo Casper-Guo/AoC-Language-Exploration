@@ -4,11 +4,11 @@ import json
 def json_sum(object: dict | list | str | int) -> int:
     if isinstance(object, int):
         return object
-    elif isinstance(object, str):
+    if isinstance(object, str):
         return 0
-    elif isinstance(object, list):
+    if isinstance(object, list):
         return sum([json_sum(i) for i in object])
-    elif isinstance(object, dict):
+    if isinstance(object, dict):
         # part 1
         # return sum([json_sum(i) for i in object.values()])
 

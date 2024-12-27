@@ -23,7 +23,7 @@ def find_grid(x: int, y: int) -> int:
     factor = 252533
     modular = 33554393
 
-    for i in range(num_iter):
+    for _ in range(num_iter):
         seed = (seed * factor) % modular
 
     return seed
