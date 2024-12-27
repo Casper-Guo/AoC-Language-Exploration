@@ -1,0 +1,34 @@
+line-length = 96
+indent-width = 4
+
+[lint]
+select = [
+    # Pyflakes
+    "F",
+    # pycodestyle warnings
+    "W",
+    # pycodestyle errors
+    "E",
+    # isort
+    "I",
+    # pep8-naming
+    "N",
+    # flake8-blind-except
+    "BLE",
+    # flake8-bugbear
+    "B",
+    # flake8-comprehensions
+    "C4",
+    # flake8-raise
+    "RSE",
+    # flake8-return
+    "RET",
+    # flake8-unused-arguments
+    "ARG",
+    # flake8-simplify
+    "SIM",
+]
+
+[format]
+quote-style = "double"
+indent-style = "space"
