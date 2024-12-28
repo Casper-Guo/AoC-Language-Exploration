@@ -23,13 +23,13 @@ def count_marble(marble_set: list[str]) -> tuple[int]:
 
 def process_line(line: str) -> list[tuple[int]]:
     """First line of sample input is converted to [(4, 0, 3), (1, 2, 6), (0, 2, 0)]."""
-    line = line[line.find(":") + 2:]
+    line = line[line.find(":") + 2 :]
 
     # split into sets
     sets = line.split(";")
 
     # split into number and color combos
-    sets = map(lambda x: x.split(", "), sets)
+    sets = [x.split(", ") for x in sets]
 
     return list(map(count_marble, sets))
 

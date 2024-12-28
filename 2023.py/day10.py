@@ -1,7 +1,8 @@
 from collections import deque
-import utils
-from typing import TypeAlias, Iterable
 from itertools import pairwise
+from typing import Iterable, TypeAlias
+
+import utils
 
 Delta: TypeAlias = tuple[int, int]
 Coord: TypeAlias = tuple[int, int]
@@ -28,16 +29,15 @@ def check_connected(current: str, next: str, direction: Delta) -> bool:
     if current not in PIPE_CONNECTIONS or next not in PIPE_CONNECTIONS:
         return False
     return (
-        direction in PIPE_CONNECTIONS[current] and utils.turn_180(direction) in PIPE_CONNECTIONS[next]
+        direction in PIPE_CONNECTIONS[current]
+        and utils.turn_180(direction) in PIPE_CONNECTIONS[next]
     )
 
 
 def expand_cycle(grid: utils.Grid, current: Coord) -> list[Coord]:
     next_coords = []
     for next in grid.get_dir_neighbors(current):
-        if check_connected(
-            grid[current], grid[next], utils.get_direction(next, current)
-        ):
+        if check_connected(grid[current], grid[next], utils.get_direction(next, current)):
             next_coords.append(next)
     return next_coords
 
@@ -53,7 +53,7 @@ def main():
     with open("input10.txt", "r") as f:
         lines = f.readlines()
         lines = [line.strip() for line in lines]
-        lines = [[i for i in line] for line in lines]
+        lines = [list(line) for line in lines]
 
     # part 1
     grid = utils.Grid(lines)
@@ -65,9 +65,9 @@ def main():
     while current_coords:
         step += 1
         current_coord = current_coords.pop()
-        next_coords = list(
-            filter(lambda x: x not in cycle, expand_cycle(grid, current_coord))
-        )[:1]
+        next_coords = list(filter(lambda x: x not in cycle, expand_cycle(grid, current_coord)))[
+            :1
+        ]
         for next_coord in next_coords:
             cycle[next_coord] = step
         current_coords.extend(next_coords)
@@ -76,9 +76,7 @@ def main():
 
     # part 2 geometry solution
     # sort vertices by their order of appearance in the cycle
-    vertices = sorted(
-        [(coord, step) for coord, step in cycle.items()], key=lambda x: x[1]
-    )
+    vertices = sorted(cycle.items(), key=lambda x: x[1])
     vertices = [vertex[0] for vertex in vertices]
 
     # Shoelace Formula

@@ -6,7 +6,7 @@ def let_roll(line: list[str]) -> list[str]:
     for initial, i in enumerate(line):
         if i == "O":
             for final in range(initial - 1, -1, -1):
-                if line[final] != '.':
+                if line[final] != ".":
                     line[initial] = "."
                     line[final + 1] = "O"
                     break
@@ -18,9 +18,7 @@ def let_roll(line: list[str]) -> list[str]:
 
 
 def calc_load(line: list[str]) -> int:
-    return sum(
-        map(lambda x: len(line) - x, [i for i in range(len(line)) if line[i] == "O"])
-    )
+    return sum(len(line) - x for x in [i for i in range(len(line)) if line[i] == "O"])
 
 
 def cycle(grid):
@@ -50,12 +48,12 @@ def main():
     with open("input14.txt", "r") as f:
         lines = f.readlines()
         lines = [line.strip() for line in lines]
-        lines = [[i for i in line] for line in lines]
+        lines = [list(line) for line in lines]
 
     grid = utils.Grid(lines)
     print(sum(map(calc_load, [let_roll(grid.get_col(i)) for i in range(grid.cols)])))
 
-    for i in range(200):
+    for _ in range(200):
         grid = cycle(grid)
 
     print(sum(map(calc_load, [grid.get_col(i) for i in range(grid.cols)])))

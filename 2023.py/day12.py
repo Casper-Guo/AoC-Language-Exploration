@@ -1,5 +1,6 @@
-import regex as re
 from functools import cache
+
+import regex as re
 import utils
 
 
@@ -19,7 +20,7 @@ def calc_config(condition, groups, current_group=0):
         if current_group:
             return int(len(groups) == 1 and current_group == groups[0])
         return int(len(groups) == 0)
-        
+
     if not groups:
         return int("#" not in condition or current_group)
 
@@ -42,27 +43,25 @@ def calc_config(condition, groups, current_group=0):
     if condition[0] == "#":
         # increment current group length
         return calc_config(condition[1:], groups, current_group + 1)
-    else:
-        # this location can either be operational or broken
-        if current_group == groups[0]:
-            # if current group length matches the first group in groups
-            # then the current location must be operational
-            return calc_config(condition[1:], groups[1:], 0)
-        else:
-            # if current group length doesn't match the first group in groups
-            # and the group has started, then the current location must be broken
-            if current_group:
-                return calc_config(condition[1:], groups, current_group + 1)
-            # if the group haven't started, then it doesn't have to start now
-            return calc_config(
-                condition[1:], groups, current_group + 1
-            ) + calc_config(condition[1:], groups, current_group)
+    # this location can either be operational or broken
+    if current_group == groups[0]:
+        # if current group length matches the first group in groups
+        # then the current location must be operational
+        return calc_config(condition[1:], groups[1:], 0)
+    # if current group length doesn't match the first group in groups
+    # and the group has started, then the current location must be broken
+    if current_group:
+        return calc_config(condition[1:], groups, current_group + 1)
+    # if the group haven't started, then it doesn't have to start now
+    return calc_config(condition[1:], groups, current_group + 1) + calc_config(
+        condition[1:], groups, current_group
+    )
 
 
 def part2_modify(condition):
     modified_condition = list(condition)
 
-    for i in range(4):
+    for _ in range(4):
         modified_condition.extend(["?"] + list(condition))
 
     return tuple(modified_condition)
@@ -87,5 +86,6 @@ def main():
         total_config += calc_config(part2_modify(condition), 5 * groups)
 
     print(total_config)
+
 
 main()

@@ -1,6 +1,7 @@
 import itertools
-import utils
 from typing import TypeAlias
+
+import utils
 
 Coord: TypeAlias = tuple[int, int]
 
@@ -29,20 +30,18 @@ def main():
     with open("input11.txt", "r") as f:
         lines = f.readlines()
         lines = [line.strip() for line in lines]
-        lines = [[i for i in line] for line in lines]
+        lines = [list(line) for line in lines]
 
     grid = utils.Grid(lines)
-    no_galaxy_rows = set([i for i in range(grid.rows) if "#" not in grid.get_row(i)])
-    no_galaxy_cols = set([i for i in range(grid.cols) if "#" not in grid.get_col(i)])
+    no_galaxy_rows = {i for i in range(grid.rows) if "#" not in grid.get_row(i)}
+    no_galaxy_cols = {i for i in range(grid.cols) if "#" not in grid.get_col(i)}
     galaxies = grid.find("#")
 
     part1_distance = 0
 
     # part 1
     for galaxy1, galaxy2 in itertools.combinations(galaxies, 2):
-        part1_distance += get_distance(
-            galaxy1, galaxy2, no_galaxy_rows, no_galaxy_cols, 2
-        )
+        part1_distance += get_distance(galaxy1, galaxy2, no_galaxy_rows, no_galaxy_cols, 2)
 
     print(part1_distance)
 

@@ -1,4 +1,5 @@
 from collections import defaultdict
+
 import utils
 
 
@@ -71,9 +72,7 @@ def summarize_pattern(pattern: utils.Grid, part1: bool) -> float:
                 col_off[j].add(i)
 
     vertical_sum = sum(find_reflections(col_equiv, col_off, pattern.cols, part1))
-    horizontal_sum = (
-        sum(find_reflections(row_equiv, row_off, pattern.rows, part1)) * 100
-    )
+    horizontal_sum = sum(find_reflections(row_equiv, row_off, pattern.rows, part1)) * 100
 
     return vertical_sum + horizontal_sum
 
@@ -83,7 +82,7 @@ def main():
         lines = f.readlines()
         lines = [line.strip() for line in lines]
 
-    patterns = list(map(lambda x: utils.Grid(x), utils.list_split(lines, "")))
+    patterns = [utils.Grid(x) for x in utils.list_split(lines, "")]
 
     part1_total = sum([summarize_pattern(pattern, True) for pattern in patterns])
     part2_total = sum([summarize_pattern(pattern, False) for pattern in patterns])

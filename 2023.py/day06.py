@@ -1,5 +1,6 @@
+from math import ceil, floor, prod
+
 import utils
-from math import prod, ceil, floor
 from scipy.optimize import fsolve
 
 

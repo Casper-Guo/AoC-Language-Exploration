@@ -1,5 +1,6 @@
-import utils
 from copy import deepcopy
+
+import utils
 
 
 def check_overlap(range1, range2):
@@ -9,8 +10,7 @@ def check_overlap(range1, range2):
 
     if start1 < start2:
         return end1 >= start2
-    else:
-        return start1 <= end2
+    return start1 <= end2
 
 
 def is_support(brick1, brick2):
@@ -19,7 +19,9 @@ def is_support(brick1, brick2):
         # then brick1 definitely doesn't support brick2
         return False
 
-    return check_overlap((brick1[0], brick1[3]), (brick2[0], brick2[3])) and check_overlap((brick1[1], brick1[4]), (brick2[1], brick2[4]))
+    return check_overlap((brick1[0], brick1[3]), (brick2[0], brick2[3])) and check_overlap(
+        (brick1[1], brick1[4]), (brick2[1], brick2[4])
+    )
 
 
 def process_line(line):
@@ -62,7 +64,7 @@ def find_num_fall(brick, supports, supported):
 
     num_fall = 0
     for i in supported:
-        supported[i] -= set([brick])
+        supported[i] -= {brick}
 
     for i in supports[brick]:
         if len(supported[i]) == 0:

@@ -1,4 +1,5 @@
 import itertools
+
 import utils
 
 
@@ -42,9 +43,8 @@ def main():
 
     for stone1, stone2 in itertools.combinations(stones, r=2):
         x, y = find_intersection(stone1, stone2)
-        if x is not None:
-            if lims[0] <= x <= lims[1] and lims[0] <= y <= lims[1]:
-                test_area_intersect += 1
+        if x is not None and lims[0] <= x <= lims[1] and lims[0] <= y <= lims[1]:
+            test_area_intersect += 1
 
     print(test_area_intersect)
     return

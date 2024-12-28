@@ -1,6 +1,7 @@
 from collections import defaultdict
-import utils
 from typing import TypeAlias
+
+import utils
 from heapdict import heapdict
 
 Coord: TypeAlias = tuple[int, int]
@@ -11,7 +12,9 @@ def process_line(line):
     return [int(i) for i in line]
 
 
-def get_neighbors(grid: utils.Grid, current: Coord, travel_direction: Direction, travel_amt: int, part1: bool):
+def get_neighbors(
+    grid: utils.Grid, current: Coord, travel_direction: Direction, travel_amt: int, part1: bool
+):
     neighbors = []
 
     if travel_direction == (0, 0):
@@ -19,20 +22,34 @@ def get_neighbors(grid: utils.Grid, current: Coord, travel_direction: Direction,
             neighbors.append((*utils.change_direction(current, direction), 1))
     else:
         if part1:
-            neighbors.append((*utils.change_direction(current, utils.turn_left(travel_direction)), 1))
-            neighbors.append((*utils.change_direction(current, utils.turn_right(travel_direction)), 1))
+            neighbors.append(
+                (*utils.change_direction(current, utils.turn_left(travel_direction)), 1)
+            )
+            neighbors.append(
+                (*utils.change_direction(current, utils.turn_right(travel_direction)), 1)
+            )
 
             if travel_amt < 3:
-                neighbors.append((*utils.change_direction(current, travel_direction), travel_amt + 1))
+                neighbors.append(
+                    (*utils.change_direction(current, travel_direction), travel_amt + 1)
+                )
         else:
             if travel_amt < 4:
-                neighbors.append((*utils.change_direction(current, travel_direction), travel_amt + 1))
+                neighbors.append(
+                    (*utils.change_direction(current, travel_direction), travel_amt + 1)
+                )
             else:
-                neighbors.append((*utils.change_direction(current, utils.turn_left(travel_direction)), 1))
-                neighbors.append((*utils.change_direction(current, utils.turn_right(travel_direction)), 1))
+                neighbors.append(
+                    (*utils.change_direction(current, utils.turn_left(travel_direction)), 1)
+                )
+                neighbors.append(
+                    (*utils.change_direction(current, utils.turn_right(travel_direction)), 1)
+                )
 
                 if travel_amt < 10:
-                    neighbors.append((*utils.change_direction(current, travel_direction), travel_amt + 1))
+                    neighbors.append(
+                        (*utils.change_direction(current, travel_direction), travel_amt + 1)
+                    )
 
     return list(filter(lambda x: x[0] in grid, neighbors))
 
@@ -40,8 +57,7 @@ def get_neighbors(grid: utils.Grid, current: Coord, travel_direction: Direction,
 def extract_coord(dist, coord, part1):
     if part1:
         return list(filter(lambda x: x[0][0] == coord, dist.items()))
-    else:
-        return list(filter(lambda x: x[0][0] == coord and x[0][2] >= 4, dist.items()))
+    return list(filter(lambda x: x[0][0] == coord and x[0][2] >= 4, dist.items()))
 
 
 def dijkstra(grid: utils.Grid, start: Coord, part1: bool):

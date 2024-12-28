@@ -1,14 +1,19 @@
 """Source: https://github.com/mcpower/adventofcode/blob/master/utils.py#L12"""
 
 import re
-from typing import Iterable, Generic, TypeVar, Self, TypeAlias
 from collections import defaultdict
+from typing import Generic, Iterable, Self, TypeAlias, TypeVar
 
 Coord: TypeAlias = tuple[int, int]
 Direction: TypeAlias = tuple[int, int]
 Node: TypeAlias = tuple[Coord, Direction]
 
 T = TypeVar("T")
+
+
+def is_int(input: str) -> bool:
+    # extend isdigit to cover negative numbers
+    return input.lstrip("-+").isdigit()
 
 
 def lmap(func, *iterables):
@@ -201,11 +206,7 @@ class Grid(Generic[T]):
         """Two grids are equal if all elements are equal."""
         if self.rows != other.rows or self.cols != other.cols:
             return False
-        else:
-            for coord in self.coords():
-                if self[coord] != other[coord]:
-                    return False
-        return True
+        return all(self[coord] == other[coord] for coord in self.coords())
 
     def __getitem__(self, coord: Iterable[int]) -> T:
         return self.grid[coord[0]][coord[1]]
@@ -245,6 +246,12 @@ DELTA_TO_NESW = {
     (1, 0): "S",
     (0, -1): "W",
 }
+DELTA_TO_ARROWS = {(-1, 0): "^", (0, 1): ">", (1, 0): "v", (0, -1): "<"}
+
+DELTA_TO_CHAR = {val: key for key, val in CHAR_TO_DELTA.items()}
+UDLR_TO_DELTA = {val: key for key, val in DELTA_TO_UDLR.items()}
+NESW_TO_DELTA = {val: key for key, val in DELTA_TO_NESW.items()}
+ARROWS_TO_DELTA = {val: key for key, val in DELTA_TO_ARROWS.items()}
 
 
 def change_direction(current_coord: Coord, direction: Direction) -> Node:

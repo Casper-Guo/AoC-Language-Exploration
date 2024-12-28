@@ -13,22 +13,22 @@ class Hand:
         self.find_type()
 
     def is_five(self):
-        return any([i == 5 for i in self.counter.values()])
+        return any(i == 5 for i in self.counter.values())
 
     def is_four(self):
-        return any([i == 4 for i in self.counter.values()])
+        return any(i == 4 for i in self.counter.values())
 
     def is_full_house(self):
         return sorted(self.counter.values()) == [2, 3]
 
     def is_three(self):
-        return any([i == 3 for i in self.counter.values()])
+        return any(i == 3 for i in self.counter.values())
 
     def is_two(self):
         return list(self.counter.values()).count(2) == 2
 
     def is_one(self):
-        return any([i == 2 for i in self.counter.values()])
+        return any(i == 2 for i in self.counter.values())
 
     def part2_transform(self):
         if "J" in self.counter:
@@ -78,11 +78,10 @@ class Hand:
     def __lt__(self, other):
         if self.type != other.type:
             return self.type < other.type
-        else:
-            for self_card, other_card in zip(self.hand, other.hand):
-                if CARD_STRENGTH[self_card] != CARD_STRENGTH[other_card]:
-                    return CARD_STRENGTH[self_card] < CARD_STRENGTH[other_card]
-            return False
+        for self_card, other_card in zip(self.hand, other.hand):
+            if CARD_STRENGTH[self_card] != CARD_STRENGTH[other_card]:
+                return CARD_STRENGTH[self_card] < CARD_STRENGTH[other_card]
+        return False
 
     def __repr__(self):
         return f"{self.hand}, {self.type}"
@@ -101,7 +100,7 @@ def main():
 
     # part 1
     winning = 0
-    for idx, (hand, bid) in enumerate(sorted(lines, key=lambda x: x[0])):
+    for idx, (_, bid) in enumerate(sorted(lines, key=lambda x: x[0])):
         winning += (idx + 1) * bid
 
     print(winning)
@@ -112,7 +111,7 @@ def main():
         line[0].part2_transform()
 
     winning = 0
-    for idx, (hand, bid) in enumerate(sorted(lines, key=lambda x: x[0])):
+    for idx, (_, bid) in enumerate(sorted(lines, key=lambda x: x[0])):
         winning += (idx + 1) * bid
 
     print(winning)

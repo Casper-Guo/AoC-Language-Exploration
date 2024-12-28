@@ -1,5 +1,6 @@
-import regex as re
 from collections import defaultdict
+
+import regex as re
 
 
 def process_operation(operation: str):
