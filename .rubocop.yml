@@ -38,3 +38,6 @@ Style/GlobalVars:
 
 Lint/AmbiguousOperatorPrecedence:
   Enabled: False
+
+Style/PerlBackrefs:
+  Enabled: False
