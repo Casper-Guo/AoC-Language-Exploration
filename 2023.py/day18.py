@@ -44,8 +44,8 @@ def main():
 
     # part 2
     num_to_direction = {"0": "R", "1": "D", "2": "L", "3": "U"}
-    part2_directions = list(map(lambda x: num_to_direction[x[2][-1]], lines))
-    part2_amts = list(map(lambda x: int(x[2][:-1], 16), lines))
+    part2_directions = [num_to_direction[line[2][-1]] for line in lines]
+    part2_amts = [int(line[2][:-1], 16) for line in lines]
 
     print(find_area(zip(part2_directions, part2_amts)))
     return

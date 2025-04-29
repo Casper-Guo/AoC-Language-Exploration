@@ -25,11 +25,11 @@ def main():
 
     # part 1
     ints = list(map(process_line, lines))
-    print(sum(map(lambda x: x[0] * 10 + x[-1], ints)))
+    print(sum(x[0] * 10 + x[-1] for x in ints))
 
     # part 2
     digits = list(map(find_digits, lines))
-    print(sum(map(lambda x: x[0] * 10 + x[-1], digits)))
+    print(sum(x[0] * 10 + x[-1] for x in digits))
 
     return
 

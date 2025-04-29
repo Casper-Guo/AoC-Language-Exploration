@@ -1,17 +1,16 @@
-import regex as re
 from math import lcm
+
+import regex as re
 
 
 def process_line(line):
-    capture = re.findall(r"[1-9A-Z]{3}", line)
-    return capture
+    return re.findall(r"[1-9A-Z]{3}", line)
 
 
 def move_one(current, steps, instruction, network):
     if instruction[steps % len(instruction)] == "L":
         return network[current][0]
-    else:
-        return network[current][1]
+    return network[current][1]
 
 
 def main():

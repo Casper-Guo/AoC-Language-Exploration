@@ -9,14 +9,14 @@ def main():
     with open("input21.txt", "r") as f:
         lines = f.readlines()
         lines = [line.strip() for line in lines]
-        lines = [[i for i in line] for line in lines]
+        lines = [list(line) for line in lines]
 
     grid = utils.Grid(lines)
     start = grid.find("S")[0]
     grid[start] = "."
 
     # part 1
-    reached = set([start])
+    reached = {start}
     steps = 0
     step_limit = 64
 

@@ -1,6 +1,7 @@
+from math import prod
+
 import regex as re
 import utils
-from math import prod
 
 
 def process_instructions(instructions):
@@ -28,7 +29,7 @@ def process_workflows(workflows):
 
 def process_part(part):
     part = utils.ints(part)
-    return {category: rating for category, rating in zip(["x", "m", "a", "s"], part)}
+    return dict(zip(["x", "m", "a", "s"], part))
 
 
 def run_one_workflow(workflow: list, part: dict[str, int]) -> str:
@@ -62,7 +63,7 @@ def make_hashable(sets: list[set]) -> tuple[tuple[int]]:
 
 
 def make_set(ranges: list[set]) -> set[tuple[tuple[int]]]:
-    return set([make_hashable(ranges)])
+    return set(make_hashable(ranges))
 
 
 CATEGORY_TO_INDEX = {"x": 0, "m": 1, "a": 2, "s": 3}
@@ -110,8 +111,8 @@ def main():
     with open("input19.txt", "r") as f:
         text = f.read().split("\n\n")
         workflows, parts = text[0], text[1]
-        workflows = list(map(lambda x: x.strip(), workflows.split("\n")))
-        parts = list(map(lambda x: x.strip(), parts.split("\n")))
+        workflows = [workflow.strip() for workflow in workflows.split("\n")]
+        parts = [part.strip() for part in parts.split("\n")]
 
     workflows = process_workflows(workflows)
     parts = list(map(process_part, parts))
