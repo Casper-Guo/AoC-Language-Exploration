@@ -53,4 +53,4 @@ with open("input16.txt", "r") as f:
 
     suspects = [i[0] for i in suspects if judge_match(profile, i[1])]
 
-    print(suspects)
+    print(suspects[0])

@@ -12,7 +12,7 @@ Progress: 270/500 stars (54%)
 
 Progress: 50/50 stars (100%)
 
-Todo: optimize day 6, 10, 18, 20
+Todo: optimize day 4, 6, 10, 11, 18, 20, 22, 25
 
 ### 2016
 

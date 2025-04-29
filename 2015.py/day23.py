@@ -55,7 +55,6 @@ with open("input23.txt", "r") as f:
     reg_b = 0
 
     while index < len(instructions):
-        print(instructions[index], reg_a, reg_b)
         reg_a, reg_b, index = execute_instruction(reg_a, reg_b, instructions, index)
 
     print(reg_b)

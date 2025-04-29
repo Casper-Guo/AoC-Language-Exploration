@@ -34,7 +34,7 @@ def held_karp(graph: dict) -> int:
     g = {}
 
     for k in range(1, n):
-        g[(tuple(k), k)] = lookup_dist(cities[0], cities[k], graph)
+        g[((k,), k)] = lookup_dist(cities[0], cities[k], graph)
 
     for s in range(2, n):
         for S in combinations(range(1, n), s):  # noqa: N806
