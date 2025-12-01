@@ -50,8 +50,7 @@ def numpad_to_dpad(instruction, numpad)
   presses = []
   # always starts at A
   current = [3, 2]
-  null_button = [3, 0]
-  null_row, null_col = null_button
+  null_row, null_col = [3, 0]
 
   instruction.each do |button|
     button_coord = numpad.find(button)
@@ -97,10 +96,9 @@ def dpad_to_numpad(instruction, numpad)
 end
 
 # translate a sequence of direction pad presses to presses on the higher level direction pad
-def dpad_to_dpad(instruction, d_pad)
+# default to starting at A
+def dpad_to_dpad(instruction, d_pad, current: [0, 2])
   presses = []
-  # always starts at A
-  current = [0, 2]
 
   instruction.each do |button|
     button_coord = d_pad.find(button)
@@ -143,24 +141,43 @@ def reverse_dpad_to_dpad(instruction, dpad)
   presses
 end
 
+# current configures where the arm of robot over the first numpad is aiming
+# all other robots still start at A
+def get_seq(instruction, d_pad, num_dpads, current: [0, 2])
+  instruction = dpad_to_dpad(instruction, d_pad, current: current)
+  (num_dpads - 2).times do
+    instruction = dpad_to_dpad(instruction, d_pad)
+  end
+  instruction
+end
+
 num_dpads = 3
 complexity = 0
 
 instructions.each do |instruction|
   code = ints(instruction)[0]
   instruction = numpad_to_dpad(instruction.chars, NUMPAD)
-  (num_dpads - 1).times do
-    instruction = dpad_to_dpad(instruction, D_PAD)
-  end
-  complexity += code * instruction.length
+  complexity += code * get_seq(instruction, D_PAD, num_dpads).length
 end
 
 puts complexity
 
-# sols = [
-#   '<vA<AA>>^AvAA<^A>A<v<A>>^AvA^A<vA>^A<v<A>^A>AAvA^A<v<A>A>^AAAvA<^A>A',
-#   '<v<A>>^AAAvA^A<vA<AA>>^AvAA<^A>A<v<A>A>^AAAvA<^A>A<vA>^A<A>A',
-#   '<v<A>>^A<vA<A>>^AAvAA<^A>A<v<A>>^AAvA^A<vA>^AA<A>A<v<A>A>^AAAvA<^A>A',
-#   '<v<A>>^AA<vA<A>>^AAvAA<^A>A<vA>^A<A>A<vA>^A<A>A<v<A>A>^AAvA<^A>A',
-#   '<v<A>>^AvA^A<vA<AA>>^AAvA<^A>AAvA^A<vA>^AA<A>A<v<A>A>^AAAvA<^A>A'
-# ]
+d_keys = ['^', 'A', '<', 'v', '>']
+seq_lengths = {}
+
+d_keys.product(d_keys).each do |seq|
+  first, second = seq
+  start = D_PAD.find(first)
+  seq_lengths[seq] = get_seq([second], D_PAD, 14, current: start).length
+end
+
+complexity = 0
+
+instructions.each do |instruction|
+  code = ints(instruction)[0]
+  instruction = numpad_to_dpad(instruction.chars, NUMPAD)
+  instruction = ['A'] + get_seq(instruction, D_PAD, 13)
+  complexity += code * instruction.each_cons(2).map {|seq| seq_lengths[seq] }.sum
+end
+
+puts complexity
