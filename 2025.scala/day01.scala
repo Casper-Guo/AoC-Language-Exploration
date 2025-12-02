@@ -10,7 +10,7 @@
 //> using options -P:wartremover:traverser:org.wartremover.warts.TryPartial
 //> using options -P:wartremover:traverser:org.wartremover.warts.EitherProjectionPartial
 //> using options -P:wartremover:traverser:org.wartremover.warts.IterableOps
-// //> using options -P:wartremover:traverser:org.wartremover.warts.Throw
+//> using options -P:wartremover:traverser:org.wartremover.warts.Throw
 //> using options -P:wartremover:traverser:org.wartremover.warts.Var
 //> using options -P:wartremover:traverser:org.wartremover.warts.MutableDataStructures
 //> using options -P:wartremover:traverser:org.wartremover.warts.While
@@ -54,11 +54,8 @@ def part2(input: List[Int], start: Int = 50): Int =
 
 @main def day01(): Unit =
   val input = scala.io.Source.fromFile("input01.txt").getLines().toList.map {
-    _.toVector match {
-      case 'L' +: rest => -rest.mkString.toInt
-      case 'R' +: rest => rest.mkString.toInt
-      case _           => throw MatchError("Unexpected input")
-    }
+    case s"R$rot" => rot.toInt
+    case s"L$rot" => -rot.toInt
   }
 
   println(part1(input))
