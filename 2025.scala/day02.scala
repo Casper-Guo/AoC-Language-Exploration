@@ -63,7 +63,7 @@ def part2(inteval: (Double, Double)): Long =
     .filter(x => check_invalid(x, divisors(count_digits(x.toDouble))))
     .sum
 
-@main def day01(): Unit =
+@main def main(): Unit =
   val input = scala.io.Source.fromFile("input02.txt").mkString.split(",").map {
     case s"$start-$end" => (start.toDouble, end.toDouble)
   }.toSeq

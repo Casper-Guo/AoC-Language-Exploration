@@ -52,7 +52,7 @@ def part2(input: List[Int], start: Int = 50): Int =
   }
   result
 
-@main def day01(): Unit =
+@main def main(): Unit =
   val input = scala.io.Source.fromFile("input01.txt").getLines().toList.map {
     case s"R$rot" => rot.toInt
     case s"L$rot" => -rot.toInt
