@@ -26,7 +26,7 @@ def part1(grid: Grid[Char], coord: Coord): Boolean =
 @tailrec
 def removePaper(grid: Grid[Char]): Grid[Char] =
   val new_grid = Grid(
-    (0 until grid.num_rows).map {
+    (0 until grid.numRows).map {
       row =>
         grid.rowIter(row).map {
           case (coord, value) =>
