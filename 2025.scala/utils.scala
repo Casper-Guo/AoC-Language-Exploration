@@ -1,4 +1,4 @@
-type Coord = (Int, Int)
+type Coord     = (Int, Int)
 type Direction = (Int, Int)
 
 class Grid[T](val grid: Vector[Vector[T]]) extends Iterable[T] {
@@ -14,7 +14,7 @@ class Grid[T](val grid: Vector[Vector[T]]) extends Iterable[T] {
     Vector((-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1))
 
   def apply(row: Int): Vector[T] = grid(row)
-  def apply(coord: Coord): T = grid(coord._1)(coord._2)
+  def apply(coord: Coord): T     = grid(coord._1)(coord._2)
 
   override def equals(obj: Any): Boolean = obj match {
     case that: Grid[_] => this.grid == that.grid

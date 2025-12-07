@@ -16,23 +16,25 @@
 //> using options -P:wartremover:traverser:org.wartremover.warts.MutableDataStructures
 //> using options -P:wartremover:traverser:org.wartremover.warts.While
 
-def convertToCephalopod(textGrid: Grid[Char]): Grid[Long] = 
+def convertToCephalopod(textGrid: Grid[Char]): Grid[Long] =
   // numbers separated by commas, groups separated by tabs
-  val alignedString = (0 until textGrid.numCols) .map {
+  val alignedString = (0 until textGrid.numCols).map {
     col =>
       textGrid.getCol(col).mkString.trim match
-        case "" => "\t"
+        case ""  => "\t"
         case num => s"$num,"
   }.mkString
   Grid(alignedString.split("\t").map {
     group => group.split(",").map(_.toLong).toVector
   }.toVector)
 
-@main def main(): Unit =  
-  val input = scala.io.Source.fromFile("input06.txt").getLines.toSeq
+@main def main(): Unit =
+  val input     = scala.io.Source.fromFile("input06.txt").getLines.toSeq
   val operators = input.lastOption.getOrElse("").split(" +").toSeq
-  val numberGrid = Grid(input.dropRight(1).map{ row => row.trim.split("\\s+").map(_.toLong).toVector }.toVector)
-  val textGrid = Grid(input.dropRight(1).map{ row => row.toVector }.toVector)
+  val numberGrid = Grid(input.dropRight(1).map { row =>
+    row.trim.split("\\s+").map(_.toLong).toVector
+  }.toVector)
+  val textGrid       = Grid(input.dropRight(1).map(row => row.toVector).toVector)
   val cephalopodGrid = convertToCephalopod(textGrid)
 
   val part1 = operators.zipWithIndex.map {
