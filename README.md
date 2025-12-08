@@ -2,7 +2,7 @@
 
 Attempting Advent of Code 2015 - 2024 using a different language for each year.
 
-Progress: 282/524 stars (53.8%)
+Progress: 284/524 stars (54.6%)
 
 ## Starting Lineup
 
@@ -54,7 +54,7 @@ Todo: optimize day 6
 ### 2025
 ![Scala](https://img.shields.io/badge/scala-%23DC322F.svg?style=for-the-badge&logo=scala&logoColor=white)
 
-Progress: 14/24 stars (58.3%)
+Progress: 16/24 stars (66.7%)
 
 ## The Benches
 ![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=csharp&logoColor=white)
