@@ -20,7 +20,7 @@ type JBox = (Int, Int, Int)
 def dist(box1: JBox, box2: JBox): Double =
   val (x1, y1, z1) = box1
   val (x2, y2, z2) = box2
-  Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2) + Math.pow(z1 - z2, 2))
+  Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2) + Math.pow(z1 - z2, 2)
 
 def find(box: JBox, parents: mutable.Map[JBox, JBox]): JBox =
   if parents(box) == box then box
