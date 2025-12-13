@@ -53,10 +53,10 @@ def part2(input: List[Int], start: Int = 50): Int =
   result
 
 @main def main(): Unit =
-  val input = scala.io.Source.fromFile("input01.txt").getLines().toList.map {
+  val input = scala.io.Source.fromFile("input01.txt").getLines.map {
     case s"R$rot" => rot.toInt
     case s"L$rot" => -rot.toInt
-  }
+  }.toList
 
   println(part1(input))
   println(part2(input))
