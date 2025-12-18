@@ -1,4 +1,4 @@
-import fs from 'fs';
+import * as fs from 'fs';
 import { IntCode } from './intcode';
 
 const instructions = fs.readFileSync("input02.txt", 'utf8');
