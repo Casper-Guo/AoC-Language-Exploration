@@ -17,7 +17,7 @@ def process_line(line: str) -> tuple[list[set[int]], list[int]]:
 def min_presses(buttons: list[set[int]], joltages: list[int]) -> int:
     problem = pulp.LpProblem("min_presses", pulp.LpMinimize)
     vars = [pulp.LpVariable(f"b{i}", lowBound=0, cat="Integer") for i in range(len(buttons))]
-    problem += pulp.lpSum(vars[i] for i in range(len(buttons)))
+    problem += pulp.lpSum(vars)
     for counter, target in enumerate(joltages):
         problem += (
             pulp.lpSum(
