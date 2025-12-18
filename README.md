@@ -2,7 +2,7 @@
 
 Attempting Advent of Code 2015 - 2024 using a different language for each year.
 
-Progress: 294/524 stars (56.1%)
+Progress: 295/524 stars (56.3%)
 
 ## Starting Lineup
 
@@ -40,7 +40,7 @@ Progress: 2/50 stars (4%)
 ### 2023
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
-Progress: 46/50 stars (92%)
+Progress: 47/50 stars (94%)
 
 Todo: optimize day 12, 14, 16, 17, 22
 
