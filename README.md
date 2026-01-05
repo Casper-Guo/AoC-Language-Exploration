@@ -11,7 +11,7 @@ Progress: 300/524 stars (57.3%)
 
 Progress: 50/50 stars (100%)
 
-Todo: optimize day 6, 10, 18, 20
+Todo: optimize day 4, 6, 10, 11, 18, 20, 22, 25
 
 ### 2016
 ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)
